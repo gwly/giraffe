@@ -1,0 +1,9 @@
+.*.swp
+*.d
+*.bc
+*.o
+*.gxx
+*.bk
+*.log
+*.out
+error.out.*
