@@ -1,0 +1,6 @@
+#ifndef MONITOR_CONFIG_XML_PARSE_H
+#define MONITOR_CONFIG_XML_PARSE_H
+
+
+
+#endif

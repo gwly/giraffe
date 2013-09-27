@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<listening>
+  <log>
+    <zmqs>
+      <zmq zmqpattern="PULL" zmqsocketaction="bind" zmqsocketaddr="inproc://log"></zmq>
+    </zmqs>
+  </log>
+  <business_error_info>
+	<zmqs>
+		<zmq zmqpattern="PULL" zmqsocketaction="bind" zmqsocketaddr="tcp://*:33333"/>
+	</zmqs>
+  </business_error_info>
+
+  <listeningitem net_adapter="lo" port="22224" filter="tcp and port 22224">
+    <did_templates>
+    </did_templates>
+    <thread threadclass="CaptureNetPacket">
+      <zmqs>
+        <zmq zmqpattern="PAIR" zmqsocketaction="bind" zmqsocketaddr="inproc://22224cap_to_shunt_net_packet" ></zmq>
+      </zmqs>
+    </thread>
+    <thread threadclass="ShuntNetPacket">
+      <zmqs>
+        <zmq zmqpattern="PAIR" zmqsocketaction="connect" zmqsocketaddr="inproc://22224cap_to_shunt_net_packet"></zmq>
+        <zmq zmqpattern="PAIR" zmqsocketaction="bind" zmqsocketaddr="inproc://22224shunt_to_combine_dc"></zmq>
+      </zmqs>
+    </thread>
+    <thread threadclass="LuaRoutine">
+      <zmqs>
+        <zmq zmqpattern="PAIR" zmqsocketaction="bind" zmqsocketaddr="inproc://22224uncompress_dc_to_lua"></zmq>
+		<zmq zmqpattern="PUSH" zmqsocketaction="connect" zmqsocketaddr="tcp://localhost:33333"/>
+      </zmqs>
+    </thread>
+    <thread threadclass="CombineDCPacket">
+      <zmqs>
+        <zmq zmqpattern="PAIR" zmqsocketaction="connect" zmqsocketaddr="inproc://22224shunt_to_combine_dc"></zmq>
+        <zmq zmqpattern="PAIR" zmqsocketaction="bind" zmqsocketaddr="inproc://22224combine_dc_to_uncompress_dc"></zmq>
+      </zmqs>
+    </thread>
+    <thread threadclass="UncompressDCPacket">
+      <zmqs>
+        <zmq zmqpattern="PAIR" zmqsocketaction="connect" zmqsocketaddr="inproc://22224combine_dc_to_uncompress_dc"></zmq>
+        <zmq zmqpattern="PAIR" zmqsocketaction="connect" zmqsocketaddr="inproc://22224uncompress_dc_to_lua"></zmq>
+        <zmq zmqpattern="PUSH" zmqsocketaction="connect" zmqsocketaddr="inproc://log"></zmq>
+      </zmqs>
+    </thread>
+
+  </listeningitem>
+ 
+</listening>
+
