@@ -217,7 +217,7 @@ void LuaRoutine::DispatchToLua(unsigned char * pdcdata, int dc_type,int dc_gener
 	}
 	else if(DCT_GENERAL == dc_type)
 	{
-		unsigned short *pstk_id = (unsigned short *)pdcdata;
+		//unsigned short *pstk_id = (unsigned short *)pdcdata;
 		unsigned char *pdata = pdcdata + stk_num *sizeof(WORD);
 		//count_pack += stk_num*2;
 		for(int i=0;i<stk_num;i++)
@@ -263,7 +263,7 @@ void LuaRoutine::DispatchToLua(unsigned char * pdcdata, int dc_type,int dc_gener
 }
 
 
-void * LuaRoutine::RunThreadFunc()
+void LuaRoutine::RunThreadFunc()
 {
 	//unsigned char * pdata = (unsigned char *)malloc(2000*sizeof(struct STK_STATIC));
 	//memset(pdata, 0, 2000*sizeof(struct STK_STATIC));

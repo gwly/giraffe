@@ -44,7 +44,7 @@ void BusinessErrorInfo::InitLog()
 	logger_business_error_->setAdditivity(false);	
 }
 
-void * BusinessErrorInfo::RunThreadFunc()
+void BusinessErrorInfo::RunThreadFunc()
 {
 	zmq::message_t msg;	
 	while(true)

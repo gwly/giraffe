@@ -470,11 +470,11 @@ struct DC_DIDHead
 		if (m_bDidType == 0)
 			return m_bEx[0];
 		else if(m_bDidType == 1)
-			return (*(WORD*)(m_bEx));
+			return (*((WORD*)(m_bEx)));
 		else if(m_bDidType == 2)
-			return (*(UINT24*)(m_bEx));
+			return (*((UINT24*)(m_bEx)));
 		else if(m_bDidType == 3)
-			return (*(DWORD*)(m_bEx));
+			return (*((DWORD*)(m_bEx)));
 	}
 	//获取数据记录个数
 	DWORD GetRecNum(void)
@@ -482,11 +482,11 @@ struct DC_DIDHead
 		if (m_bNumType == 0)
 			return m_bEx[m_bDidType+1];
 		else if(m_bNumType == 1)
-			return (*(WORD*)(m_bEx+m_bDidType+1));
+			return (*((WORD*)(m_bEx+m_bDidType+1)));
 		else if(m_bNumType == 2)
-			return (*(UINT24*)(m_bEx+m_bDidType+1));
+			return (*((UINT24*)(m_bEx+m_bDidType+1)));
 		else if(m_bNumType == 3)
-			return (*(DWORD*)(m_bEx+m_bDidType+1));
+			return (*((DWORD*)(m_bEx+m_bDidType+1)));
 	}
 
     //设置did和记录个数
@@ -499,19 +499,19 @@ struct DC_DIDHead
 		}
 		else if (m_dwDid <= 0xFFFF)
 		{
-			*(WORD*)(m_bEx) = m_dwDid;
+			*((WORD*)(m_bEx)) = m_dwDid;
 			m_bDidType=1;
 
 		}
 		else if (m_dwDid <= 0xFFFFFF)
 		{
-			*(UINT24*)(m_bEx) = m_dwDid;
+			*((UINT24*)(m_bEx)) = m_dwDid;
 			m_bDidType=2;
 
 		}
 		else
 		{
-			*(DWORD*)(m_bEx) = m_dwDid;
+			*((DWORD*)(m_bEx)) = m_dwDid;
 			m_bDidType=3;
 		}
 
@@ -522,19 +522,19 @@ struct DC_DIDHead
 		}
 		else if (dwRecNum <= 0xFFFF)
 		{
-			*(WORD*)(m_bEx+m_bDidType+1) = dwRecNum;
+			*((WORD*)(m_bEx+m_bDidType+1)) = dwRecNum;
 			m_bNumType=1;
 
 		}
 		else if (dwRecNum <= 0xFFFFFF)
 		{
-			*(UINT24*)(m_bEx+m_bDidType+1) = dwRecNum;
+			*((UINT24*)(m_bEx+m_bDidType+1)) = dwRecNum;
 			m_bNumType=2;
 
 		}
 		else
 		{
-			*(DWORD*)(m_bEx+m_bDidType+1) = dwRecNum;
+			*((DWORD*)(m_bEx+m_bDidType+1)) = dwRecNum;
 			m_bNumType=3;
 		}
 	}
@@ -562,11 +562,11 @@ struct DC_DIDCompress
 		if (m_bUnComLenType == 0)
 			return m_bEx[0];
 		else if(m_bUnComLenType == 1)
-			return (*(WORD*)(m_bEx));
+			return (*((WORD*)(m_bEx)));
 		else if(m_bUnComLenType == 2)
-			return (*(UINT24*)(m_bEx));
+			return (*((UINT24*)(m_bEx)));
 		else if(m_bUnComLenType == 3)
-			return (*(DWORD*)(m_bEx));
+			return (*((DWORD*)(m_bEx)));
 	}
 
     //设置压缩前数据长度
@@ -579,19 +579,19 @@ struct DC_DIDCompress
 		}
 		else if (dwUnComLen <= 0xFFFF)
 		{
-			*(WORD*)(m_bEx) = dwUnComLen;
+			*((WORD*)(m_bEx)) = dwUnComLen;
 			m_bUnComLenType=1;
 
 		}
 		else if (dwUnComLen <= 0xFFFFFF)
 		{
-			*(UINT24*)(m_bEx) = dwUnComLen;
+			*((UINT24*)(m_bEx)) = dwUnComLen;
 			m_bUnComLenType=2;
 
 		}
 		else
 		{
-			*(DWORD*)(m_bEx) = dwUnComLen;
+			*((DWORD*)(m_bEx)) = dwUnComLen;
 			m_bUnComLenType=3;
 		}
 	}

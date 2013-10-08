@@ -14,7 +14,7 @@ void CaptureNetPacket::DispatchCapData(zmq::socket_t * sock, void * data, int si
 		zmq::message_t msg(size);
 		memcpy((void*)(msg.data()), data, size); 
 		//sock->send(msg,ZMQ_NOBLOCK);
-		int ret = sock->send(msg);
+		sock->send(msg);
 	}
 	catch(zmq::error_t error)
 	{
@@ -44,13 +44,10 @@ void CaptureNetPacket::InitZMQ()
     }
 }
 
-void * CaptureNetPacket::RunThreadFunc()
+void CaptureNetPacket::RunThreadFunc()
 {
     pcap_if_t * alldevs ;
     char *errbuf= new char[PCAP_ERRBUF_SIZE];
-    int devsnum= 0;
-    pcap_if_t *d;
-    int i;
     int len=10240;
     int mode= 1;
     int timeout=1000;
@@ -58,12 +55,12 @@ void * CaptureNetPacket::RunThreadFunc()
     struct bpf_program fcode;
     pcap_if_t *p_dev;
     pcap_t *adhandle;
-    unsigned int netmask;
+    unsigned int netmask = 0;
 	if(pcap_findalldevs(&alldevs,errbuf) == -1)
 	{
 		//cout<<"Error in pcap_findalldevs %s "<<errbuf<<endl;
 		LOG4CXX_ERROR(logger_, "Error in pcap_findalldevs %s " << errbuf);
-		return ((void *)1);
+		return ; 
 	}
 	
 	for(p_dev=alldevs; p_dev; p_dev=p_dev->next)
@@ -80,7 +77,7 @@ void * CaptureNetPacket::RunThreadFunc()
 		//cout<<"Unable to open the adapter! "<<p_dev->name<<" is not supported by libpcap or winpcap!"<<endl;
 		LOG4CXX_ERROR(logger_, "Unable to open the adapter! " << p_dev->name << " is not supported by libpcap or winpcap!");
 		pcap_freealldevs(alldevs);
-		return ((void *)1);
+		return ; 
 	}
 	else
 	{
@@ -90,7 +87,7 @@ void * CaptureNetPacket::RunThreadFunc()
 			//cout<<"This program works only on Ethernet networks!"<<endl;
 			LOG4CXX_ERROR(logger_, "This program works only on Ethernet networks!");
 			pcap_freealldevs(alldevs);
-			return ((void *)1);
+			return ;
 		}
 
 		for(a=p_dev->addresses; a; a=a->next)
@@ -109,7 +106,7 @@ void * CaptureNetPacket::RunThreadFunc()
 		//cout<<"Unable to compile the packet filter. Check the syntax."<<endl;
 		LOG4CXX_ERROR(logger_, "Unable to compile the packet filter. Check the syntax.");
 		pcap_freealldevs(alldevs);
-		return ((void *)1);
+		return ;
 	}
 
 	//set the filter
@@ -119,7 +116,7 @@ void * CaptureNetPacket::RunThreadFunc()
 		LOG4CXX_ERROR(logger_, "Error setting the filter!");
 
 		pcap_freealldevs(alldevs);
-		return ((void *)1);
+		return ;
 	}
 	
 	//dump file
@@ -142,7 +139,6 @@ void * CaptureNetPacket::RunThreadFunc()
 	
 	//pcap_loop(adhandle,0,PacketHandler,(u_char *)dumper);
 	//pcap_dump_close(dumper);
-	return ((void *)0);
 }
 
 void CaptureNetPacket::PacketHandler(unsigned char *param, const struct pcap_pkthdr *header, const unsigned char *pkt_data)

@@ -6,7 +6,7 @@
 #include <unistd.h>
 
 /*get flag name based on the flag number*/
-char* Utils::tcp_flag_to_str( unsigned char flag )
+const char* Utils::tcp_flag_to_str( unsigned char flag )
 {
 	switch((unsigned short)flag)
 	{

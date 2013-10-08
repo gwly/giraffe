@@ -430,9 +430,9 @@ private:
 	} m_compressType_;
     BYTE m_cHeadAttr_;		//CPS_TICK_HEAD::m_cAttrib or CPS_DYNA_HEAD::m_cAttrib
 	time_t m_baseTime_;		//动态压缩基准时间
+	int stk_total_;
 	bool static_tag;
 	bool static_before_dyna_tag;
-	int stk_total_;
 };
 
 #pragma pack(pop)

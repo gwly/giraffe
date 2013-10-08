@@ -8,7 +8,7 @@ class Utils
 public:
     Utils(){};
     ~Utils(){};
-    static char *tcp_flag_to_str(unsigned char flag);
+    static const char *tcp_flag_to_str(unsigned char flag);
     static int64 ToMword(unsigned long x);
     static unsigned int UINT24to32(unsigned short low,unsigned char high);
 	static char * DCTypeToString(int dc_type);

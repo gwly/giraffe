@@ -90,7 +90,7 @@ public:
 			pStkMMPEx = NULL;
 		}
 	};
-	void *RunThreadFunc();
+	void RunThreadFunc();
 	void Init();
     //BOOL DecryptDataPack(DC_HEAD * pData);
     BOOL ExtractDataPack(const DC_HEAD* pOrgHead,DC_HEAD* pHeadBuf,int nBufSize,WORD* pwMarketBuf=NULL);

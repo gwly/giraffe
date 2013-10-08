@@ -38,6 +38,8 @@ public:
 			return ZMQ_XPUB;
 		else if("XSUB" == zmqpattern_)
 			return ZMQ_XSUB;
+		else
+			return -1;
 	}
 	inline std::string& get_zmqsocketaction()
 	{

@@ -14,9 +14,6 @@ public:
 	BusinessErrorInfo(zmq::context_t *context):context_(context)
 	{
 		sock_recv_ = NULL;
-		logger_business_error_ = NULL;
-		pattern_layout_ = NULL;
-		appender_ = NULL;
 	}	
 	~BusinessErrorInfo()
 	{
@@ -26,24 +23,19 @@ public:
 			delete sock_recv_;
 			sock_recv_ = NULL;
 		}
-		if(NULL != logger_business_error_)
-		{
-			delete logger_business_error_;
-			logger_business_error_ = NULL;
-		}
 		if(NULL != pattern_layout_)
 		{
 			delete pattern_layout_;
-			pattern_layout_ = NULL;
+			pattern_layout_ = 0;
 		}
 		if(NULL != appender_)
 		{
 			delete appender_;
-			appender_ = NULL;
+			appender_ = 0;
 		}
 	};
 	void Init();
-	void *RunThreadFunc();
+	void RunThreadFunc();
 private:
 	void InitZMQ();
 	void InitLog();

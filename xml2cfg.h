@@ -115,10 +115,10 @@ public:
 	  }
 
 private:
-	xmlNodePtr				rootnode_;
 	xmlDocPtr 				docptr_;
 	xmlXPathObjectPtr		xmlobjptr_;
 	xmlXPathContextPtr		xmlctxptr_, xmlrootctxptr_;
+	xmlNodePtr				rootnode_;
 };
 
 #endif //__GW_UTILIY_XML_to_CONFIG_HEADER__

@@ -44,7 +44,7 @@ public:
 		//}
 	}
 	void Init();
-	void* RunThreadFunc();
+	void RunThreadFunc();
 protected:
 private:
 	void InitLua();

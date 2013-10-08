@@ -96,7 +96,7 @@ public:
 	void WriteDidConfFile(const char * file_name, vector<DidStruct> &did_structs);
 	void CreateDidConfContent(vector<DidStruct> & did_structs, char * out_str);
 	void PreHandleADisconnection();
-	void *RunThreadFunc();
+	void RunThreadFunc();
 private:
 	zmq::context_t *context_;
 	zmq::socket_t *sock_;

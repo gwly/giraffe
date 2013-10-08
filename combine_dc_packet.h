@@ -44,7 +44,7 @@ public:
 			recombined_header_buf_ = NULL;
 		}
 	};
-	void *RunThreadFunc();
+	void RunThreadFunc();
 	void Init();
 	bool IsDCType(int dc_type);
 	bool IsDCHeader(unsigned char * dc_header);

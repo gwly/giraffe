@@ -29,7 +29,7 @@ public:
 	{
 	};
     ~Log(){};
-	void *RunThreadFunc();
+	void RunThreadFunc();
 protected:
 private:
     zmq::context_t *context_;

@@ -11,7 +11,7 @@ LoggerPtr Log::logger_(Logger::getLogger("log"));
 //map<int,log4cpp::Category*> logmapping;
 map<int, log4cxx::LoggerPtr> logmapping;
 
-void * Log::RunThreadFunc()
+void Log::RunThreadFunc()
 {
 //zmq version
 {

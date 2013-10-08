@@ -372,6 +372,7 @@ function InitZMQ(pattern, action, addr)
 	sock_addr = addr
 	if action == "connect" then
 		assert(sock:connect(sock_addr))		
+		print"connect"
 	elseif action == "bind" then
 		assert(sock:bind(sock_addr));
 		print"bind"

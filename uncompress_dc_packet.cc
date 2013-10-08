@@ -76,7 +76,6 @@ BOOL UncompressDCPacket::ExtractDataPack(const DC_HEAD* pOrgHead,DC_HEAD* pHeadB
 void UncompressDCPacket::Uncompress(struct timeval timestamp, unsigned char *pkt_data, int pre_dch_offset)
 {
 	int extract_ret = 0;
-	static int did_sync_module_tag = 0;
 	int did_template_id = 0;
 	short stknum = 0;
 	int struct_size = 0;
@@ -90,7 +89,6 @@ void UncompressDCPacket::Uncompress(struct timeval timestamp, unsigned char *pkt
 	ip_head *ih = NULL;
 	int iph_len = 0;
 	int tcph_len = 0;
-	udp_head *udph = NULL;
 	tcp_head *tcph = NULL;
 	struct tm *ltime = NULL;
 	time_t local_tv_sec;
@@ -294,12 +292,11 @@ void UncompressDCPacket::Uncompress(struct timeval timestamp, unsigned char *pkt
 		pdcdata = (unsigned char *)(p+1);
 		stknum = p->m_wNum;
 		struct_size = p->m_nDataSize;
-		int total_len = p->m_nTotalLen;
 		int num = p->m_wNum;
 		int data_size = p->m_nDataSize;
 		if(GENERAL_STRUCT_FIX == p->m_dwDataAttr)
 		{
-			int len = sizeof(DC_GENERAL_MY ) + num * sizeof(WORD) + 	num * data_size;
+			//int len = sizeof(DC_GENERAL_MY ) + num * sizeof(WORD) + 	num * data_size;
 			if(GE_STATIC_EX == p->m_wDataID)
 			{
 				dc_general_intype = GE_STATIC_EX;
@@ -430,7 +427,7 @@ void UncompressDCPacket::Uncompress(struct timeval timestamp, unsigned char *pkt
    		/* convert from network byte order to host byte order */
 	sport = ntohs( tcph->source );
 	dport = ntohs( tcph->dest );
-	netflags = Utils::tcp_flag_to_str(tcph->flags);
+	netflags = const_cast<char *>(Utils::tcp_flag_to_str(tcph->flags));
 	/* convert the timestamp to readable format */
 	local_tv_sec = timestamp.tv_sec;
 	ltime=localtime(&local_tv_sec);
@@ -576,7 +573,7 @@ void UncompressDCPacket::DownloadData(unsigned char * data, size_t len)
 	buf = NULL;
 }
 
-void *UncompressDCPacket::RunThreadFunc()
+void UncompressDCPacket::RunThreadFunc()
 {
 	pthread_detach(pthread_self());
 
@@ -596,9 +593,6 @@ void *UncompressDCPacket::RunThreadFunc()
 	//long long seqtag;
 	struct pcap_pkthdr *header = NULL;
 	unsigned char *pkt_data = NULL;
-    unsigned int countnum = 0;
-    long int timebase = 0;
-    int timetag = 0;
 	DC_HEAD *pdch;
 	
     unsigned int countnum_UncompressDCPacket = 0;
@@ -606,17 +600,11 @@ void *UncompressDCPacket::RunThreadFunc()
     long int timelive_UncompressDCPacket = 0;
     int timetag_UncompressDCPacket = 0;
 
-	char * pfinalpacket = NULL;
-	int dc_len = 0;
 	ip_head *ih = NULL;
 	tcp_head *tcph = NULL;
 	int pre_dch_offset = 0;
 	int iph_len = 0;
 	int tcph_len = 0;
-	unsigned long tcp_expect_seq = 0;
-	unsigned long tcp_current_seq = 0;
-	unsigned long tcp_data_len = 0 ;
-	int disorder_tag = 0;
 	set<TcpDisorderSetItem> tcp_disorder_set;
 	
 	zmq::message_t msg_rcv(sizeof(PacketItem));

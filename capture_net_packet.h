@@ -20,16 +20,16 @@ public:
 			sock_ = NULL;
 		}
 	};
-	void *RunThreadFunc();
+	void RunThreadFunc();
 	void Init();
 private:
 	void InitZMQ();
 	static void DispatchCapData(zmq::socket_t * sock, void * data, int size);
 	static void PacketHandler(unsigned char*param, const struct pcap_pkthdr *header, const unsigned char *pkt_data);
 	static log4cxx::LoggerPtr logger_;
-	zmq::context_t *context_;
 	zmq::socket_t *sock_;
 	std::string adapter_id_;
 	std::string filter_;	
+	zmq::context_t *context_;
 };
 #endif

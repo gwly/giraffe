@@ -331,7 +331,7 @@ void ShuntNetPacket::DispatchData(zmq::socket_t * sock, void * data, int size)
 		zmq::message_t msg(size);
 		memcpy((void*)(msg.data()), data, size);
 		//sock->send(msg,ZMQ_NOBLOCK);
-		int ret = sock->send(msg);
+		sock->send(msg);
 	}
 	catch(zmq::error_t error)
 	{
@@ -382,7 +382,7 @@ void ShuntNetPacket::PreHandleADisconnection()
 	}
 }
 
-void * ShuntNetPacket::RunThreadFunc()
+void ShuntNetPacket::RunThreadFunc()
 {
 	struct pcap_pkthdr *header = NULL;
 	unsigned char * pkt_data = NULL;
@@ -412,12 +412,8 @@ void * ShuntNetPacket::RunThreadFunc()
 
 	//unsigned long pack_seq = 0;
 
-	int acktag = 0;
-	int fintag = 0;
 	int tcpconnstatus = 0;
 	int tcpconntag = 0;
-	int tcpdisconnstatus = 0;
-	int tcpdisconntag = 0;
 
 	zmq::message_t msg_rcv(sizeof(CapNetPacketItem));
 	while(true)
@@ -474,7 +470,7 @@ void * ShuntNetPacket::RunThreadFunc()
 						}
 						else
 						{
-							return (void*)0;
+							return ;
 						}
 					}
 				}
@@ -589,7 +585,6 @@ void * ShuntNetPacket::RunThreadFunc()
 		}
 
 	}
-	return ((void *)0);
 }
 //
 //void ShuntNetPacket::PacketHandler(unsigned char *param, const struct pcap_pkthdr *header, const unsigned char *pkt_data)

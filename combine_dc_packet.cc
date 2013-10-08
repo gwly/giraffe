@@ -73,11 +73,11 @@ void CombineDCPacket::DispatchData(zmq::socket_t * sock, void * data, int size)
 void CombineDCPacket::Combine(struct pcap_pkthdr header, unsigned char *pkt_base_addr, int pre_dch_offset, int dc_len)
 {
 	//count_combine_pack += dc_len;
-	int temp_len = dc_len;
+	unsigned int temp_len = dc_len;
 	unsigned char *temp_pdch = (unsigned char *)(pkt_base_addr + pre_dch_offset);
 	DC_HEAD *temp_dch_item = (DC_HEAD *)temp_pdch;
-	int packet_len = 0;
-	int recombined_header_bufsize = 0;
+	unsigned int packet_len = 0;
+	unsigned int recombined_header_bufsize = 0;
 	while(temp_len > 0)
 	{
 		//combine dc_header and judge whether the combined dc_header is the real dc_header
@@ -288,7 +288,7 @@ void CombineDCPacket::Combine(struct pcap_pkthdr header, unsigned char *pkt_base
 	}
 }
 
-void * CombineDCPacket::RunThreadFunc()
+void CombineDCPacket::RunThreadFunc()
 {
 	pthread_detach(pthread_self());
 
@@ -305,7 +305,6 @@ void * CombineDCPacket::RunThreadFunc()
 
     PacketItem *pw_item_ptr;
     int thread_tag;
-	int port_tag;
 	//long long seqtag;
 	struct pcap_pkthdr *header = NULL;
 	unsigned char *pkt_data = NULL;
@@ -339,7 +338,6 @@ void * CombineDCPacket::RunThreadFunc()
 				assert(true == ret);
                 pw_item_ptr = static_cast<PacketItem *>(msg_rcv.data());
 
-				// port_tag = pw_item_ptr->port_tag;
 				//seqtag = pw_item_ptr->seqtag;
 				thread_tag = pw_item_ptr->thread_tag;
 				header = &(pw_item_ptr->header);
@@ -402,7 +400,6 @@ void * CombineDCPacket::RunThreadFunc()
 									//cout<<"tcp seq:"<<tcp_current_seq<<" tcp_data_len:"<<tcp_data_len<<endl<<flush;
 									//cout<<"tcp_data_len:"<<tcp_data_len<<endl;
 								 	Combine(*header,pkt_data,pre_dch_offset,tcp_data_len);
-								 	//HandlePacket(header->ts,pkt_data,port_tag);
 									tcp_expect_seq = tcp_current_seq + tcp_data_len;
 								}
 								else if(tcp_expect_seq > tcp_current_seq)
@@ -438,7 +435,6 @@ void * CombineDCPacket::RunThreadFunc()
 									//cout<<"tcp seq:"<<tcp_current_seq<<" tcp_data_len:"<<tcp_data_len<<endl<<flush;
 									//cout<<"tcp_data_len:"<<tcp_data_len<<endl;
 								 	Combine(*header, pkt_data,pre_dch_offset,tcp_data_len);
-								 	//HandlePacket(header->ts,pkt_data,port_tag);
 									tcp_expect_seq = tcp_current_seq + tcp_data_len;
 									set<TcpDisorderSetItem>::iterator iter;
 									for(iter=tcp_disorder_set.begin();iter != tcp_disorder_set.end();)
@@ -447,12 +443,10 @@ void * CombineDCPacket::RunThreadFunc()
 										tcp_data_len = iter->tcp_data_len;
 										pre_dch_offset = iter->pre_dch_offset;
 										temp_pkt_data = iter->pktdata;
-										struct timeval timestamp = iter->timestamp;
 										if(tcp_expect_seq == tcp_current_seq)
 										{
 											//cout<<"tcp seq:"<<tcp_current_seq<<" tcp_data_len:"<<tcp_data_len<<endl<<flush;
 										 	Combine(*header, temp_pkt_data,pre_dch_offset,tcp_data_len);
-										 	//HandlePacket(timestamp,pkt_data,port_tag);
 											tcp_expect_seq = tcp_current_seq + tcp_data_len;
 											free(temp_pkt_data);
 											temp_pkt_data = NULL;
@@ -497,7 +491,6 @@ void * CombineDCPacket::RunThreadFunc()
 							 //	last_tcp_seq_ = current_tcp_seq;
 							 //	DownloadData((unsigned char *)pdch, dc_len);
 							 //	CombineDCPacket((unsigned char *)pdch,dc_len);
-							 //	HandlePacket(header,pkt_data,port_tag);
 							 //}
 							 //else
 							 //{

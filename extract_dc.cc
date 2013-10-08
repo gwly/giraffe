@@ -303,7 +303,7 @@ BOOL ExtractDC::ExtractStaticStream(STK_STATIC* pStatic,WORD& wStockID,DWORD& dw
 		{
 			//CRC
 			WORD wCRC = (WORD)m_stream.Get(16);
-			*(WORD*)(pStatic->m_strName+1) = wCRC;
+			*((WORD*)(pStatic->m_strName+1)) = wCRC;
 		}
 		bRet = TRUE;
 	}
@@ -881,8 +881,8 @@ int ExtractDC::ExpandL2MMPEx(const BYTE* pData,int nDataLen,SH_L2_MMPEX* pMMPExB
 		int nNum = stream.Get(16);
 		if(nNum<=nBufSize)
 		{
-			unsigned short wMarket = (WORD)stream.Get(16);
-
+			//unsigned short wMarket = (WORD)stream.Get(16);
+			stream.Get(16);
 			memset(pMMPExBuf,0,sizeof(SH_L2_MMPEX)*nNum);
 
 			for(int n=0;n<nNum;n++)

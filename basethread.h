@@ -77,7 +77,7 @@ public:
     {
         zmqitems_.push_back(zmqitem);
     }
-    virtual void* RunThreadFunc() = 0;
+    virtual void RunThreadFunc() = 0;
 protected:
 private:
     IThread ithread_;

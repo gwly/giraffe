@@ -8,7 +8,7 @@ MY_LIBS   =
 INC = -I/usr/include/libxml2
 
 # The pre-processor options used by the cpp (man cpp for more).
-CPPFLAGS  = -Wall
+CPPFLAGS  = -Wall -Wno-sign-compare -Wno-unused-but-set-variable -Wno-unused-variable -Wno-strict-aliasing
 
 # The options used in linking as well as in any direct use of ld.
 LDFLAGS   =-llog4cxx -lpcap -lpthread  -lz -lzmq -lluajit-5.1 -lxml2
@@ -34,15 +34,15 @@ HDREXTS = .h .H .hh .hpp .HPP .h++ .hxx .hp
 # The pre-processor and compiler options.
 # Users can override those variables from the command line.
 CFLAGS  = -g -O2
-#CXXFLAGS= -g -O2
-CXXFLAGS= -g -v -O2 -fsanitize=address -fno-omit-frame-pointer
+CXXFLAGS= -g -O2
+#CXXFLAGS= -g -v -O2 -fsanitize=address -fno-omit-frame-pointer
 
 # The C program compiler.
 #CC     = gcc
 
 # The C++ program compiler.
-#CXX    = g++
-CXX		= clang++
+CXX    = g++
+#CXX		= clang++
 # Un-comment the following line to compile C programs as C++ ones.
 #CC     = $(CXX)
 
