@@ -8,14 +8,14 @@ MY_LIBS   =
 INC = -I/usr/include/libxml2
 
 # The pre-processor options used by the cpp (man cpp for more).
-CPPFLAGS  = -Wall -Wno-sign-compare -Wno-unused-but-set-variable -Wno-unused-variable -Wno-strict-aliasing
+CPPFLAGS  = -D _LINUX_VERSION -Wall -Wno-sign-compare -Wno-unused-variable -Wno-strict-aliasing
 
 # The options used in linking as well as in any direct use of ld.
-LDFLAGS   =-llog4cxx -lpcap -lpthread  -lz -lzmq -lluajit-5.1 -lxml2
+LDFLAGS   = -llog4cxx -lpcap -lpthread  -lz -lzmq -lluajit-5.1 -lxml2 -ldscompress_x32
 
 # The directories in which source files reside.
 # If not specified, only the current directory will be serached.
-SRCDIRS   =.
+SRCDIRS   = .
 
 # The executable file name.
 # If not specified, current directory name or `a.out' will be used.
@@ -34,15 +34,15 @@ HDREXTS = .h .H .hh .hpp .HPP .h++ .hxx .hp
 # The pre-processor and compiler options.
 # Users can override those variables from the command line.
 CFLAGS  = -g -O2
-CXXFLAGS= -g -O2
-#CXXFLAGS= -g -v -O2 -fsanitize=address -fno-omit-frame-pointer
+#CXXFLAGS= -g -O2
+CXXFLAGS= -g -O2 -v  -fsanitize=address -fno-omit-frame-pointer
 
 # The C program compiler.
 #CC     = gcc
 
 # The C++ program compiler.
-CXX    = g++
-#CXX		= clang++
+#CXX    = g++
+CXX		= clang++
 # Un-comment the following line to compile C programs as C++ ones.
 #CC     = $(CXX)
 
@@ -79,7 +79,7 @@ DEPS    = $(OBJS:.o=.d)
 ## Define some useful variables.
 DEP_OPT = $(shell if `$(CC) --version | grep "GCC" >/dev/null`; then \
                   echo "-MM -MP"; else echo "-M"; fi )
-DEPEND      = $(CC)  $(DEP_OPT)  $(MY_CFLAGS) $(CFLAGS) $(CPPFLAGS)
+DEPEND      = $(CC)  $(DEP_OPT)  $(MY_CFLAGS) $(CFLAGS) $(CPPFLAGS) $(INC)
 DEPEND.d    = $(subst -g ,,$(DEPEND))
 COMPILE.c   = $(CC)  $(MY_CFLAGS) $(CFLAGS)   $(CPPFLAGS) $(INC) -c
 COMPILE.cxx = $(CXX) $(MY_CFLAGS) $(CXXFLAGS) $(CPPFLAGS) $(INC) -c
@@ -182,7 +182,7 @@ endif
 endif
 
 clean:
-	$(RM) $(OBJS) $(PROGRAM) $(PROGRAM).exe
+	$(RM) $(OBJS) $(OBJS).d $(PROGRAM) $(PROGRAM).exe
 
 distclean: clean
 	$(RM) $(DEPS) TAGS

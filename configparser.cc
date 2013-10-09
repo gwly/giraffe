@@ -11,7 +11,12 @@ LoggerPtr ConfigParser::logger_(Logger::getLogger("config_parser"));
 
 std::string ConfigParser::SplitDidTemplateId(std::string &did_template_path)
 {
-	int pre_pos = did_template_path.find_last_of("/\\");
+	int pre_pos;
+#ifndef __linux
+	pre_pos = did_template_path.find_last_of("/\\");
+#elif __linux
+	pre_pos = did_template_path.find_last_of("/");
+#endif
 	int last_pos = did_template_path.find_last_not_of(".xml");
 	std::string did_template_id = did_template_path.substr(pre_pos+1 , last_pos-pre_pos);
 	//cout<<did_template_id<<endl;

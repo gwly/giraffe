@@ -51,7 +51,6 @@ void BusinessErrorInfo::RunThreadFunc()
 	{
 		msg.rebuild();
 		sock_recv_->recv(&msg);
-		//std::cout<<"nihao"<<std::endl;
 		LOG4CXX_ERROR(logger_business_error_, (char*)msg.data());
 	}	
 }

@@ -550,16 +550,21 @@ void ShuntNetPacket::RunThreadFunc()
 			}
 			else //zhongzhuan  --> caishu
 			{
-				DC_HEAD * pdch = (DC_HEAD *)(pkt_data + 54);//	54= 14+20+20 ethernet head:14bytes, ip head:20bytes, tcp head:20bytes
+				DC_HEAD * pdch = (DC_HEAD *)(pkt_data + 14 + head_len);
+				LOG4CXX_INFO(logger_, "zz->cs:" << (int)(pdch->m_cType));
 				if(DC_TAG == pdch->m_cTag && DCT_DSDID == pdch->m_cType)
 				{
+					LOG4CXX_INFO(logger_, "ly-dsdid");
 					DC_DSDID *pdsdid =  (DC_DSDID *)(pdch + 1);
 					int port = listening_item->get_port();
 					vector<DidStruct> did_structs;
+					LOG4CXX_INFO(logger_, "actually the total num of did templates is " \
+								<< pdch->m_nLen/sizeof(DC_DSDID));
+					
+					map<int, std::string> & did_filepath_map = listening_item->get_did_filepath_map();
 					for(int i=0;i<pdch->m_nLen/sizeof(DC_DSDID);i++)
 					{
 						DidStruct did_struct;
-						map<int, std::string> & did_filepath_map = listening_item->get_did_filepath_map();
 						map<int, std::string>::iterator iter = did_filepath_map.find(pdsdid->m_dwDid);
 						if(iter != did_filepath_map.end())
 						{
@@ -568,8 +573,8 @@ void ShuntNetPacket::RunThreadFunc()
 							did_struct.compress_tag = pdsdid->m_bNoCompress ? 0 : 1;
 							did_struct.file_path = iter->second;
 							did_structs.push_back(did_struct);
-							pdsdid += 1;
 						}
+						pdsdid += 1;
 					}
 
 					char did_conf_file[64] = {0};

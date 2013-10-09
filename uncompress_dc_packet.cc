@@ -1,7 +1,7 @@
 #include "uncompress_dc_packet.h"
 #include "extract_dc.h"
-//#include "DidUncompress.h"
-//#include "public.h"
+#include "DidUncompress.h"
+#include "public.h"
 #include "xml_class_set.h"
 #include "DIDTemplateToLuaStruct.h"
 #ifdef __linux
@@ -95,9 +95,8 @@ void UncompressDCPacket::Uncompress(struct timeval timestamp, unsigned char *pkt
 	bufelement info;
 
 
-	//DataBuffer data_buf;
+	DataBuffer data_buf;
 	pdch = (DC_HEAD *)(pkt_data+pre_dch_offset);
-	//cout<<"dctype:"<<(int)(pdch->m_cType)<<endl;
 	//LOG4CXX_INFO(logger_, "dctype:" << (int)(pdch->m_cType));
 	if( DC_STD_CPS == (pdch->m_wAttrib & DC_CPS_MASK) || DC_ZLIB_CPS == (pdch->m_wAttrib &DC_CPS_MASK))
 	{
@@ -370,26 +369,26 @@ void UncompressDCPacket::Uncompress(struct timeval timestamp, unsigned char *pkt
 	}
 	else if(DCT_DID == pdch->m_cType)
 	{
-		//int port = listening_item_.get_port();
-		//char temp_file[64];
-		//sprintf(temp_file,"%d_did_config.xml",port);
-		//std::string did_config_file(temp_file);
-		//DidUncompress diducp(did_config_file);
-		//diducp.ReadConfig();
-		//diducp.Initialize();
-		//if(diducp.DisassemblePack(pdch,data_buf))
-		//{
-		//	cout<<"uncompress success!"<<endl;
-		//	DC_DIDHead *did_head = (DC_DIDHead *)(pdch+1);
-		//	did_template_id = did_head->GetDid();
-		//	stknum = did_head->GetRecNum();
-		//	struct_size = data_buf.GetLen()/stknum;
-		//	pdcdata = (unsigned char *)(data_buf.GetData());
-		//}
-		//else
-		//{
-		//	cout<<"uncompress fail"<<endl;
-		//}
+		int port = listening_item_.get_port();
+		char temp_file[64];
+		sprintf(temp_file,"%d_did_config.xml",port);
+		std::string did_config_file(temp_file);
+		DidUncompress diducp(did_config_file);
+		diducp.ReadConfig();
+		diducp.Initialize();
+		if(diducp.DisassemblePack(pdch,data_buf))
+		{
+			LOG4CXX_INFO(logger_, "uncompress did success!");
+			DC_DIDHead *did_head = (DC_DIDHead *)(pdch+1);
+			did_template_id = did_head->GetDid();
+			stknum = did_head->GetRecNum();
+			struct_size = data_buf.GetLen()/stknum;
+			pdcdata = (unsigned char *)(data_buf.GetData());
+		}
+		else
+		{
+			LOG4CXX_ERROR(logger_, "uncompress did fail!");
+		}
 	}
 	else if(DCT_DIDSTATIC == pdch->m_cType)
 	{
