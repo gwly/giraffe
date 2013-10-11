@@ -551,7 +551,7 @@ void ShuntNetPacket::RunThreadFunc()
 			else //zhongzhuan  --> caishu
 			{
 				DC_HEAD * pdch = (DC_HEAD *)(pkt_data + 14 + head_len);
-				LOG4CXX_INFO(logger_, "zz->cs:" << (int)(pdch->m_cType));
+				//LOG4CXX_INFO(logger_, "zz->cs:" << (int)(pdch->m_cType));
 				if(DC_TAG == pdch->m_cTag && DCT_DSDID == pdch->m_cType)
 				{
 					LOG4CXX_INFO(logger_, "ly-dsdid");

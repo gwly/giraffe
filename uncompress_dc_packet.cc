@@ -374,9 +374,12 @@ void UncompressDCPacket::Uncompress(struct timeval timestamp, unsigned char *pkt
 		sprintf(temp_file,"%d_did_config.xml",port);
 		std::string did_config_file(temp_file);
 		DidUncompress diducp(did_config_file);
-		diducp.ReadConfig();
+		if( -1 == diducp.ReadConfig() )
+		{	
+			LOG4CXX_ERROR(logger_, "diduncompress read config error");
+		}
 		diducp.Initialize();
-		if(diducp.DisassemblePack(pdch,data_buf))
+		if( 1 == diducp.DisassemblePack(pdch,data_buf))
 		{
 			LOG4CXX_INFO(logger_, "uncompress did success!");
 			DC_DIDHead *did_head = (DC_DIDHead *)(pdch+1);

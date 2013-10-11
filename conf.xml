@@ -13,11 +13,6 @@
 
   <listeningitem net_adapter="eth0" port="9268" filter="tcp and port 9268">
     <did_templates>
-		<did_template did_template_path="/home/luyuan/zz_shl2/did/asclient/100000.xml" />
-		<did_template did_template_path="/home/luyuan/zz_shl2/did/asclient/100001.xml" />
-		<did_template did_template_path="/home/luyuan/zz_shl2/did/asclient/100002.xml" />
-		<did_template did_template_path="/home/luyuan/zz_shl2/did/asclient/100030.xml" />
-		<did_template did_template_path="/home/luyuan/zz_shl2/did/asclient/100032.xml" /> 
     </did_templates>
     <thread threadclass="CaptureNetPacket">
       <zmqs>

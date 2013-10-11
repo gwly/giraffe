@@ -9,7 +9,7 @@ static const char CONFIG_FILE[10] = "conf.xml";
 static const unsigned long DELTA_DISCONNECT_TIME_USEC = 10000000;//10s 
 static const int BUFFERSIZE = 1024;
 static const int DC_HEAD_LEN = 10;
-static const int CAP_PACK_BUF_SIZE = 4096;
+static const int CAP_PACK_BUF_SIZE = 5120;
 static const int ZMQ_RCVHWM_SIZE = 1024*1024;
 static const int ZMQ_SNDHWM_SIZE = 1024*1024;
 
