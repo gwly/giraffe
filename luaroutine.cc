@@ -206,8 +206,8 @@ void LuaRoutine::DispatchToLua(unsigned char * pdcdata, int dc_type,int dc_gener
 		unsigned char *pdata = pdcdata + stk_num *sizeof(WORD);
 		lua_getglobal(lua_state_, "process_general");
 		lua_pushinteger(lua_state_, dc_general_intype);
-		lua_pushlightuserdata(lua_state_, pdata);
 		lua_pushinteger(lua_state_, stk_num);
+		lua_pushlightuserdata(lua_state_, pdata);
 		if(lua_pcall(lua_state_, 3, 0, 0) != 0)
 		{
 			string s = lua_tostring(lua_state_,-1);

@@ -554,7 +554,7 @@ function test_process_did(template_id, num, pdcdata)
 	end
 end
 
-function process_general(intype, pdata, num)
+function process_general(intype, num, pdata)
 	local stk
 	local ret_error
 	local ret_str
