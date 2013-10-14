@@ -657,7 +657,6 @@ function process_general(intype, pdata, num)
 				ret_str = nil
 			end
 		end
-		return ret_str 
 end
 
 --TODO FIX
