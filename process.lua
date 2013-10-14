@@ -4,11 +4,6 @@ require("os")
 
 require("base_type")
 require("logic_process")
---require("9268_100000")
---require("9268_100001")
---require("9268_100002")
---require("9268_100030")
---require("9268_100032")
 
 local zmq = require("zmq")
 
@@ -381,7 +376,6 @@ end
 
 local msg
 function SendErrorMsg(error_msg)
-	
 	msg = zmq.zmq_msg_t.init_data(error_msg)
 	sock:send_msg(msg)	
 end
@@ -406,7 +400,7 @@ function test_process(dctype, num, pdcdata)
 			ret_error = handle_stk_static(stk)			
 			ret_str = FormatReturnError(dc_type, ret_error)
 			--test
-			ret_str = "hello world"
+			ret_str = "stk-static"
 			if ret_str ~= nil then 
 				SendErrorMsg(ret_str)		
 			end
@@ -418,6 +412,10 @@ function test_process(dctype, num, pdcdata)
 		for i=1,num do
 			ret_error = handle_stk_dyna(stk)
 			ret_str = FormatReturnError(dc_type, ret_error)
+			ret_str = "stk-stkdyna"
+			if ret_str ~= nil then
+				SendErrorMsg(ret_str)
+			end
 			stk = stk + 1
 		end
 	elseif dctype == C.DCT_SZL2_ORDER_STAT then
@@ -426,6 +424,10 @@ function test_process(dctype, num, pdcdata)
 		for i=1,num do
 			ret_error = handle_szl2_order_stat(stk) 
 			ret_str = FormatReturnError(dc_type, ret_error)
+			ret_str = "shl2-order-stat"
+			if ret_str ~= nil then
+				SendErrorMsg(ret_str)
+			end
 			stk = stk + 1
 		end
 	elseif dctype == C.DCT_SZL2_TRADE_FIVE then
@@ -434,6 +436,10 @@ function test_process(dctype, num, pdcdata)
 		for i=1,num do
 			ret_error = handle_szl2_trade_five(stk)
 			ret_str	= FormatReturnError(dc_type, ret_error)
+			ret_str = "szl2-trade-five"
+			if ret_str ~= nil then
+				SendErrorMsg(ret_str)
+			end
 			stk = stk + 1
 		end
 	elseif dctype == C.DCT_SZL2_ORDER_FIVE then
@@ -442,6 +448,10 @@ function test_process(dctype, num, pdcdata)
 		for i=1,num do
 			ret_error = handle_szl2_order_five(stk)
 			ret_str = FormatReturnError(dc_type, ret_error)
+			ret_str = "shl2-order-five"
+			if ret_str ~= nil then
+				SendErrorMsg(ret_str)
+			end
 			stk = stk + 1
 		end
 	elseif dctype == C.DCT_SHL2_MMPEx then
@@ -450,6 +460,10 @@ function test_process(dctype, num, pdcdata)
 		for i=1,num do
 			ret_error = handle_shl2_mmpex(stk)
 			ret_str = FormatReturnError(dc_type, ret_error)
+			ret_str = "shl2-mmpex"
+			if ret_str ~= nil then
+				SendErrorMsg(ret_str)
+			end
 			stk = stk + 1
 		end
 	else
@@ -457,124 +471,90 @@ function test_process(dctype, num, pdcdata)
 	end
 end
 
-function process(dctype,pdcdata)
-	local stk
+function test_process_did(template_id, pdcdata, num)
 	local ret_error
 	local ret_str
-    if dctype == C.DCT_STKSTATIC then
-        stk = ffi_cast("STK_STATIC *",pdcdata)
-		--outstr = string.format("stk_static: stk_label = %s, last = %d",ffi.string(pdata.m_strLabel),pdata.m_dwLastClose)
-		ret_error = handle_stk_static(stk)
-		dc_type = "static"
-		ret_str = FormatReturnError(dc_type,ret_error)
-   elseif dctype == C.DCT_STKDYNA then
-        stk = ffi_cast("STK_DYNA *",pdcdata)
-		ret_error = handle_stk_dyna(stk)
-		dc_type = "dyna"
-		ret_str = FormatReturnError(dc_type,ret_error)
-		--outstr = string.format("[%d]:%d, last = %d, high = %d, low = %d\n",pdata.m_time,pdata.m_wStkID,pdata.m_dwNew,pdata.m_dwHigh,pdata.m_dwLow)
-	elseif dctype == C.DCT_SHL2_MMPEx then
-		stk = ffi_cast("SHL2_MMPEX *", pdcdata)
-		ret_error = handle_shl2_mmpex(stk)
-		dc_type = "shl2_mmpex"
-		ret_str = FormatReturnError(dc_type, ret_error)
-	else
-		ret_str =nil
-    end
-	return stk.id,ret_str
-end
-
-function process_did(port,template_id,data)
-	local oustr
 	local pdata
-	--local	lua_lib = string.format("%d_%d",port,template_id)
-	--local template = require(lua_lib)
+	local template_type 
+	local template = requrir(template_id)
 	if template_id == 100000 then
-		pdata = ffi_cast("T_BUY_SELL_INFO *",data)
-		--print(pdata.STKID)
-		--print(pdata.BuyCount[0])
-		--print(pdata.SellCount[0])
-		outstr = "100000"
+		pdata = ffi_cast("T_BUY_SELL_INFO *", pdcdata)
+		template_type = "t_buy_sell_info"
+		for i=1,num do
+			ret_error = handle_t_buy_sell_info(pdata)
+            ret_str = FormatReturnError(template_type, ret_error)
+            ret_str = "t_buy_sell_info"
+            if ret_str ~= nil then
+                SendErrorMsg(ret_str)
+            end
+            pdata = pdata + 1		
+		end	
 	elseif template_id == 100001 then
-		pdata = ffi_cast("T_BUY_SELL_TICK_INFO *",data)
-		--print(pdata.STKID)
-		--print(pdata.BuyOrderId)
-		outstr = "100001"
+		pdata = ffi_cast("T_BUY_SELL_TICK_INFO *", pdcdata)
+        template_type = "t_buy_sell_tick_info"
+        for i=1,num do
+            ret_error = handle_t_buy_sell_tick_info(pdata)
+            ret_str = FormatReturnError(template_type, ret_error)
+            ret_str = "t_buy_sell_tick_info"
+            if ret_str ~= nil then
+                SendErrorMsg(ret_str)
+            end
+            pdata = pdata + 1
+        end
 	elseif template_id == 100002 then
-		pdata = ffi_cast("T_IOPV_INFO *",data)
-		--print(pdata.STKID)
-		outstr = "100002"
-	elseif template_id == 100012 then
-		pdata = ffi_cast("T_CBT_MARKET *",data)
-		--print(pdata.STKID)
-		outstr = "100012"
-	elseif tempalte_id == 100030 then
-		pdata = ffi_cast("T_ETF_INFO *",data)
-		--print(pdata.STKID)
-		outstr = "100030"
-	elseif template_id == 100032 then
-		pdata = ffi_cast("T_MMP_INFO *",data)
-		--print(pdata.STKID)
-		outstr = "100032"
+        pdata = ffi_cast("T_IOPV_INFO", pdcdata)
+        template_type = "t_iopv_info"
+        for i=1,num do
+            ret_error = handle_t_iopv_info(pdata)
+            ret_str = FormatReturnError(template_type, ret_error)
+            ret_str = "t_iopv_info"
+            if ret_str ~= nil then
+                SendErrorMsg(ret_str)
+            end
+            pdata = pdata + 1
+        end
+    elseif template_id == 100012 then
+        pdata = ffi_cast("T_CBT_MARKET *", pdcdata)
+        template_type = "t_cbt_market"
+        for i=1,num do
+            ret_error = handle_t_cbt_market(pdata)
+            ret_str = FormatReturnError(template_type, ret_error)
+            ret_str = "t_cbt_market"
+            if ret_str ~= nil then
+                SendErrorMsg(ret_str)
+            end
+            pdata = pdata + 1
+        end
+    elseif template_id == 100030 then
+        pdata = ffi_cast("T_ETF_INFO *", pdcdata)
+        template_type = "t_etf_info"
+        for i=1,num do
+            ret_error = handle_t_etf_info(pdata)
+            ret_str = FormatReturnError(template_type, ret_error)
+            ret_str = "t_etf_info"
+            if ret_str ~= nil then
+                SendErrorMsg(ret_str)
+            end
+            pdata = pdata + 1
+        end
+    elseif template_id == 100032 then
+        pdata = ffi_cast("T_MMP_INFO *", pdcdata)
+        template_type = "t_mmp_info"
+        for i=1,num do
+            ret_error = handle_t_mmp_info(pdata)
+            ret_str = FormatReturnError(template_type, ret_error)
+            ret_str = "t_mmp_info"
+            if ret_str ~= nil then
+                SendErrorMsg(ret_str)
+            end
+            pdata = pdata + 1
+        end
+	else
+		ret_str = nil	
 	end
-	return outstr
 end
 
-function process_general(intype,data)
-	local stk
-	local ret_error
-	local ret_str
-		if(intype == C.GE_STATIC_EX) then
-			stk = ffi_cast("STK_STATICEx *" ,data)
-			--print(stk.m_cType)
-			--print(stk.m_cSubType)
-			if(stk.m_cType == 1) then
-				ret_str = nil
-				--print("equity")
-				--print(stk.Spec.m_equitySpec.m_fFaceValue)
-				--print(stk.Spec.m_equitySpec.m_fProfit)
-				--print(stk.Spec.m_equitySpec.m_wIndustry)
-			elseif(stk.m_cType == 2) then
-				ret_str = nil
-			elseif(stk.m_cType == 3) then
-				ret_str = nil
-				--print("warrantSpec")
-				--print(stk.Spec.m_warrantSpec.m_cStyle)
-				--print(stk.Spec.m_warrantSpec.m_cCP)
-				--print(stk.Spec.m_warrantSpec.m_fStrikePrice)
-			elseif(stk.m_cType == 4) then
-				ret_str = nil
-				--print("bondSpec")
-				--print(stk.Spec.m_bondSpec.m_dwMaturityDate)
-				--print(stk.Spec.m_bondSpec.m_dwIntAccruDate)
-				--print(stk.Spec.m_bondSpec.m_fIssuePrice)
-				--print(stk.Spec.m_bondSpec.m_fFaceValue)
-			elseif(stk.m_cType == 5) then
-				ret_str = nil
-			elseif(stk.m_cType == 6) then
-				dc_type = "staticex future"
-				ret_error = handle_future(stk.Spec.m_futureSpec)
-				ret_str = FormatReturnError(dc_type,ret_error)
-			elseif(stk.m_cType == 7) then
-				ret_str = nil
-			else				 
-				ret_str = nil
-			end 
-		elseif(intype == C.GE_HKDYNA) then
-			stk = ffi_cast("STK_HKDYNA *",data)
-			ret_str = nil
-		elseif(intype == C.GE_IOPV) then
-			local iopv = ffi_cast("IOPV *",data)
-			--print("iopv")
-			dc_type = "iopv"
-			ret_error = handle_iopv(iopv.value)
-			ret_str = FormatReturnError(dc_type,ret_error) 
-		else 
-			ret_str = nil
-		end
-		return ret_str 
-end
-
+--TODO FIX
 function process_shl2_queue(dctype, pdcdata)
 	local stk
 	if dctype == C.DCT_SHL2_QUEUE then
