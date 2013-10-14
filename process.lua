@@ -471,12 +471,12 @@ function test_process(dctype, num, pdcdata)
 	end
 end
 
-function test_process_did(template_id, pdcdata, num)
+function test_process_did(template_id, num, pdcdata)
 	local ret_error
 	local ret_str
 	local pdata
 	local template_type 
-	local template = requrir(template_id)
+	local template = require(template_id)
 	if template_id == 100000 then
 		pdata = ffi_cast("T_BUY_SELL_INFO *", pdcdata)
 		template_type = "t_buy_sell_info"
@@ -502,7 +502,7 @@ function test_process_did(template_id, pdcdata, num)
             pdata = pdata + 1
         end
 	elseif template_id == 100002 then
-        pdata = ffi_cast("T_IOPV_INFO", pdcdata)
+        pdata = ffi_cast("T_IOPV_INFO *", pdcdata)
         template_type = "t_iopv_info"
         for i=1,num do
             ret_error = handle_t_iopv_info(pdata)

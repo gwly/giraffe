@@ -178,16 +178,13 @@ function handle_iopv(iopv)
 end
 
 function handle_t_buy_sell_info(info)
-	local buy_count = info.BuyCount
-	for i=1,10 do
-		if buy_count < 0 then
-			error_type = Error_Type.business
-			error_level = Error_Level.error
-			error_info = "buy count < 0"
-			return FormatErrorString(error_type, error_level,
-									 error_info)	
-		end
-		buy_count = buy_count + 1	
+	local buy_price_num = info.BuyPriceNum
+	if buy_price_num < 0 then
+		error_type = Error_Type.business
+		error_level = Error_Level.error
+		error_info = "buy price num < 0"
+		return FormatErrorString(error_type, error_level,
+								 error_info)	
 	end
 	return nil
 end 

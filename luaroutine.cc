@@ -135,8 +135,8 @@ void LuaRoutine::DispatchToLua(unsigned char * pdcdata, int dc_type,int dc_gener
 	{
 		lua_getglobal(lua_state_, "test_process_did");
 		lua_pushinteger(lua_state_, did_template_id);
-		lua_pushlightuserdata(lua_state_, pdcdata);
 		lua_pushinteger(lua_state_, stk_num);
+		lua_pushlightuserdata(lua_state_, pdcdata);
 		if(lua_pcall(lua_state_, 3, 0, 0) != 0)
 		{
 			LOG4CXX_ERROR(logger_, lua_tostring(lua_state_,-1));

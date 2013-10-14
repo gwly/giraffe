@@ -1,0 +1,2 @@
+terminate called after throwing an instance of 'zmq::error_t'
+  what():  Address already in use
