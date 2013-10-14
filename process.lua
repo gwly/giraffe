@@ -554,6 +554,112 @@ function test_process_did(template_id, pdcdata, num)
 	end
 end
 
+function process_general(intype, pdata, num)
+	local stk
+	local ret_error
+	local ret_str
+		for i=1, num do
+			if(intype == C.GE_STATIC_EX) then
+				stk = ffi_cast("STK_STATICEx *" ,pdata)
+				--print(stk.m_cType)
+				--print(stk.m_cSubType)
+				if(stk.m_cType == 1) then
+					dc_type = "ge staticex equity"
+					ret_error = handle_equity(stk.Spec.m_equitySpec)
+					ret_str = FormatReturnError(dc_type,ret_error)	
+					ret_str = dc_type
+					if ret_str ~= nil then
+						SendErrorMsg(ret_str)
+					end
+				elseif(stk.m_cType == 2) then
+					dc_type = "ge staticex fund"
+					ret_error = handle_fund(stk.Spec.m_fundSpec)
+					ret_str = FormatReturnError(dc_type, ret_error)
+					ret_str = dc_type 
+					if ret_str ~= nil then
+						SendErrorMsg(ret_str)
+					end
+				elseif(stk.m_cType == 3) then
+					dc_type = "ge staticex warrant"
+					ret_error = handle_fund(stk.Spec.m_warrantSpec)
+                    ret_str = FormatReturnError(dc_type, ret_error)
+                    ret_str = dc_type 
+                    if ret_str ~= nil then
+                        SendErrorMsg(ret_str)
+                    end
+					--print("warrantSpec")
+					--print(stk.Spec.m_warrantSpec.m_cStyle)
+					--print(stk.Spec.m_warrantSpec.m_cCP)
+					--print(stk.Spec.m_warrantSpec.m_fStrikePrice)
+				elseif(stk.m_cType == 4) then
+					dc_type = "ge staticex bond"
+                    ret_error = handle_fund(stk.Spec.m_bondSpec)
+                    ret_str = FormatReturnError(dc_type, ret_error)
+                    ret_str = dc_type 
+                    if ret_str ~= nil then
+                        SendErrorMsg(ret_str)
+                    end
+
+					--print("bondSpec")
+					--print(stk.Spec.m_bondSpec.m_dwMaturityDate)
+					--print(stk.Spec.m_bondSpec.m_dwIntAccruDate)
+					--print(stk.Spec.m_bondSpec.m_fIssuePrice)
+					--print(stk.Spec.m_bondSpec.m_fFaceValue)
+				elseif(stk.m_cType == 5) then
+					dc_type = "ge staticex Cnvt"
+					ret_error = handle_fund(stk.Spec.m_CnvtSpec)
+                    ret_str = FormatReturnError(dc_type, ret_error)
+                    ret_str = dc_type
+                    if ret_str ~= nil then
+                        SendErrorMsg(ret_str)
+                    end
+				elseif(stk.m_cType == 6) then
+					dc_type = "ge staticex future"
+					ret_error = handle_future(stk.Spec.m_futureSpec)
+					ret_str = FormatReturnError(dc_type,ret_error)
+					ret_str = dc_type
+					if ret_str ~= nil then
+                        SendErrorMsg(ret_str)
+                    end
+				elseif(stk.m_cType == 7) then
+              	    dc_type = "ge staticex trust"
+                    ret_error = handle_future(stk.Spec.m_trustSpec)
+                    ret_str = FormatReturnError(dc_type,ret_error)
+                    ret_str = dc_type
+                    if ret_str ~= nil then
+                        SendErrorMsg(ret_str)
+                    end
+				else				 
+					ret_str = nil
+				end 
+				stk = stk + 1
+			elseif(intype == C.GE_HKDYNA) then
+				stk = ffi_cast("STK_HKDYNA *",data)
+				dc_type = "ge stk hkdyna"
+				ret_error = handle_hkdyna(stk)
+				ret_str = FormatReturnError(dc_type, ret_error)
+				ret_str = dc_type 
+				if ret_str ~= nil then
+					SendErrorMsg(ret_str)
+				end
+				stk = stk + 1
+			elseif(intype == C.GE_IOPV) then
+				stk = ffi_cast("IOPV *",data)
+				dc_type = "ge iopv"
+				ret_error = handle_iopv(stk.value)
+				ret_str = FormatReturnError(dc_type,ret_error) 
+				ret_str = dc_type
+                if ret_str ~= nil then
+                    SendErrorMsg(ret_str)
+                end
+                stk = stk + 1
+			else 
+				ret_str = nil
+			end
+		end
+		return ret_str 
+end
+
 --TODO FIX
 function process_shl2_queue(dctype, pdcdata)
 	local stk

@@ -184,6 +184,7 @@ void LuaRoutine::DispatchToLua(unsigned char * pdcdata, int dc_type,int dc_gener
 		//		lua_pop(lua_state_,-1);
 		//	}
 		//}
+		LOG4CXX_INFO(logger_, "dc_type:" << dc_type);
         lua_getglobal(lua_state_, "test_process");
         lua_pushinteger(lua_state_, dc_type);
         lua_pushinteger(lua_state_, stk_num);
