@@ -7,6 +7,10 @@
 
 #define MaxStocksCount 4000;
 
+using namespace log4cxx;
+
+LoggerPtr DidUncompress::logger_(Logger::getLogger("did uncompress"));
+
 char* GetBmData(int num,LastArgs* pLastArgs,LastArgs* pNowArgs,DWORD did,CDidStruct* pDidStruct,char* pUserArg,ds_field_info*& pSaveField)
 {
 	if (NULL == pUserArg)
@@ -586,6 +590,9 @@ int DidUncompress::DisassemblePack(DC_HEAD* pPack,DataBuffer& buf)
 					it->second.pUnCompress->SetUnCompressOutputBuffer(buf.GetData(),len);
 					if(it->second.pUnCompress->UnCompressData(pData,iCompressLen,num) == -1)
 						return -1;
+					int temp_finish_uncompress_len = it->second.pUnCompress->FinishUnCompressedData();
+					
+					LOG4CXX_INFO(logger_, "finish uncompress len:" << temp_finish_uncompress_len);
 					if(it->second.pUnCompress->FinishUnCompressedData() != len)
 						return -1;
 					return 1;

@@ -22,6 +22,7 @@ typedef unsigned char BYTE;
 #endif
 #endif
 
+
 //did数据模板解析器
 class COMPRESS_API CDidStructApi:private JUncopyable
 {
@@ -82,6 +83,9 @@ typedef char* (*LPGetBmData)(int num,LastArgs* pLastArgs,LastArgs* pNowArgs,DWOR
 typedef bool (*LPSetBmData)(LastArgs* pNowArgs,DWORD did,CDidStruct* pDidStruct,char* pUserArg,char* pRecBuf);
 
 
+#ifdef __cplusplus
+extern "C" {
+#endif
 //压缩接口
 class COMPRESS_API CDsCompressApi:private JUncopyable
 {
@@ -143,4 +147,9 @@ public:
     virtual int CompressZmAllRecsFullData(CSlice* pSlice) = 0;
 #endif
 };
+
+#ifdef __cplusplus
+}
+#endif
+
 #endif

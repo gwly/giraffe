@@ -1,6 +1,7 @@
 #ifndef _UNCOM_
 #define _UNCOM_
 #include "dscomapi.h"
+#include <log4cxx/logger.h>
 
 #ifdef _MSC_VER
 	#include "MSXML_DOMDocument.h"
@@ -24,6 +25,7 @@ using namespace std;
 #else
 	typedef __gnu_cxx::hash_map<unsigned int,int> STKIDMAP;
 #endif
+
 
 struct TStructForGetBmData 
 {
@@ -125,6 +127,8 @@ private:
 	string configFilePath;
 	map<int, TDidInfo> m_mapDidFile;
 	map<int,TStructForGetBmData> m_mapStructForBmData;
+	static log4cxx::LoggerPtr logger_;
 };
 
-#endif
+
+#endif /*_UNCOM_*/
