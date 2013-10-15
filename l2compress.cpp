@@ -5,33 +5,33 @@
 #include "l2compress.h"
 
 ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-//Öğ±Ê³É½»
+//é€ç¬”æˆäº¤
 
-static BITCODE repNumRepCode[] = //Á¬ĞøÊıÁ¿
+static BITCODE repNumRepCode[] = //è¿ç»­æ•°é‡
 {
-	{0		,	1,	0,'E',		1,	0},			// 0				1¸ö
-	{0x2	,	2,	3,'B',		3,	2},			// 10	+3Bit		3Bit+2¸ö
-	{0x6	,	3,	8,'B',		8, 10},			// 110	+8Bit		8Bit+10¸ö
+	{0		,	1,	0,'E',		1,	0},			// 0				1ä¸ª
+	{0x2	,	2,	3,'B',		3,	2},			// 10	+3Bit		3Bit+2ä¸ª
+	{0x6	,	3,	8,'B',		8, 10},			// 110	+8Bit		8Bit+10ä¸ª
 	{0x7	,	3, 16,'D',		0,	0},			// 111	+16Bit		16Bit
 };
 
 static BITCODE repStkIDCode[] =	//StockID
 {
-	{0		,	1,	0,'E',		1,	0},			// 0				Ë³Ğò
-	{0x2	,	2,	6,'B',		6,	2},			// 10	+6Bit		Ë³Ğò,6Bit+2
-	{0x3	,	2, 16,'D',		0,	0},			// 11	+16Bit		Ö±½Ó´æ·ÅwStockID
+	{0		,	1,	0,'E',		1,	0},			// 0				é¡ºåº
+	{0x2	,	2,	6,'B',		6,	2},			// 10	+6Bit		é¡ºåº,6Bit+2
+	{0x3	,	2, 16,'D',		0,	0},			// 11	+16Bit		ç›´æ¥å­˜æ”¾wStockID
 };
 
 static BITCODE repTimeCode[] =
 {
-	{0		,	1,	0,'E',		0,  0},			//0					= »ù×¼
-	{2		,	2,	3,'B',		3,  1},			//10	+3Bit		= »ù×¼ + 3Bit + 1
-	{6		,	3,  6,'B',	    6,  9},			//110	+6Bit		= »ù×¼ + 6Bit + 9
-	{0xE	,	4, 16,'B',	   16, 41},			//1110  +16Bit		= »ù×¼ + 16Bit + 32+9; todo Change to 64+9
+	{0		,	1,	0,'E',		0,  0},			//0					= åŸºå‡†
+	{2		,	2,	3,'B',		3,  1},			//10	+3Bit		= åŸºå‡† + 3Bit + 1
+	{6		,	3,  6,'B',	    6,  9},			//110	+6Bit		= åŸºå‡† + 6Bit + 9
+	{0xE	,	4, 16,'B',	   16, 41},			//1110  +16Bit		= åŸºå‡† + 16Bit + 32+9; todo Change to 64+9
 	{0xF	,	4, 32,'D',	    0,	0},			//1111	+32Bit		= 32Bit org
 };
 
-static BITCODE repPriceCode[] = //Ê×¼ÇÂ¼
+static BITCODE repPriceCode[] = //é¦–è®°å½•
 {
 	{0x2	,	2,	8,'B',		8, 0},			//10   +8Bit	= 8Bit
 	{0x0	,	1, 12,'B',	   12,256},			//0   +12Bit	= 12Bit+256
@@ -39,17 +39,17 @@ static BITCODE repPriceCode[] = //Ê×¼ÇÂ¼
 	{0x7	,	3, 32,'D',		0, 0},			//111 +32Bit	= DWORD
 };
 
-static BITCODE repPriceDiffCode[] = //Ö®ºóÒÔÇ°Ò»¸ö¼Û¸ñÎª»ù×¼
+static BITCODE repPriceDiffCode[] = //ä¹‹åä»¥å‰ä¸€ä¸ªä»·æ ¼ä¸ºåŸºå‡†
 {
-	{0		,	1,	0,'E',		0, 0},			//0				= »ù×¼
-	{2		,	2,	2,'b',		2, 0},			//10			= »ù×¼+2Bit; todo change to 100 +1, 101 -1
-	{0x6	,	3,	4,'b',		4, 1},			//110	+4Bit	= »ù×¼+4Bit+1
-	{0xE	,	4,	8,'b',		8, 9},			//1110  +8Bit	= »ù×¼+8Bit+9
-	{0x1E	,	5, 16,'b',	   16,137},			//11110 +16Bit	= »ù×¼+16Bit+128+9
+	{0		,	1,	0,'E',		0, 0},			//0				= åŸºå‡†
+	{2		,	2,	2,'b',		2, 0},			//10			= åŸºå‡†+2Bit; todo change to 100 +1, 101 -1
+	{0x6	,	3,	4,'b',		4, 1},			//110	+4Bit	= åŸºå‡†+4Bit+1
+	{0xE	,	4,	8,'b',		8, 9},			//1110  +8Bit	= åŸºå‡†+8Bit+9
+	{0x1E	,	5, 16,'b',	   16,137},			//11110 +16Bit	= åŸºå‡†+16Bit+128+9
 	{0x1F	,	5, 32,'D',		0, 0},			//11111 +32Bit	= DWORD
 };
 
-static BITCODE repVolumeCode[] =	//Á¿; todo change to B
+static BITCODE repVolumeCode[] =	//é‡; todo change to B
 {
 	{0x0	,	1,  6,'b',	   6,	0},			// 0+6Bit			= 6Bit
 	{0x5	,	3,  4,'Z',	   2,	1},			// 101+2Bit+2Bit	= 2Bit*10^2Bit
@@ -210,7 +210,7 @@ int ExpandL2Report(const BYTE* pData,int nDataLen,WORD& wMarket,SH_L2_REPORT* pR
 }
 
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-//ÂòÂôÅÌ¶ÓÁĞ
+//ä¹°å–ç›˜é˜Ÿåˆ—
 
 
 static BITCODE queueTypeCode[] =
@@ -277,7 +277,7 @@ int CompressL2Queue(WORD wMarket,const DWORD* pQueue,int nQueueLen,BYTE* pBuf,in
 
 			switch(dwType)
 			{
-			case QUEUE_ORDER:			// ±àÂë 0
+			case QUEUE_ORDER:			// ç¼–ç  0
 				if(nStatus==2 || nStatus==3)
 				{
 					stream.SETBITCODE(queueVolCode);
@@ -287,8 +287,8 @@ int CompressL2Queue(WORD wMarket,const DWORD* pQueue,int nQueueLen,BYTE* pBuf,in
 				else
 					bError = TRUE;
 				break;
-			case QUEUE_BUYPRICE:		//±àÂë 10
-			case QUEUE_SELLPRICE:		//±àÂë 110
+			case QUEUE_BUYPRICE:		//ç¼–ç  10
+			case QUEUE_SELLPRICE:		//ç¼–ç  110
 				if(nStatus)
 				{
 					stream.SETBITCODE(queuePriceCode);
@@ -306,7 +306,7 @@ int CompressL2Queue(WORD wMarket,const DWORD* pQueue,int nQueueLen,BYTE* pBuf,in
 				else
 					bError = TRUE;
 				break;
-			case QUEUE_STOCKID:			//±àÂë 111
+			case QUEUE_STOCKID:			//ç¼–ç  111
 				stream.Put(dw,16);
 				nStatus = 1;
 				break;
@@ -349,7 +349,7 @@ int ExpandL2Queue(const BYTE* pData,int nDataLen,DWORD* pQueueBuf,int& nQueueBuf
 				DWORD dw = 0;
 				switch(dwType)
 				{
-				case QUEUE_ORDER:			// ±àÂë 0
+				case QUEUE_ORDER:			// ç¼–ç  0
 					if(nStatus==2 || nStatus==3)
 					{
 						stream.SETBITCODE(queueVolCode);
@@ -359,8 +359,8 @@ int ExpandL2Queue(const BYTE* pData,int nDataLen,DWORD* pQueueBuf,int& nQueueBuf
 					else
 						bError = TRUE;
 					break;
-				case QUEUE_BUYPRICE:		//±àÂë 10
-				case QUEUE_SELLPRICE:		//±àÂë 110
+				case QUEUE_BUYPRICE:		//ç¼–ç  10
+				case QUEUE_SELLPRICE:		//ç¼–ç  110
 					if(nStatus)
 					{
 						stream.SETBITCODE(queuePriceCode);
@@ -370,7 +370,7 @@ int ExpandL2Queue(const BYTE* pData,int nDataLen,DWORD* pQueueBuf,int& nQueueBuf
 					else
 						bError = TRUE;
 					break;
-				case QUEUE_STOCKID:			//±àÂë 111
+				case QUEUE_STOCKID:			//ç¼–ç  111
 					dw = stream.Get(16);
 					nStatus = 1;
 					break;
@@ -380,7 +380,7 @@ int ExpandL2Queue(const BYTE* pData,int nDataLen,DWORD* pQueueBuf,int& nQueueBuf
 				if(!bError)
 				{
 					pQueueBuf[i] = dw | dwType;
-					if(nStatus==2)	//¼Û¸ñ
+					if(nStatus==2)	//ä»·æ ¼
 					{
 						if(i<nQueueLen-1)
 						{
@@ -412,10 +412,10 @@ int ExpandL2Queue(const BYTE* pData,int nDataLen,DWORD* pQueueBuf,int& nQueueBuf
 
 
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-//Ñ¹Ëõ¼´Ê±×î´ó³·µ¥
+//å‹ç¼©å³æ—¶æœ€å¤§æ’¤å•
 static BITCODE numWDCode[] = 
 {
-	{0		,	1,	0,'E',	   10,	0},			// 0				1¸ö
+	{0		,	1,	0,'E',	   10,	0},			// 0				1ä¸ª
 	{0x2	,	2,	8,'B',		8,	0},			// 10	+8Bit		8Bit
 	{0x6	,	3, 16,'B',	   16, 256},		// 110	+16Bit		16Bit+256
 	{0x7	,	3, 32,'D',		0,	0},			// 111	+16Bit		32Bit
@@ -423,17 +423,17 @@ static BITCODE numWDCode[] =
 
 static BITCODE wdTimeCode[] =
 {
-	{0		,	1,  0,'E',	    0,  0},			//0					= »ù×¼
-	{2		,	2,  4,'B',	    4,  1},			//10	+4Bit		= »ù×¼ + 4Bit +1
-	{6		,	3,  8,'B',	    8, 17},			//110	+8Bit		= »ù×¼ + 8Bit + 16 + 1
-	{0xE	,	4, 16,'B',	   16,273},			//1110	+16Bit		= »ù×¼ + 8Bit + 256 + 16 + 1
+	{0		,	1,  0,'E',	    0,  0},			//0					= åŸºå‡†
+	{2		,	2,  4,'B',	    4,  1},			//10	+4Bit		= åŸºå‡† + 4Bit +1
+	{6		,	3,  8,'B',	    8, 17},			//110	+8Bit		= åŸºå‡† + 8Bit + 16 + 1
+	{0xE	,	4, 16,'B',	   16,273},			//1110	+16Bit		= åŸºå‡† + 8Bit + 256 + 16 + 1
 	{0xF	,	4, 32,'D',	    0,	0},			//1111	+32Bit		= 32Bit org
 };
 
 static BITCODE wdSbumitTimeCode[] =
 {
-	{2		,	2,  8,'B',	    8,  0},			//10	+8Bit		= »ù×¼ + 8Bit 
-	{0		,	1, 16,'B',	   16,256},			//0		+16Bit		= »ù×¼ + 16Bit + 256
+	{2		,	2,  8,'B',	    8,  0},			//10	+8Bit		= åŸºå‡† + 8Bit 
+	{0		,	1, 16,'B',	   16,256},			//0		+16Bit		= åŸºå‡† + 16Bit + 256
 	{3		,	2, 32,'D',	    0,	0},			//11	+32Bit		= 32Bit org
 };
 
@@ -445,7 +445,7 @@ static BITCODE wdPriceCode[] =
 	{0x7	,	3, 32,'D',	   0,	0},			//111	+32Bit		= 32Bit Org
 };
 
-static BITCODE wdVolumeCode[] =	//Á¿
+static BITCODE wdVolumeCode[] =	//é‡
 {
 	{0x0	,	2,  4,'Z',	   2,	1},			// 00 +2Bit+2Bit	= 2Bit*10^2Bit
 	{0x1	,	2,  6,'Z',	   4,	5},			// 01 +4Bit+2Bit	= (4Bit+4)*10^2Bit
@@ -559,7 +559,7 @@ int ExpandL2BigWD(const BYTE* pData,int nDataLen,WORD& wMarket,DC_SHL2_BIG_WD* p
 	return nRet;
 }
 
-//ÂòÂôÁ½¸ö¼´Ê±×î´ó³·µ¥Ñ¹Ëõµ½Ò»Æğ
+//ä¹°å–ä¸¤ä¸ªå³æ—¶æœ€å¤§æ’¤å•å‹ç¼©åˆ°ä¸€èµ·
 int CompressL2BigWD(WORD wMarket,const DC_SHL2_BIG_WD* pBuyWD,const DC_SHL2_BIG_WD* pSellWD,SVRNetHead* pBuf,int& nBufSize)
 {
 	int nRet = 0;
@@ -690,7 +690,7 @@ int CompressL2BigWD(WORD wMarket,const DC_SHL2_BIG_WD* pBuyWD,const DC_SHL2_BIG_
 //}
 
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-//Ñ¹ËõÀÛ¼Æ×î´ó³·µ¥
+//å‹ç¼©ç´¯è®¡æœ€å¤§æ’¤å•
 int CompressL2AccuWD(WORD wMarket,const DC_SHL2_ACCU_WD* pWD,BYTE* pBuf,int& nBufSize)
 {
 	int nRet = 0;
@@ -907,7 +907,7 @@ void SZ_L2_ORDER_STAT::Init(WORD wStkID)
 	m_wStkID = wStkID;
 }
 
-//ĞÂÔöÎ¯ÍĞµ¥Ê±µ÷ÓÃ£¬nPriceDigitÒıÓÃ STK_STATIC::m_nPriceDigit
+//æ–°å¢å§”æ‰˜å•æ—¶è°ƒç”¨ï¼ŒnPriceDigitå¼•ç”¨ STK_STATIC::m_nPriceDigit
 void SZ_L2_ORDER_STAT::AddNewOrder(int nDir,DWORD dwPrice,DWORD dwVol,BYTE nPriceDigit)
 {
 	static DWORD dwVolLimit[] = {0,20000,100000,500000};
@@ -936,7 +936,7 @@ void SZ_L2_ORDER_STAT::AddNewOrder(int nDir,DWORD dwPrice,DWORD dwVol,BYTE nPric
 	}
 }
 
-//ĞÂÔö³É¹¦³·µ¥Ê±µ÷ÓÃ£¬nDir=0±íÊ¾²»Ã÷·½Ïò£¬1±íÊ¾ÂòÈë³·µ¥£¬-1±íÊ¾Âô³ö³·µ¥,dwPrice²»ÖªµÀ¾ÍÌîĞ´0
+//æ–°å¢æˆåŠŸæ’¤å•æ—¶è°ƒç”¨ï¼ŒnDir=0è¡¨ç¤ºä¸æ˜æ–¹å‘ï¼Œ1è¡¨ç¤ºä¹°å…¥æ’¤å•ï¼Œ-1è¡¨ç¤ºå–å‡ºæ’¤å•,dwPriceä¸çŸ¥é“å°±å¡«å†™0
 void SZ_L2_ORDER_STAT::AddNewWithdarw(int nDir,DWORD dwVol)
 {
 	if(nDir)
@@ -954,29 +954,29 @@ void SZ_L2_ORDER_STAT::AddNewWithdarw(int nDir,DWORD dwVol)
 
 static BITCODE osIDCode[] =	//StockID
 {
-	{0		,	1,	0,'E',		1,	0},			// 0				Ë³Ğò
-	{0x2	,	2,	6,'B',		6,	2},			// 10	+6Bit		Ë³Ğò,6Bit+2
-	{0x3	,	2, 16,'D',		0,	0},			// 11	+16Bit		Ö±½Ó´æ·ÅwStockID
+	{0		,	1,	0,'E',		1,	0},			// 0				é¡ºåº
+	{0x2	,	2,	6,'B',		6,	2},			// 10	+6Bit		é¡ºåº,6Bit+2
+	{0x3	,	2, 16,'D',		0,	0},			// 11	+16Bit		ç›´æ¥å­˜æ”¾wStockID
 };
 
-static BITCODE osVolCode[] =	//Á¿
+static BITCODE osVolCode[] =	//é‡
 {
 	{0x0	,	2, 0, 'E',	   2,	0},			// 00				= 0
-	{0x1	,	2, 12,'B',	   12,	0},			// 01	+12Bit		= »ù×¼+12Bit
-	{0x2	,	2, 16,'B',	   16,4096},		// 10	+16Bit		= »ù×¼+16Bit+4096
-	{0x6	,	3, 24,'B',	   24,69632},		// 110	+24Bit		= »ù×¼+24Bit+65536+4096
+	{0x1	,	2, 12,'B',	   12,	0},			// 01	+12Bit		= åŸºå‡†+12Bit
+	{0x2	,	2, 16,'B',	   16,4096},		// 10	+16Bit		= åŸºå‡†+16Bit+4096
+	{0x6	,	3, 24,'B',	   24,69632},		// 110	+24Bit		= åŸºå‡†+24Bit+65536+4096
 	{0x7	,	3, 32,'M',	    0,	0},			// 111  +32Bit		= 32Bit Org
 };
 
-static BITCODE osCountCode[] =	//µ¥Êı
+static BITCODE osCountCode[] =	//å•æ•°
 {
-	{0x0	,	1, 12,'B',	   12,	0},			// 0	+12Bit		= »ù×¼+12Bit
-	{0x2	,	2, 16,'B',	   16,4096},		// 10	+16Bit		= »ù×¼+16Bit+4096
+	{0x0	,	1, 12,'B',	   12,	0},			// 0	+12Bit		= åŸºå‡†+12Bit
+	{0x2	,	2, 16,'B',	   16,4096},		// 10	+16Bit		= åŸºå‡†+16Bit+4096
 	{0x3	,	2, 24,'D',	    0,  0},			// 11	+24Bit		= 24Bit Org
 };
 
 
-//Ñ¹ËõÖğ±ÊÎ¯ÍĞÍ³¼Æ
+//å‹ç¼©é€ç¬”å§”æ‰˜ç»Ÿè®¡
 BOOL CompressL2OrderStat(WORD wMarket,const DC_SZL2_ORDER_STAT* pStat,BYTE* pBuf,int& nBufSize)
 {
 	BOOL bRet = FALSE;

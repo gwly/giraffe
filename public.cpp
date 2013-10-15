@@ -15,7 +15,7 @@
 #include <unistd.h>
 #endif
 
-//»ñÈ¡ÎÄ¼şÄÚÈİ£¬²ÉÓÃmalloc¶¯Ì¬·ÖÅäÄÚ´æÀ´±£´æÎÄ¼şÄÚÈİ£¬µ÷ÓÃÕßĞèÒª×Ô¼ºÊÍ·Å¸ÃÄÚ´æ
+//è·å–æ–‡ä»¶å†…å®¹ï¼Œé‡‡ç”¨mallocåŠ¨æ€åˆ†é…å†…å­˜æ¥ä¿å­˜æ–‡ä»¶å†…å®¹ï¼Œè°ƒç”¨è€…éœ€è¦è‡ªå·±é‡Šæ”¾è¯¥å†…å­˜
 char* GetFileContent(const char* pFile, int& iFileLen)
 {
     iFileLen = 0;
@@ -64,7 +64,7 @@ char* GetFileContent(const char* pFile, int& iFileLen)
 }
 
 
-//¼ÆËãdidÄ£°åÎÄ¼şµÄcrc
+//è®¡ç®—didæ¨¡æ¿æ–‡ä»¶çš„crc
 unsigned int CalcFileCrc(const char* pFile)
 {
     int iFileLen = 0;
@@ -79,7 +79,7 @@ unsigned int CalcFileCrc(const char* pFile)
     return -1;
 }
 
-/*Çó±ÈÄ³Ò»Öµ´óµÄ×îĞ¡ËØÊıµÄËã·¨*/
+/*æ±‚æ¯”æŸä¸€å€¼å¤§çš„æœ€å°ç´ æ•°çš„ç®—æ³•*/
 int GetPrimeNumber(const int nBase)
 {
     int PrimeNumber=0, i,nLimit,iSqrt;
@@ -97,11 +97,11 @@ int GetPrimeNumber(const int nBase)
         for ( i = 3; i<= iSqrt; i+=2 )
         {
             if((0 == PrimeNumber % i))
-                break;/*nPrimeNumber²»ÊÇËØÊı*/
+                break;/*nPrimeNumberä¸æ˜¯ç´ æ•°*/
         }
 
         if(i > iSqrt)
-            break;/*ËØÊıÒÑ¾­ÕÒµ½,PrimeNumber¿Ï¶¨ÊÇËØÊı*/
+            break;/*ç´ æ•°å·²ç»æ‰¾åˆ°,PrimeNumberè‚¯å®šæ˜¯ç´ æ•°*/
     }
 
     return PrimeNumber;

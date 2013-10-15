@@ -38,10 +38,10 @@ const unsigned short crctab16[] =
     0x7bc7, 0x6a4e, 0x58d5, 0x495c, 0x3de3, 0x2c6a, 0x1ef1, 0x0f78,
 };
     
-// ¼ÆËã¸ø¶¨³¤¶ÈÊı¾İµÄ16Î»CRC¡£
+// è®¡ç®—ç»™å®šé•¿åº¦æ•°æ®çš„16ä½CRCã€‚
 unsigned short GetCrc16(const unsigned char* pData, int nLength)
 {
-    unsigned short wFcs = 0xffff;    // ³õÊ¼»¯
+    unsigned short wFcs = 0xffff;    // åˆå§‹åŒ–
     
     while(nLength>0)
     {
@@ -50,5 +50,5 @@ unsigned short GetCrc16(const unsigned char* pData, int nLength)
         pData++;
     }
     
-    return ~wFcs;    // È¡·´
+    return ~wFcs;    // å–å
 }

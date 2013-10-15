@@ -9,12 +9,12 @@
 
 
  ** 
- * @brief ÆôÓÃ»ò½ûÓÃÓÑºÃµÄÒì³£´¦Àí
+ * @brief å¯ç”¨æˆ–ç¦ç”¨å‹å¥½çš„å¼‚å¸¸å¤„ç†
  * 
- * ÆôÓÃÓÑºÃÒì³£´¦ÀíÊ±£¬³ÌÐòÊ¹ÓÃ SetUnhandledExceptionFilter ²¶»ñËùÓÐ
- * Î´´¦ÀíµÄÒì³££¬Í¨¹ý Windows DbgHelp µÄÏà¹Ø¹¦ÄÜ£¬Éú³ÉÒì³£µÄ»·¾³×ª´¢£¬
- * ÊÕ¼¯°æ±¾µÈÐÅÏ¢£¬½«ÆäÌá½»¸ø·þÎñÆ÷±£´æ¡£
+ * å¯ç”¨å‹å¥½å¼‚å¸¸å¤„ç†æ—¶ï¼Œç¨‹åºä½¿ç”¨ SetUnhandledExceptionFilter æ•èŽ·æ‰€æœ‰
+ * æœªå¤„ç†çš„å¼‚å¸¸ï¼Œé€šè¿‡ Windows DbgHelp çš„ç›¸å…³åŠŸèƒ½ï¼Œç”Ÿæˆå¼‚å¸¸çš„çŽ¯å¢ƒè½¬å‚¨ï¼Œ
+ * æ”¶é›†ç‰ˆæœ¬ç­‰ä¿¡æ¯ï¼Œå°†å…¶æäº¤ç»™æœåŠ¡å™¨ä¿å­˜ã€‚
  *
- * @param bEnable ÊÇ·ñÆôÓÃ 
+ * @param bEnable æ˜¯å¦å¯ç”¨ 
  */
 void EnableFriendllyExceptionHandle(BOOL bEnable);

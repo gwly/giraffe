@@ -61,7 +61,7 @@ int ExtractDC::ExtractData(int dc_type, const unsigned char *pbufsrc, int bufsiz
 			nRet = sizeof(DC_STKDYNA)+(nNum-1)*sizeof(STK_DYNA);
 			pDestDyna->m_nNum = nNum;
 		}
-		else if(nNum==-3)	//Ğ£Ñé´íÎó
+		else if(nNum==-3)	//æ ¡éªŒé”™è¯¯
 		{
 			nRet = -3;
 		}
@@ -228,7 +228,7 @@ BOOL ExtractDC::ExtractStaticStream(STK_STATIC* pStatic,WORD& wStockID,DWORD& dw
 	memset(pStatic,0,sizeof(STK_STATIC));
 	m_stream.SaveCurrentPos();
 
-	try	//¿ªÊ¼½âÂë
+	try	//å¼€å§‹è§£ç 
 	{
 		//StockID
 //		cout<<"CPS_STATIC_HEAD::SEQ_ID:"<<CPS_STATIC_HEAD::SEQ_ID<<endl;
@@ -245,16 +245,16 @@ BOOL ExtractDC::ExtractStaticStream(STK_STATIC* pStatic,WORD& wStockID,DWORD& dw
 		}
 		wStockID = pStatic->m_wStkID;
 //        cout<<"static stkid:"<<pStatic->m_wStkID<<endl;
-		//´úÂë
+		//ä»£ç 
 		m_stream.SETBITCODE(labelCode);
 		dw = m_stream.DecodeStringData(str,sizeof(str),dwLastLabel);
 		strcpy(pStatic->m_strLabel,str);
 //        cout<<"static lable:"<<pStatic->m_strLabel<<endl;
-		//×òÊÕ
+		//æ˜¨æ”¶
 		m_stream.SETBITCODE(priceCode);
 		pStatic->m_dwLastClose = m_stream.DecodeData();
 //        cout<<"static lastclose:"<<pStatic->m_dwLastClose<<endl;
-		//ÕÇÍ£
+		//æ¶¨åœ
 		m_stream.SETBITCODE(updnPriceCode);
 		dwBase = pStatic->m_dwLastClose*11/10;
 		pStatic->m_dwAdvStop = m_stream.DecodeData(&dwBase);
@@ -265,7 +265,7 @@ BOOL ExtractDC::ExtractStaticStream(STK_STATIC* pStatic,WORD& wStockID,DWORD& dw
 		else if(pStatic->m_dwAdvStop==9999997+dwBase)
 			pStatic->m_dwAdvStop = 99999000;
 //        cout<<"static advstop:"<<pStatic->m_dwAdvStop<<endl;
-		//µøÍ£
+		//è·Œåœ
 		dwBase = pStatic->m_dwLastClose*9/10;
 		pStatic->m_dwDecStop = m_stream.DecodeData(&dwBase);
 		if(pStatic->m_dwDecStop==9999999+dwBase)
@@ -278,25 +278,25 @@ BOOL ExtractDC::ExtractStaticStream(STK_STATIC* pStatic,WORD& wStockID,DWORD& dw
 
 		if(m_pStaticHead->m_cAttrib&CPS_STATIC_HEAD::FULLDATA)
 		{
-			//Ãû³Æ
+			//åç§°
 			m_stream.GetString(str,sizeof(str));
 			strncpy(pStatic->m_strName,str,sizeof(pStatic->m_strName)-1);
 
-			//ÀàĞÍ
+			//ç±»å‹
 			pStatic->m_cType = (BYTE)m_stream.Get(6);
 
-			//¼Û¸ñ×îĞ¡·Ö±æÂÊ
+			//ä»·æ ¼æœ€å°åˆ†è¾¨ç‡
 			m_stream.SETBITCODE(priceDigitCode);
 			pStatic->m_nPriceDigit = (BYTE)m_stream.DecodeData();
 
-			//³É½»Á¿µ¥Î»
+			//æˆäº¤é‡å•ä½
 			m_stream.SETBITCODE(volUnitCode);
 			pStatic->m_nVolUnit = (short)m_stream.DecodeData();
 
-			//Á÷Í¨¹É±¾
+			//æµé€šè‚¡æœ¬
 			m_stream.SETBITCODE(issudeCode);
 			pStatic->m_mFloatIssued = m_stream.DecodeMWordData();
-			//×Ü¹É±¾
+			//æ€»è‚¡æœ¬
 			pStatic->m_mTotalIssued = m_stream.DecodeMWordData();
 		}
 		else
@@ -323,7 +323,7 @@ BOOL ExtractDC::ExtractStaticStream(STK_STATIC* pStatic,WORD& wStockID,DWORD& dw
 	memset(pDyna,0,sizeof(STK_DYNA));
 	stream.SaveCurrentPos();
 	/*cout<<"dyna stream"<<endl;*/
-	try	//¿ªÊ¼½âÂë
+	try	//å¼€å§‹è§£ç 
 	{
 		DWORD dw1Head = stream.Get(m_compressType_==TICK?3:5);
 		int nNumPrice = (dw1Head>>2)&0x7;
@@ -370,7 +370,7 @@ BOOL ExtractDC::ExtractStaticStream(STK_STATIC* pStatic,WORD& wStockID,DWORD& dw
 		}
 		if(pStatic)
 		{
-			//Ê±¼ä
+			//æ—¶é—´
 			if(m_compressType_==TICK || (m_cHeadAttr_&CPS_DYNA_HEAD::HAS_TIME_BIAS))
 			{
 				stream.SETBITCODE(timeCode);
@@ -382,7 +382,7 @@ BOOL ExtractDC::ExtractStaticStream(STK_STATIC* pStatic,WORD& wStockID,DWORD& dw
 
 			if(!bOnlyMMP)
 			{
-				//³Ö²ÖÁ¿,³É½»±ÊÊı
+				//æŒä»“é‡,æˆäº¤ç¬”æ•°
 				if(IsFuture() || IsFutureIndex())
 				{
 					stream.SETBITCODE(oiCode);
@@ -405,7 +405,7 @@ BOOL ExtractDC::ExtractStaticStream(STK_STATIC* pStatic,WORD& wStockID,DWORD& dw
 
 				}
 
-				//¼Û¸ñ(×îĞÂ/×îµÍ/×î¸ß/¿ªÅÌ)
+				//ä»·æ ¼(æœ€æ–°/æœ€ä½/æœ€é«˜/å¼€ç›˜)
 				if(nNumPrice)
 				{
 					if(pOldDyna)
@@ -423,7 +423,7 @@ BOOL ExtractDC::ExtractStaticStream(STK_STATIC* pStatic,WORD& wStockID,DWORD& dw
 					}
 				}
 
-				//³É½»Á¿
+				//æˆäº¤é‡
 				if(bHasVolAmount)
 				{
 					if(IsHKSec())
@@ -462,7 +462,7 @@ BOOL ExtractDC::ExtractStaticStream(STK_STATIC* pStatic,WORD& wStockID,DWORD& dw
 						pDyna->m_mInnerVol = stream.DecodeMWordData();
 					}
 
-					//³É½»¶î
+					//æˆäº¤é¢
 					if(HasAmount())
 					{
 						if(pOldDyna)
@@ -487,7 +487,7 @@ BOOL ExtractDC::ExtractStaticStream(STK_STATIC* pStatic,WORD& wStockID,DWORD& dw
 				}
 			}
 
-			//ÂòÂôÅÌ
+			//ä¹°å–ç›˜
 			if((IsFuture()||IsFExg()) && bHasMMP)
 			{
 //			    cout<<"future:MMP:"<<endl;
@@ -543,10 +543,10 @@ BOOL ExtractDC::ExtractStaticStream(STK_STATIC* pStatic,WORD& wStockID,DWORD& dw
 				DWORD dwVolPos = 0;
 				if(pOldDyna)
 				{
-					//Ïà¹ØÑ¹Ëõ£¬ÂòÂôÅÌ¼Û¸ñ
+					//ç›¸å…³å‹ç¼©ï¼Œä¹°å–ç›˜ä»·æ ¼
 					if(IsHKSec())
 					{
-						if(!stream.Get(1))	//ÂòÂôÅÌ¼Û¸ñÎŞ±ä»¯;
+						if(!stream.Get(1))	//ä¹°å–ç›˜ä»·æ ¼æ— å˜åŒ–;
 						{
 							memcpy(dwMMP,dwLastMMP,sizeof(dwMMP));
 							bHasMMPPrice = FALSE;
@@ -565,11 +565,11 @@ BOOL ExtractDC::ExtractStaticStream(STK_STATIC* pStatic,WORD& wStockID,DWORD& dw
 							bHasMMPPrice = FALSE;
 							memcpy(dwMMP,dwLastMMP,sizeof(dwMMP));
 						}
-						else if(dw!=(DWORD)-2)		//½â³ö¼Û¸ñ
+						else if(dw!=(DWORD)-2)		//è§£å‡ºä»·æ ¼
 						{
 							bHasMMPPrice = FALSE;
 							memcpy(dwMMP,dwLastMMP,sizeof(dwMMP));
-							if(dw!=(DWORD)-1)		//¼Û¸ñÓĞ±ä¶¯
+							if(dw!=(DWORD)-1)		//ä»·æ ¼æœ‰å˜åŠ¨
 							{
 								stream.SETBITCODE(mmpInsCode);
 
@@ -586,13 +586,13 @@ BOOL ExtractDC::ExtractStaticStream(STK_STATIC* pStatic,WORD& wStockID,DWORD& dw
 						}
 					}
 
-					//ÂòÂôÅÌÁ¿ÊıÁ¿¼°·Ö²¼
+					//ä¹°å–ç›˜é‡æ•°é‡åŠåˆ†å¸ƒ
 					stream.SETBITCODE(mmpVolPosDiffCode);
 					dwVolPos = stream.DecodeData();
 				}
-				if(bHasMMPPrice)	//ÂòÂôÅÌ¼Û¸ñÍêÕû±àÂë
+				if(bHasMMPPrice)	//ä¹°å–ç›˜ä»·æ ¼å®Œæ•´ç¼–ç 
 				{
-					//ÂòÂôÅÌÊıÁ¿
+					//ä¹°å–ç›˜æ•°é‡
 					stream.SETBITCODE(mmpPriceNumCode);
 					dw = stream.DecodeData();
 					if(dw&0x40)
@@ -623,7 +623,7 @@ BOOL ExtractDC::ExtractStaticStream(STK_STATIC* pStatic,WORD& wStockID,DWORD& dw
 
 					if(IsHKSec())
 					{
-						//¼Û²î±àÂë
+						//ä»·å·®ç¼–ç 
 						dwBase = GetDefaultHKSpread(pDyna->m_dwNew);
 						DWORD dwBuySpread=dwBase,dwSellSpread=dwBase;
 						dw = stream.Get(1);
@@ -659,14 +659,14 @@ BOOL ExtractDC::ExtractStaticStream(STK_STATIC* pStatic,WORD& wStockID,DWORD& dw
 					}
 					else
 					{
-						//GapÎ»ÖÃ£¬ÊıÁ¿
+						//Gapä½ç½®ï¼Œæ•°é‡
 						if(pOldDyna)
 							stream.SETBITCODE(mmpDiffGapPosCode);
 						else
 							stream.SETBITCODE(mmpGapPosCode);
 						DWORD dwGap = stream.DecodeData();
 
-						//ÂòÂôÅÌÎ»ÖÃ(ÓÃÓÚ¶¨Î»Âò1»òÕßÂô1(ÎŞÂòÅÌµÄÇé¿ö)´óĞ¡)
+						//ä¹°å–ç›˜ä½ç½®(ç”¨äºå®šä½ä¹°1æˆ–è€…å–1(æ— ä¹°ç›˜çš„æƒ…å†µ)å¤§å°)
 						int nBase = 4;
 						stream.SETBITCODE(mmpPosCode);
 						DWORD dwBasePrice = stream.DecodeData(&pDyna->m_dwNew);
@@ -679,7 +679,7 @@ BOOL ExtractDC::ExtractStaticStream(STK_STATIC* pStatic,WORD& wStockID,DWORD& dw
 							nBase = 5;
 						dwMMP[nBase] = dwBasePrice;
 
-						//ÂòÂôÅÌGap
+						//ä¹°å–ç›˜Gap
 						stream.SETBITCODE(mmpGapCode);
 						for(i=nBase;i<9;i++)
 						{
@@ -697,7 +697,7 @@ BOOL ExtractDC::ExtractStaticStream(STK_STATIC* pStatic,WORD& wStockID,DWORD& dw
 						}
 					}
 				}
-				//ÂòÂôÅÌÁ¿
+				//ä¹°å–ç›˜é‡
 				if(dwVolPos)
 				{
 					if(IsHKSec())
@@ -735,7 +735,7 @@ BOOL ExtractDC::ExtractStaticStream(STK_STATIC* pStatic,WORD& wStockID,DWORD& dw
 				}
 				if(pOldDyna)
 				{
-					if(dwMMPError&2)	//Ö±½Ó°´ÕÕÎ»ÖÃ½âÂë
+					if(dwMMPError&2)	//ç›´æ¥æŒ‰ç…§ä½ç½®è§£ç 
 					{
 						for(i=0;i<10;i++)
 							dwMMPVol[i] += dwLastMMPVol[i];
@@ -892,16 +892,16 @@ int ExtractDC::ExpandL2MMPEx(const BYTE* pData,int nDataLen,SH_L2_MMPEX* pMMPExB
 				//ID
 				pCur->m_wStkID = (WORD)stream.Get(16);
 
-				//»ù¼Û
+				//åŸºä»·
 				stream.SETBITCODE(lastCloseCode);
 				DWORD dwLastClose = stream.DecodeData();
 
-				//Æ½¾ùÂòÂô¼Û
+				//å¹³å‡ä¹°å–ä»·
 				stream.SETBITCODE(dynaPriceCode);
 				pCur->m_dwAvgBuyPrice = stream.DecodeData(&dwLastClose);
 				pCur->m_dwAvgSellPrice = stream.DecodeData(&dwLastClose);
 
-				//Æ½¾ùÂòÂôÁ¿
+				//å¹³å‡ä¹°å–é‡
 				stream.SETBITCODE(volCode);
 				pCur->m_mAllBuyVol = stream.DecodeMWordData();
 				pCur->m_mAllSellVol = stream.DecodeMWordData();
@@ -910,7 +910,7 @@ int ExtractDC::ExpandL2MMPEx(const BYTE* pData,int nDataLen,SH_L2_MMPEX* pMMPExB
 				memset(dwMMP,0,sizeof(dwMMP));
 				memset(dwMMPVol,0,sizeof(dwMMPVol));
 
-				//ÂòÂôÅÌÊıÁ¿
+				//ä¹°å–ç›˜æ•°é‡
 				stream.SETBITCODE(mmpPriceNumCode);
 				dw = stream.DecodeData();
 
@@ -919,11 +919,11 @@ int ExtractDC::ExpandL2MMPEx(const BYTE* pData,int nDataLen,SH_L2_MMPEX* pMMPExB
 
 				if(nNumBuy || nNumSell)
 				{
-					//ÂòÂôÅÌGapÎ»ÖÃ
+					//ä¹°å–ç›˜Gapä½ç½®
 					stream.SETBITCODE(mmpGapPosCode);
 					DWORD dwGap = stream.DecodeData();
 
-					//ÂòÂôÅÌÎ»ÖÃ(ÓÃÓÚ¶¨Î»Âò1»òÕßÂô1(ÎŞÂòÅÌµÄÇé¿ö)´óĞ¡)
+					//ä¹°å–ç›˜ä½ç½®(ç”¨äºå®šä½ä¹°1æˆ–è€…å–1(æ— ä¹°ç›˜çš„æƒ…å†µ)å¤§å°)
 					if(nNumBuy)
 						j = 4;
 					else
@@ -931,7 +931,7 @@ int ExtractDC::ExpandL2MMPEx(const BYTE* pData,int nDataLen,SH_L2_MMPEX* pMMPExB
 					stream.SETBITCODE(dynaPriceCode);
 					dwMMP[j] = stream.DecodeData(&dwLastClose);
 
-					//ÂòÂôÅÌGap
+					//ä¹°å–ç›˜Gap
 					stream.SETBITCODE(mmpGapCode);
 					for(i=j;i<9 && i<4+nNumSell;i++)
 					{

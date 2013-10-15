@@ -3,7 +3,7 @@
 	filename: 	dzh_time_t.cpp
 	author:		fu.changyou
 	
-	purpose:	´óÖÇ»ÛÊ±¼äµÄÊµÏÖ
+	purpose:	å¤§æ™ºæ…§æ—¶é—´çš„å®ç°
 *********************************************************************/
 #include "stdafx.h"
 #include "dzh_time_t.h"
@@ -28,7 +28,7 @@
 #define SAFE_STRNCPY(x, y, z) (((x) != NULL && (y) != NULL) ? strncpy((x), (y), (z)) : "")
 #define SAFE_MEMCPY(x, y, z) (((x) != NULL && (y) != NULL) ? memcpy((x), (y), (z)) : "")
 
-//¼ÆËãÁ½¸öÊıÖĞÓĞ¶àÉÙ¸öÊıÄÜ±»Ä³Ò»¸öÊıÕû³ı
+//è®¡ç®—ä¸¤ä¸ªæ•°ä¸­æœ‰å¤šå°‘ä¸ªæ•°èƒ½è¢«æŸä¸€ä¸ªæ•°æ•´é™¤
 int CalcDivisbleNum(int iStart, int iEnd, int iBase)
 {
     int iDiff = iEnd - iStart;
@@ -48,13 +48,13 @@ static BYTE day_tab[2][12]={{31,28,31,30,31,30,31,31,30,31,30,31},{31,29,31,30,3
 #define MAX_DZH_TIME_YEAR   557844 
 #define MAX_MILLISECOND     999
 #define MAX_MICROSECOND     999
-#define WEEK_DAY_1900_1_1       1               //1900Äê1ÔÂ1ÈÕÎªĞÇÆÚÒ»
+#define WEEK_DAY_1900_1_1       1               //1900å¹´1æœˆ1æ—¥ä¸ºæ˜ŸæœŸä¸€
 #define VALID_MONTH(x)      ((x)>0 && (x)<13)   //[1,12]
 #define VALID_HOUR(x)       ((x)>=0 && (x)<24)  //[0,23]
 #define VALID_MINUTE(x)     ((x)>=0 && (x)<=59) //[0,59]
 #define VALID_SECOND(x)     ((x)>=0 && (x)<=59) //[0,59]
 #define IS_LEAP_YEAR(x)     (((x)%4==0 && (x)%100!=0) || (x)%400==0)
-#define CALC_LEAP_YEAR_NUM(x, y) (CalcDivisbleNum((x), (y)-1, 4) - CalcDivisbleNum((x), (y)-1, 100) + CalcDivisbleNum((x), (y)-1, 400)) //¼ÆËãÁ½¸öÄê·İÖ®¼äÓĞ¶àÉÙ¸öÈòÄê,²»°üº¬½áÊøÄê·İ[x, y)
+#define CALC_LEAP_YEAR_NUM(x, y) (CalcDivisbleNum((x), (y)-1, 4) - CalcDivisbleNum((x), (y)-1, 100) + CalcDivisbleNum((x), (y)-1, 400)) //è®¡ç®—ä¸¤ä¸ªå¹´ä»½ä¹‹é—´æœ‰å¤šå°‘ä¸ªé—°å¹´,ä¸åŒ…å«ç»“æŸå¹´ä»½[x, y)
 
 #ifdef _WIN32
 #define YEAR_SECOND         31536000i64   //365*24*3600
@@ -74,11 +74,11 @@ static BYTE day_tab[2][12]={{31,28,31,30,31,30,31,31,30,31,30,31},{31,29,31,30,3
 #define DAY_BIAS_1900_1970      25567ll        //days from 1900/1/1 to 1970/1/1
 #endif
 //FT nt_time;
-//·µ»Ø1601Äê1ÔÂ1ÈÕÖÁ½ñµÄ100ÄÉÃëÊı
+//è¿”å›1601å¹´1æœˆ1æ—¥è‡³ä»Šçš„100çº³ç§’æ•°
 //GetSystemTimeAsFileTime( &(nt_time.ft_struct) );
 
 
-//Ëø
+//é”
 class CDzhTimeLock 
 {
 #ifdef _WIN32
@@ -99,7 +99,7 @@ private:
     pthread_mutex_t m_Mutex;
 #endif
 };
-CDzhTimeLock g_DzhTimeLockXXX;  //´óÖÇ»ÛÊ±¼äËø
+CDzhTimeLock g_DzhTimeLockXXX;  //å¤§æ™ºæ…§æ—¶é—´é”
 
 struct TDzhTimeStrStruct 
 {
@@ -114,7 +114,7 @@ struct TDzhTimeStrStruct
     TDzhTimeStrStruct(){memset(this, 0x0, sizeof(TDzhTimeStrStruct));}
 };
 
-//ÅĞ¶ÏÊÇ·ñÎªÊı×Ö
+//åˆ¤æ–­æ˜¯å¦ä¸ºæ•°å­—
 bool IsNumberStrForTime(const char* pStr)
 {
     if (NULL == pStr)
@@ -134,7 +134,7 @@ bool IsNumberStrForTime(const char* pStr)
     return true;
 }
 
-//ÅĞ¶ÏÊÇ·ñÎªÊı×Ö
+//åˆ¤æ–­æ˜¯å¦ä¸ºæ•°å­—
 bool IsDzhTimeStr(const char* pStr, TDzhTimeNumStruct& tNumDzhTime)
 {
     char* p = (char*)pStr;
@@ -184,7 +184,7 @@ bool IsDzhTimeStr(const char* pStr, TDzhTimeNumStruct& tNumDzhTime)
         return false;
     }
 
-    //ÅĞ¶ÏÌì
+    //åˆ¤æ–­å¤©
     if (bLeapYear)
     {
         if (tTmpTime.uDay<=0 || tTmpTime.uDay > day_tab[1][tTmpTime.uMonth-1])
@@ -205,7 +205,7 @@ bool IsDzhTimeStr(const char* pStr, TDzhTimeNumStruct& tNumDzhTime)
     return true;
 }
 
-//´óÖÇ»ÛTMÊ±¼ä×ª»»³É´óÖÇ»ÛÊ±¼ä
+//å¤§æ™ºæ…§TMæ—¶é—´è½¬æ¢æˆå¤§æ™ºæ…§æ—¶é—´
 dzh_time_t dzh_time_t::DzhTimeNumStruct2DzhTime(const struct TDzhTimeNumStruct& tTimeStruct)
 {
     dzh_time_t dzhTime;
@@ -223,7 +223,7 @@ dzh_time_t dzh_time_t::DzhTimeNumStruct2DzhTime(const struct TDzhTimeNumStruct& 
         return dzhTime;
     }
 
-    //ÅĞ¶ÏÌì
+    //åˆ¤æ–­å¤©
     if (bLeapYear)
     {
         if (tTimeStruct.uDay<=0 || tTimeStruct.uDay > day_tab[1][tTimeStruct.uMonth-1])
@@ -257,19 +257,19 @@ dzh_time_t dzh_time_t::DzhTimeNumStruct2DzhTime(const struct TDzhTimeNumStruct& 
     return dzhTime;
 }
 
-//´«ÈëÒ»¸ödzh_time_t
+//ä¼ å…¥ä¸€ä¸ªdzh_time_t
 dzh_time_t::dzh_time_t(const dzh_time_t& uDzhTime)
 {
     this->_value = uDzhTime._value;
 }
 
-//¹¹ÔìÒ»¸ö¿ÕµÄ´óÖÇ»ÛÊ±¼ä
+//æ„é€ ä¸€ä¸ªç©ºçš„å¤§æ™ºæ…§æ—¶é—´
 dzh_time_t::dzh_time_t()
 {
     _value = 0;
 }
 
-//´«ÈëÒ»¸öUINT64
+//ä¼ å…¥ä¸€ä¸ªUINT64
 dzh_time_t::dzh_time_t(UINT64 uDzhTime)
 {
     _value = 0;
@@ -288,7 +288,7 @@ dzh_time_t::dzh_time_t(UINT64 uDzhTime)
     }
 }
 
-//·Ö±ğ´«ÈëÕûĞÎ±íÊ¾µÄÈÕÆÚºÍÊ±¼ä£¬Èçdzh_time_t(20121221,235959),±íÊ¾2012Äê12ÔÂ21ÈÕ23µã59·Ö59Ãë
+//åˆ†åˆ«ä¼ å…¥æ•´å½¢è¡¨ç¤ºçš„æ—¥æœŸå’Œæ—¶é—´ï¼Œå¦‚dzh_time_t(20121221,235959),è¡¨ç¤º2012å¹´12æœˆ21æ—¥23ç‚¹59åˆ†59ç§’
 dzh_time_t::dzh_time_t(UINT32 uDate, UINT32 uTime)
 {
     _value = 0;
@@ -304,7 +304,7 @@ dzh_time_t::dzh_time_t(UINT32 uDate, UINT32 uTime)
     *this = DzhTimeNumStruct2DzhTime(tNumStruct);
 }
 
-//´«Èë´óÖÇ»ÛµÄÃë¡¢ºÁÃë¡¢Î¢Ãî
+//ä¼ å…¥å¤§æ™ºæ…§çš„ç§’ã€æ¯«ç§’ã€å¾®å¦™
 dzh_time_t::dzh_time_t(UINT64 uSecFrom1900, WORD uMsec, WORD uUsec)
 {
     _value = 0;
@@ -320,9 +320,9 @@ dzh_time_t::dzh_time_t(UINT64 uSecFrom1900, WORD uMsec, WORD uUsec)
     }
 }
 
-/*´«Èë¾«È·µ½Î¢ÃîµÄÊ±¼ä£¬NULL±íÊ¾»ñÈ¡µ±Ç°Ê±¼ä, 
-    *¸ñÊ½ÎªYYYYMMDD24HMISS+3×Ö½ÚºÁÃë+3×Ö½ÚÎ¢Ãî,
-    *Èç20121212124039020099£¬±íÊ¾2012Äê12ÔÂ12ÈÕ 12Ê±40·Ö39Ãë 20ºÁÃë 99Î¢Ãî*/
+/*ä¼ å…¥ç²¾ç¡®åˆ°å¾®å¦™çš„æ—¶é—´ï¼ŒNULLè¡¨ç¤ºè·å–å½“å‰æ—¶é—´, 
+    *æ ¼å¼ä¸ºYYYYMMDD24HMISS+3å­—èŠ‚æ¯«ç§’+3å­—èŠ‚å¾®å¦™,
+    *å¦‚20121212124039020099ï¼Œè¡¨ç¤º2012å¹´12æœˆ12æ—¥ 12æ—¶40åˆ†39ç§’ 20æ¯«ç§’ 99å¾®å¦™*/
 dzh_time_t::dzh_time_t(const char* pTime/*=NULL*/, short iZoneMinutes/*=0*/)
 {
     _value = 0;
@@ -337,14 +337,14 @@ dzh_time_t::dzh_time_t(const char* pTime/*=NULL*/, short iZoneMinutes/*=0*/)
     }
 }
 
-//´«ÈëÒ»¸ötime_tÊ±¼ä
+//ä¼ å…¥ä¸€ä¸ªtime_tæ—¶é—´
 dzh_time_t::dzh_time_t(time_t &tTime)
 {
     _value = 0;
     Time2DzhTime(tTime);
 }
 
-//´«ÈëÒ»¸ötm½á¹¹£¬ÎªNULL±íÊ¾»ñÈ¡µ±Ç°Ê±¼ä
+//ä¼ å…¥ä¸€ä¸ªtmç»“æ„ï¼Œä¸ºNULLè¡¨ç¤ºè·å–å½“å‰æ—¶é—´
 dzh_time_t::dzh_time_t(struct tm* pTime, short iZoneMinutes/*=0*/)
 {
     _value = 0;
@@ -352,7 +352,7 @@ dzh_time_t::dzh_time_t(struct tm* pTime, short iZoneMinutes/*=0*/)
     SubSecond(iZoneMinutes*60);
 }
 
-//·Ö±ğ´«ÈëÄêÔÂÈÕÊ±·ÖÃë¼°ºÁÃëºÍÎ¢Ãî£¬Ğ¡Ê±¾ùÎª24Ğ¡Ê±ÖÆ
+//åˆ†åˆ«ä¼ å…¥å¹´æœˆæ—¥æ—¶åˆ†ç§’åŠæ¯«ç§’å’Œå¾®å¦™ï¼Œå°æ—¶å‡ä¸º24å°æ—¶åˆ¶
 dzh_time_t::dzh_time_t(const char* pYear, const char* pMonth, const char* pDay
     , const char* pHour, const char* pMinute, const char* pSecond
     , const char* pMsec/*=NULL*/, const char* pUsec/*=NULL*/, short iZoneMinutes/*=0*/)
@@ -386,7 +386,7 @@ dzh_time_t::dzh_time_t(const char* pYear, const char* pMonth, const char* pDay
     SubSecond(iZoneMinutes*60);
 }
 
-//·Ö±ğ´«ÈëÄêÔÂÈÕÊ±·ÖÃë¼°ºÁÃëºÍÎ¢Ãî£¬Ğ¡Ê±¾ùÎª24Ğ¡Ê±ÖÆ
+//åˆ†åˆ«ä¼ å…¥å¹´æœˆæ—¥æ—¶åˆ†ç§’åŠæ¯«ç§’å’Œå¾®å¦™ï¼Œå°æ—¶å‡ä¸º24å°æ—¶åˆ¶
 dzh_time_t::dzh_time_t(int y, int m, int d, int h, int minute, int s, int ms/*=0*/, int us/*=0*/, short iZoneMinutes/*=0*/)
 {
     _value = 0;
@@ -405,7 +405,7 @@ dzh_time_t::dzh_time_t(int y, int m, int d, int h, int minute, int s, int ms/*=0
 }
 
 
-//¸ñÊ½ÎªYYYYMMDD24HMISS+3×Ö½ÚºÁÃë+3×Ö½ÚÎ¢Ãî
+//æ ¼å¼ä¸ºYYYYMMDD24HMISS+3å­—èŠ‚æ¯«ç§’+3å­—èŠ‚å¾®å¦™
 void dzh_time_t::_StringToDzhTime(const char* pStr, short iZoneMinutes/*=0*/)
 {
     if (NULL == pStr)
@@ -425,7 +425,7 @@ void dzh_time_t::_StringToDzhTime(const char* pStr, short iZoneMinutes/*=0*/)
     SubSecond(iZoneMinutes*60);
 }
 
-//»ñÈ¡µ±Ç°Ê±¼ä,windows¾«È·µ½ºÁÃë£¬linux¾«È·µ½Î¢Ãë
+//è·å–å½“å‰æ—¶é—´,windowsç²¾ç¡®åˆ°æ¯«ç§’ï¼Œlinuxç²¾ç¡®åˆ°å¾®ç§’
 void dzh_time_t::_GetCurrentTime()
 {
     TDzhTimeNumStruct tTimeStruct;
@@ -456,7 +456,7 @@ void dzh_time_t::_GetCurrentTime()
     *this = DzhTimeNumStruct2DzhTime(tTimeStruct);
 }
 
-//½«time_t×ª»»³É´óÖÇ»ÛÊ±¼ä
+//å°†time_tè½¬æ¢æˆå¤§æ™ºæ…§æ—¶é—´
 void dzh_time_t::Time2DzhTime(time_t &tTime)
 {
     if (tTime < 0)
@@ -471,7 +471,7 @@ void dzh_time_t::Time2DzhTime(time_t &tTime)
     }
 }
 
-//½«tmÊ±¼ä×ª»»³É´óÖÇ»ÛÊ±¼ä
+//å°†tmæ—¶é—´è½¬æ¢æˆå¤§æ™ºæ…§æ—¶é—´
 void dzh_time_t::TM2DzhTime(struct tm* tmTime)    
 {
     if (NULL == tmTime)
@@ -488,12 +488,12 @@ void dzh_time_t::TM2DzhTime(struct tm* tmTime)
 		+ tmTime->tm_sec);
 
     if (tmTime->tm_isdst > 0)
-    {//ÏÄÁîÊ±
+    {//å¤ä»¤æ—¶
         SubSecond(3600);
     }
 }
 
-//½«´óÖÇ»ÛÊ±¼ä°´ÕÕÄ³ÖÖ¸ñÊ½×ª»»³É×Ö·û´®Ê±¼ä£¬Í¬Ê±Ö§³ÖÊ±Çø¼ÆËã£¬¼ÆËã·½·¨ÊÇÔÚ´óÖÇ»ÛÊ±¼äÉÏ¼ÓÉÏÊ±ÇøÆ«ÒÆÁ¿
+//å°†å¤§æ™ºæ…§æ—¶é—´æŒ‰ç…§æŸç§æ ¼å¼è½¬æ¢æˆå­—ç¬¦ä¸²æ—¶é—´ï¼ŒåŒæ—¶æ”¯æŒæ—¶åŒºè®¡ç®—ï¼Œè®¡ç®—æ–¹æ³•æ˜¯åœ¨å¤§æ™ºæ…§æ—¶é—´ä¸ŠåŠ ä¸Šæ—¶åŒºåç§»é‡
 const char* dzh_time_t::_FormatTimeToString(dzh_time_t& tTime
     , const char* fmt/* =STR_TIME_FORMAT_1 */
     , char* pOutBuffer/* = NULL*/
@@ -510,7 +510,7 @@ const char* dzh_time_t::_FormatTimeToString(dzh_time_t& tTime
         return NULL;
     }
 
-    //ÏÈ×öÊ±ÇøÆ«ÒÆ¼ÆËã
+    //å…ˆåšæ—¶åŒºåç§»è®¡ç®—
     t.secs += iZoneMinutes * 60;
     TDzhTimeStrStruct sTime;
     int iDays = (int)(t.secs / DAY_SECOND);  
@@ -524,7 +524,7 @@ const char* dzh_time_t::_FormatTimeToString(dzh_time_t& tTime
     char sUsec[7] = {0};
     sprintf(sUsec, "%03llu%03llu", t.msecs, t.usecs);
 
-    //¼ÆËãÄê·Ö
+    //è®¡ç®—å¹´åˆ†
     int iYearDays = 365;
     while (1)
     {
@@ -543,7 +543,7 @@ const char* dzh_time_t::_FormatTimeToString(dzh_time_t& tTime
         break;
     }
 
-    //¼ÆËãÔÂ·İ
+    //è®¡ç®—æœˆä»½
     int iTmp = IS_LEAP_YEAR(iYear) ? 1 : 0;
     while (1)
     {
@@ -576,13 +576,13 @@ const char* dzh_time_t::_FormatTimeToString(dzh_time_t& tTime
     }
     else
     {
-        //¼ÓËø£¬Ïß³Ì°²È«
+        //åŠ é”ï¼Œçº¿ç¨‹å®‰å…¨
         g_DzhTimeLockXXX.Lock();
         memset(sStrTime, 0x0, sizeof(sStrTime));
     }
-    char sSuffix[3] = {0}; //Ê±¼äºó×º£¬AM»òÕßPM
+    char sSuffix[3] = {0}; //æ—¶é—´åç¼€ï¼ŒAMæˆ–è€…PM
 
-    //¸ñÊ½»¯Ê±¼ä
+    //æ ¼å¼åŒ–æ—¶é—´
     while (*pFormat != '\0')
     {
         switch (*pFormat)
@@ -590,7 +590,7 @@ const char* dzh_time_t::_FormatTimeToString(dzh_time_t& tTime
         case '%':
             {
                 if (bTagFind)
-                {//¸ñÊ½´íÎó
+                {//æ ¼å¼é”™è¯¯
                     bSuccess = false;
                     goto FORMAT_TIME_END;
                 }
@@ -601,7 +601,7 @@ const char* dzh_time_t::_FormatTimeToString(dzh_time_t& tTime
         case 'Y':
             {
                 if (!bTagFind || iFreeSpace < 4)
-                {//¸ñÊ½´íÎó
+                {//æ ¼å¼é”™è¯¯
                     bSuccess = false;
                     goto FORMAT_TIME_END;
                 }
@@ -614,7 +614,7 @@ const char* dzh_time_t::_FormatTimeToString(dzh_time_t& tTime
         case 'y':
             {
                 if (!bTagFind || iFreeSpace < 2)
-                {//¸ñÊ½´íÎó
+                {//æ ¼å¼é”™è¯¯
                     bSuccess = false;
                     goto FORMAT_TIME_END;
                 }
@@ -629,7 +629,7 @@ const char* dzh_time_t::_FormatTimeToString(dzh_time_t& tTime
         case 'm':
             {
                 if (!bTagFind || iFreeSpace < 2)
-                {//¸ñÊ½´íÎó
+                {//æ ¼å¼é”™è¯¯
                     bSuccess = false;
                     goto FORMAT_TIME_END;
                 }
@@ -642,7 +642,7 @@ const char* dzh_time_t::_FormatTimeToString(dzh_time_t& tTime
         case 'd':
             {
                 if (!bTagFind || iFreeSpace < 2)
-                {//¸ñÊ½´íÎó
+                {//æ ¼å¼é”™è¯¯
                     bSuccess = false;
                     goto FORMAT_TIME_END;
                 }
@@ -655,7 +655,7 @@ const char* dzh_time_t::_FormatTimeToString(dzh_time_t& tTime
         case 'H':
             {
                 if (!bTagFind || iFreeSpace < 2)
-                {//¸ñÊ½´íÎó
+                {//æ ¼å¼é”™è¯¯
                     bSuccess = false;
                     goto FORMAT_TIME_END;
                 }
@@ -668,7 +668,7 @@ const char* dzh_time_t::_FormatTimeToString(dzh_time_t& tTime
         case 'h':
             {
                 if (!bTagFind || iFreeSpace < 4)
-                {//¸ñÊ½´íÎó
+                {//æ ¼å¼é”™è¯¯
                     bSuccess = false;
                     goto FORMAT_TIME_END;
                 }
@@ -690,7 +690,7 @@ const char* dzh_time_t::_FormatTimeToString(dzh_time_t& tTime
         case 'M':
             {
                 if (!bTagFind || iFreeSpace < 2)
-                {//¸ñÊ½´íÎó
+                {//æ ¼å¼é”™è¯¯
                     bSuccess = false;
                     goto FORMAT_TIME_END;
                 }
@@ -703,7 +703,7 @@ const char* dzh_time_t::_FormatTimeToString(dzh_time_t& tTime
         case 'S':
             {
                 if (!bTagFind || iFreeSpace < 2)
-                {//¸ñÊ½´íÎó
+                {//æ ¼å¼é”™è¯¯
                     bSuccess = false;
                     goto FORMAT_TIME_END;
                 }
@@ -718,24 +718,24 @@ const char* dzh_time_t::_FormatTimeToString(dzh_time_t& tTime
                 int iLen = pFormat - pFormatStart;
 
                 if (iLen != 3 && iLen != 1)
-                {//¸ñÊ½´íÎó
+                {//æ ¼å¼é”™è¯¯
                     bSuccess = false;
                     goto FORMAT_TIME_END;
                 }
 
                 int iDigit = SAFE_ATOI(pFormatStart+1);
                 if (iLen == 1)
-                {//%uµÄĞÎÊ½
+                {//%uçš„å½¢å¼
                     iDigit = 6;
                 }
                 if (iDigit > 6 || iDigit <= 0)
-                {//¸ñÊ½´íÎó
+                {//æ ¼å¼é”™è¯¯
                     bSuccess = false;
                     goto FORMAT_TIME_END;
                 }
 
                 if (iFreeSpace < iDigit)
-                {//¸ñÊ½´íÎó
+                {//æ ¼å¼é”™è¯¯
                     bSuccess = false;
                     goto FORMAT_TIME_END;
                 }
@@ -749,7 +749,7 @@ const char* dzh_time_t::_FormatTimeToString(dzh_time_t& tTime
         default:
             {
                 if ((bTagFind && (strlen(pFormat) < 3 || pFormat[2] != 'u')) || iFreeSpace < 1)
-                {//¸ñÊ½´íÎó
+                {//æ ¼å¼é”™è¯¯
                     bSuccess = false;
                     goto FORMAT_TIME_END;
                 }
@@ -780,7 +780,7 @@ FORMAT_TIME_END:
     return NULL;
 }
 
-//½«×Ö·û´®×ª»»³É´óÖÇ»ÛÊ±¼ä£¬Ö¸¶¨¸ñÊ½£¬²¢½øĞĞÊ±Çø¼ÆËã
+//å°†å­—ç¬¦ä¸²è½¬æ¢æˆå¤§æ™ºæ…§æ—¶é—´ï¼ŒæŒ‡å®šæ ¼å¼ï¼Œå¹¶è¿›è¡Œæ—¶åŒºè®¡ç®—
 dzh_time_t dzh_time_t::StringToTime(const char* pStr, const char* fmt, short iZoneMinutes/* = 0*/)
 {
     dzh_time_t t;
@@ -803,7 +803,7 @@ dzh_time_t dzh_time_t::StringToTime(const char* pStr, const char* fmt, short iZo
         case '%':
             {
                 if (bTagFind)
-                {//¸ñÊ½´íÎó
+                {//æ ¼å¼é”™è¯¯
                     bSuccess = false;
                     goto FORMAT_TIME_END;
                 }
@@ -814,13 +814,13 @@ dzh_time_t dzh_time_t::StringToTime(const char* pStr, const char* fmt, short iZo
             case 'Y':
                 {
                     if (!bTagFind || iUnDealLen < 4 || tTimeStruct.sYear[0] != '\0')
-                    {//¸ñÊ½´íÎó
+                    {//æ ¼å¼é”™è¯¯
                         bSuccess = false;
                         goto FORMAT_TIME_END;
                     }
                     SAFE_STRNCPY(tTimeStruct.sYear, pTime, 4);
                     if (!IsNumberStrForTime(tTimeStruct.sYear))
-                    {//¸ñÊ½´íÎó
+                    {//æ ¼å¼é”™è¯¯
                         bSuccess = false;
                         goto FORMAT_TIME_END;
                     }
@@ -832,14 +832,14 @@ dzh_time_t dzh_time_t::StringToTime(const char* pStr, const char* fmt, short iZo
             case 'y':
                 {
                     if (!bTagFind || iUnDealLen < 2 || tTimeStruct.sYear[0] != '\0')
-                    {//¸ñÊ½´íÎó
+                    {//æ ¼å¼é”™è¯¯
                         bSuccess = false;
                         goto FORMAT_TIME_END;
                     }
                     SAFE_STRCPY(tTimeStruct.sYear, "20");
                     SAFE_STRNCPY(tTimeStruct.sYear+2,  pTime, 2);
                     if (!IsNumberStrForTime(tTimeStruct.sYear))
-                    {//¸ñÊ½´íÎó
+                    {//æ ¼å¼é”™è¯¯
                         bSuccess = false;
                         goto FORMAT_TIME_END;
                     }
@@ -851,13 +851,13 @@ dzh_time_t dzh_time_t::StringToTime(const char* pStr, const char* fmt, short iZo
             case 'm':
                 {
                     if (!bTagFind || iUnDealLen < 2 || tTimeStruct.sMonth[0] != '\0')
-                    {//¸ñÊ½´íÎó
+                    {//æ ¼å¼é”™è¯¯
                         bSuccess = false;
                         goto FORMAT_TIME_END;
                     }
                     SAFE_STRNCPY(tTimeStruct.sMonth,  pTime, 2);
                     if (!IsNumberStrForTime(tTimeStruct.sMonth))
-                    {//¸ñÊ½´íÎó
+                    {//æ ¼å¼é”™è¯¯
                         bSuccess = false;
                         goto FORMAT_TIME_END;
                     }
@@ -869,13 +869,13 @@ dzh_time_t dzh_time_t::StringToTime(const char* pStr, const char* fmt, short iZo
             case 'd':
                 {
                     if (!bTagFind || iUnDealLen < 2 || tTimeStruct.sDay[0] != '\0')
-                    {//¸ñÊ½´íÎó
+                    {//æ ¼å¼é”™è¯¯
                         bSuccess = false;
                         goto FORMAT_TIME_END;
                     }
                     SAFE_STRNCPY(tTimeStruct.sDay,  pTime, 2);
                     if (!IsNumberStrForTime(tTimeStruct.sDay))
-                    {//¸ñÊ½´íÎó
+                    {//æ ¼å¼é”™è¯¯
                         bSuccess = false;
                         goto FORMAT_TIME_END;
                     }
@@ -887,13 +887,13 @@ dzh_time_t dzh_time_t::StringToTime(const char* pStr, const char* fmt, short iZo
             case 'H':
                 {
                     if (!bTagFind || iUnDealLen < 2 || tTimeStruct.sHour[0] != '\0')
-                    {//¸ñÊ½´íÎó
+                    {//æ ¼å¼é”™è¯¯
                         bSuccess = false;
                         goto FORMAT_TIME_END;
                     }
                     SAFE_STRNCPY(tTimeStruct.sHour,  pTime, 2);
                     if (!IsNumberStrForTime(tTimeStruct.sHour))
-                    {//¸ñÊ½´íÎó
+                    {//æ ¼å¼é”™è¯¯
                         bSuccess = false;
                         goto FORMAT_TIME_END;
                     }
@@ -905,14 +905,14 @@ dzh_time_t dzh_time_t::StringToTime(const char* pStr, const char* fmt, short iZo
             case 'h':
                 {
                     if (!bTagFind || iUnDealLen < 2 || tTimeStruct.sHour[0] != '\0')
-                    {//¸ñÊ½´íÎó
+                    {//æ ¼å¼é”™è¯¯
                         bSuccess = false;
                         goto FORMAT_TIME_END;
                     }
                     char sTmp[3] = {0};
                     SAFE_STRNCPY(sTmp,  pTime, 2);
                     if (!IsNumberStrForTime(sTmp) || SAFE_ATOI(sTmp) > 11)
-                    {//¸ñÊ½´íÎó
+                    {//æ ¼å¼é”™è¯¯
                         bSuccess = false;
                         goto FORMAT_TIME_END;
                     }
@@ -925,7 +925,7 @@ dzh_time_t dzh_time_t::StringToTime(const char* pStr, const char* fmt, short iZo
                         sprintf(tTimeStruct.sHour, "%02d", SAFE_ATOI(sTmp) + 12);
                     }
                     else
-                    {//¸ñÊ½´íÎó
+                    {//æ ¼å¼é”™è¯¯
                         bSuccess = false;
                         goto FORMAT_TIME_END;
                     }
@@ -937,13 +937,13 @@ dzh_time_t dzh_time_t::StringToTime(const char* pStr, const char* fmt, short iZo
             case 'M':
                 {
                     if (!bTagFind || iUnDealLen < 2 || tTimeStruct.sMinute[0] != '\0')
-                    {//¸ñÊ½´íÎó
+                    {//æ ¼å¼é”™è¯¯
                         bSuccess = false;
                         goto FORMAT_TIME_END;
                     }
                     SAFE_STRNCPY(tTimeStruct.sMinute,  pTime, 2);
                     if (!IsNumberStrForTime(tTimeStruct.sMinute))
-                    {//¸ñÊ½´íÎó
+                    {//æ ¼å¼é”™è¯¯
                         bSuccess = false;
                         goto FORMAT_TIME_END;
                     }
@@ -955,13 +955,13 @@ dzh_time_t dzh_time_t::StringToTime(const char* pStr, const char* fmt, short iZo
             case 'S':
                 {
                     if (!bTagFind || iUnDealLen < 2 || tTimeStruct.sSecond[0] != '\0')
-                    {//¸ñÊ½´íÎó
+                    {//æ ¼å¼é”™è¯¯
                         bSuccess = false;
                         goto FORMAT_TIME_END;
                     }
                     SAFE_STRNCPY(tTimeStruct.sSecond,  pTime, 2);
                     if (!IsNumberStrForTime(tTimeStruct.sSecond))
-                    {//¸ñÊ½´íÎó
+                    {//æ ¼å¼é”™è¯¯
                         bSuccess = false;
                         goto FORMAT_TIME_END;
                     }
@@ -974,14 +974,14 @@ dzh_time_t dzh_time_t::StringToTime(const char* pStr, const char* fmt, short iZo
                 {
                     int iLen = pFmt - pStart;
                     if ((iLen != 3 && iLen != 1) || tTimeStruct.sUsec[0] != '\0' || tTimeStruct.sMsec[0] != '\0')
-                    {//¸ñÊ½´íÎó
+                    {//æ ¼å¼é”™è¯¯
                         bSuccess = false;
                         goto FORMAT_TIME_END;
                     }
 
                     char sTmp[7] = {0};
                     if (iLen == 1)
-                    {//%uµÄÇé¿ö
+                    {//%uçš„æƒ…å†µ
                         for (iLen = 0; iLen < 6 && iLen < iUnDealLen; iLen++)
                         {
                             if (pTime[iLen] >= '0' && pTime[iLen]<='9')
@@ -991,17 +991,17 @@ dzh_time_t dzh_time_t::StringToTime(const char* pStr, const char* fmt, short iZo
                         }
                     }
                     else
-                    {//%0[1-6]uµÄÇé¿ö
+                    {//%0[1-6]uçš„æƒ…å†µ
                         char sLen[3] = {0};
                         SAFE_STRNCPY(sLen, pStart+1, 2);
                         if (!IsNumberStrForTime(sLen))
-                        {//¸ñÊ½´íÎó
+                        {//æ ¼å¼é”™è¯¯
                             bSuccess = false;
                             goto FORMAT_TIME_END;
                         }
                         iLen = SAFE_ATOI(sLen);
                         if (iLen < 1 || iLen > 6)
-                        {//¸ñÊ½´íÎó
+                        {//æ ¼å¼é”™è¯¯
                             bSuccess = false;
                             goto FORMAT_TIME_END;
                         }
@@ -1010,7 +1010,7 @@ dzh_time_t dzh_time_t::StringToTime(const char* pStr, const char* fmt, short iZo
                         iUnDealLen += 2;
                         SAFE_STRNCPY(sTmp, pTime, iLen);
                         if (!IsNumberStrForTime(sTmp))
-                        {//¸ñÊ½´íÎó
+                        {//æ ¼å¼é”™è¯¯
                             bSuccess = false;
                             goto FORMAT_TIME_END;
                         }
@@ -1031,7 +1031,7 @@ dzh_time_t dzh_time_t::StringToTime(const char* pStr, const char* fmt, short iZo
             default:
                 {
                     if (bTagFind && (iUnDealLen <3 || pFmt[2] != 'u'))
-                    {//¸ñÊ½´íÎó
+                    {//æ ¼å¼é”™è¯¯
                         bSuccess = false;
                         goto FORMAT_TIME_END;
                     }
@@ -1064,13 +1064,13 @@ FORMAT_TIME_END:
     return DzhTimeNumStruct2DzhTime(tTmpTime).SubSecond(iZoneMinutes * 60);
 }
 
-//½«´óÖÇ»ÛÊ±¼ä×ª»»³ÉTDzhTimeNumStruct
+//å°†å¤§æ™ºæ…§æ—¶é—´è½¬æ¢æˆTDzhTimeNumStruct
 struct TDzhTimeNumStruct dzh_time_t::DzhTM(dzh_time_t& t)
 {
     return t.DzhTM();
 }
 
-//×ª»»³Étime_t¸ñÊ½£¬»á¶ªÊ§ºÁÃëºÍÎ¢Ãë
+//è½¬æ¢æˆtime_tæ ¼å¼ï¼Œä¼šä¸¢å¤±æ¯«ç§’å’Œå¾®ç§’
 time_t dzh_time_t::ToTime()
 {
     if (_value == INVALID_DZH_TIME)
@@ -1081,7 +1081,7 @@ time_t dzh_time_t::ToTime()
 	return secs - SECOND_BIAS_1900_1970; 
 }
 
-//×ª»»³ÉGMTµÄtm¸ñÊ½£¬ tm_yday´æ·ÅµÄÊÇºÁÃëºÍÎ¢ÃëÖµ£¨ºÁÃë×Ô¶¯×ª»»³ÉÎ¢Ãë£©
+//è½¬æ¢æˆGMTçš„tmæ ¼å¼ï¼Œ tm_ydayå­˜æ”¾çš„æ˜¯æ¯«ç§’å’Œå¾®ç§’å€¼ï¼ˆæ¯«ç§’è‡ªåŠ¨è½¬æ¢æˆå¾®ç§’ï¼‰
 struct tm* dzh_time_t::ToGMTime(struct tm& tmTime)
 {
 	memset(&tmTime, 0x0, sizeof(tm));
@@ -1102,7 +1102,7 @@ struct tm* dzh_time_t::ToGMTime(struct tm& tmTime)
 	return &tmTime;
 }
 
-//×ª»»³É±¾µØÊ±¼ä£¬tm_yday´æ·ÅµÄÊÇºÁÃëºÍÎ¢ÃëÖµ£¨ºÁÃë×Ô¶¯×ª»»³ÉÎ¢Ãë£©,ºöÂÔÏÄÁîÊ±
+//è½¬æ¢æˆæœ¬åœ°æ—¶é—´ï¼Œtm_ydayå­˜æ”¾çš„æ˜¯æ¯«ç§’å’Œå¾®ç§’å€¼ï¼ˆæ¯«ç§’è‡ªåŠ¨è½¬æ¢æˆå¾®ç§’ï¼‰,å¿½ç•¥å¤ä»¤æ—¶
 struct tm* dzh_time_t::ToLocalTime(struct tm& tmTime, short iZoneMinutes/*=0*/)
 {
 	memset(&tmTime, 0x0, sizeof(tm));
@@ -1123,7 +1123,7 @@ struct tm* dzh_time_t::ToLocalTime(struct tm& tmTime, short iZoneMinutes/*=0*/)
 	return &tmTime;
 }
 
-//½«´óÖÇ»ÛÊ±¼ä×ª»»³ÉTDzhTimeNumStruct
+//å°†å¤§æ™ºæ…§æ—¶é—´è½¬æ¢æˆTDzhTimeNumStruct
 struct TDzhTimeNumStruct dzh_time_t::DzhTM()
 {
     TDzhTimeNumStruct tNumStruct;
@@ -1142,7 +1142,7 @@ struct TDzhTimeNumStruct dzh_time_t::DzhTM()
     iSec %= 60;
     tNumStruct.uWeekDay = (iDays + WEEK_DAY_1900_1_1) % 7;
 
-    //¼ÆËãÄê·Ö
+    //è®¡ç®—å¹´åˆ†
     int iYearDays = 365;
     while (1)
     {
@@ -1161,7 +1161,7 @@ struct TDzhTimeNumStruct dzh_time_t::DzhTM()
         break;
     }
 
-    //¼ÆËãÔÂ·İ
+    //è®¡ç®—æœˆä»½
     int iTmp = IS_LEAP_YEAR(iYear) ? 1 : 0;
     while (1)
     {
@@ -1419,7 +1419,7 @@ bool dzh_time_t::operator<=(const dzh_time_t& t) const
 
 bool dzh_time_t::operator>(const dzh_time_t& t) const
 {
-    //ÎŞĞ§Ê±¼ä¸úÓĞĞ§Ê±¼ä±È½Ï£¬ÓĞĞ§Ê±¼äÎª´ó
+    //æ— æ•ˆæ—¶é—´è·Ÿæœ‰æ•ˆæ—¶é—´æ¯”è¾ƒï¼Œæœ‰æ•ˆæ—¶é—´ä¸ºå¤§
     if (this->_value == INVALID_DZH_TIME && t._value != INVALID_DZH_TIME)
     {
         return false;
@@ -1443,7 +1443,7 @@ bool dzh_time_t::operator>(const dzh_time_t& t) const
 
 bool dzh_time_t::operator<(const dzh_time_t& t) const
 {
-    //ÎŞĞ§Ê±¼ä¸úÓĞĞ§Ê±¼ä±È½Ï£¬ÓĞĞ§Ê±¼äÎª´ó
+    //æ— æ•ˆæ—¶é—´è·Ÿæœ‰æ•ˆæ—¶é—´æ¯”è¾ƒï¼Œæœ‰æ•ˆæ—¶é—´ä¸ºå¤§
     if (this->_value == INVALID_DZH_TIME && t._value != INVALID_DZH_TIME)
     {
         return true;

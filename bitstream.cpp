@@ -220,7 +220,7 @@ const BITCODE* CBitStream::EncodeFindMatch(DWORD& dwData)
 			DWORD dw = dwData;
 			if(pCur->m_cCode=='b')
 			{
-				if(dwData&0x80000000)	//负数
+				if(dwData&0x80000000)	//璐熸暟
 				{
 					dw += pCur->m_dwDataBias;
 					DWORD dwMask = (0xFFFFFFFF<<(pCur->m_dwCodeData-1));
@@ -254,7 +254,7 @@ const BITCODE* CBitStream::EncodeFindMatch(DWORD& dwData)
 			}
 			else if(pCur->m_cCode=='m')
 			{
-				if(dwData&0x80000000)	//负数
+				if(dwData&0x80000000)	//璐熸暟
 				{
 					dw += pCur->m_dwDataBias;
 					DWORD dwMask = (0xFFFFFFFF<<pCur->m_dwCodeData);
@@ -287,7 +287,7 @@ const BITCODE* CBitStream::EncodeFindMatch(DWORD& dwData)
 						{
 							if((dw>>j)==1)
 							{
-								dw = j;		//返回位置
+								dw = j;		//杩斿洖浣嶇疆
 								pRet = pCur;
 							}
 							else
@@ -329,7 +329,7 @@ const BITCODE* CBitStream::DecodeFindMatch(DWORD& dw)
 		for(i=0;i<m_nNumCode;i++)
 		{
 			const BITCODE* pCur = m_pCodes+i;
-			if(pCur->m_wCodeBits == (dwNextCode>>(nCodeLen-pCur->m_nCodeLen)))	//找到
+			if(pCur->m_wCodeBits == (dwNextCode>>(nCodeLen-pCur->m_nCodeLen)))	//鎵惧埌
 			{
 				pCode = pCur;
 				break;
@@ -348,7 +348,7 @@ const BITCODE* CBitStream::DecodeFindMatch(DWORD& dw)
 			case 's':
 				break;
 			case 'b':
-				if(dw&(1<<(pCode->m_nDataLen-1)))	//负数
+				if(dw&(1<<(pCode->m_nDataLen-1)))	//璐熸暟
 					dw |= (0xFFFFFFFF<<pCode->m_nDataLen);
 				break;
 			case 'm':
@@ -574,7 +574,7 @@ float CBitStream::DecodeFloat(BOOL bCheck0=FALSE)
 	return fRet;
 }
 
-DWORD CBitStream::DecodeStringData(char* pBuf,int nBufSize,DWORD& dwLastData)						//如果解出数字Label，则返回该数字，否则返回0xFFFFFFFF,更新dwLastData
+DWORD CBitStream::DecodeStringData(char* pBuf,int nBufSize,DWORD& dwLastData)						//濡傛灉瑙ｅ嚭鏁板瓧Label锛屽垯杩斿洖璇ユ暟瀛楋紝鍚﹀垯杩斿洖0xFFFFFFFF,鏇存柊dwLastData
 {
 	DWORD dw = 0;
 	const BITCODE* pCode = DecodeFindMatch(dw);

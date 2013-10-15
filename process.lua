@@ -55,111 +55,111 @@ typedef struct MWORD
 enum DC_TYPE
 {
 	DCT_NUL = 0,
-	DCT_KEEPALIVE,			//<-->±£³ÖÁ¬½Ó1
-	DCT_LOGIN,				//<-->µÇÂ½ÒÔ¼°²ÉÊý»úÊôÐÔ	2
-	DCT_REQPASS,			//<-->ÒªÇóÓÃ»§ÃûÃÜÂëµÇÂ½3
-	DCT_USERnPASS,			//<-->ÓÃ»§ÃûÃÜÂë4
-	DCT_READY,				//-->µÇÂ½³É¹¦£¬¿ÉÒÔ½ÓÊÕÊý¾Ý5
-	DCT_RESEND,				//-->ÖØ·¢Êý¾Ý°ü6
-	DCT_STKSTATIC,			//<--¾²Ì¬Êý¾Ý7
-	DCT_STKDYNA,			//<--¶¯Ì¬ÐÐÇé8
-	DCT_SHL2_MMPEx,			//<--level2À©Õ¹ÂòÂôÅÌ9
-	DCT_SHL2_REPORT,		//<--level2·Ö±Ê³É½»10
-	DCT_SHL2_BIG_WD,		//<--level2¼´Ê±×î´ó³·µ¥11
-	DCT_SHL2_ACCU_WD,		//<--level2ÀÛ¼Æ×î´ó³·µ¥12
-	DCT_HK_STATIC,			//<--¸Û¹É¾²Ì¬13
-	DCT_HK_DYNA,			//<--¸Û¹É¶¯Ì¬14
-	DCT_XML,				//<--XML¸ñÊ½Êý¾Ý15
-	DCT_SHL2_QUEUE,			//<--ÂòÂôÅÌ¶ÓÁÐ£¬level2ÌØÓÐ16
-	DCT_GENERAL,			//<--Í¨ÓÃÊý¾Ý17
-	DCT_USERSTAT,			//-->ÓÃ»§ÊýÁ¿Í³¼Æ18
-	DCT_RAWDATA,			//<-->Ô­Ê¼Êý¾Ý19
-	DCT_NEWS,				//<--¹«¸æÐÂÎÅµÈÎÄ±¾ÀàÐÍÊý¾Ý20
-	DCT_SZL2_ORDER_QUEUE,	//<--Î¯ÍÐ¶ÓÁÐ£¬ÉîÛÚLevel2ÌØÓÐ21
-	DCT_SZL2_ORDER_STAT,	//<--Î¯ÍÐ¶ÓÁÐÍ³¼Æ£¬ÉîÛÚLevel2ÌØÓÐ22
+	DCT_KEEPALIVE,			//<-->卤拢鲁脰脕卢陆脫1
+	DCT_LOGIN,				//<-->碌脟脗陆脪脭录掳虏脡脢媒禄煤脢么脨脭	2
+	DCT_REQPASS,			//<-->脪陋脟贸脫脙禄搂脙没脙脺脗毛碌脟脗陆3
+	DCT_USERnPASS,			//<-->脫脙禄搂脙没脙脺脗毛4
+	DCT_READY,				//-->碌脟脗陆鲁脡鹿娄拢卢驴脡脪脭陆脫脢脮脢媒戮脻5
+	DCT_RESEND,				//-->脰脴路垄脢媒戮脻掳眉6
+	DCT_STKSTATIC,			//<--戮虏脤卢脢媒戮脻7
+	DCT_STKDYNA,			//<--露炉脤卢脨脨脟茅8
+	DCT_SHL2_MMPEx,			//<--level2脌漏脮鹿脗貌脗么脜脤9
+	DCT_SHL2_REPORT,		//<--level2路脰卤脢鲁脡陆禄10
+	DCT_SHL2_BIG_WD,		//<--level2录麓脢卤脳卯麓贸鲁路碌楼11
+	DCT_SHL2_ACCU_WD,		//<--level2脌脹录脝脳卯麓贸鲁路碌楼12
+	DCT_HK_STATIC,			//<--赂脹鹿脡戮虏脤卢13
+	DCT_HK_DYNA,			//<--赂脹鹿脡露炉脤卢14
+	DCT_XML,				//<--XML赂帽脢陆脢媒戮脻15
+	DCT_SHL2_QUEUE,			//<--脗貌脗么脜脤露脫脕脨拢卢level2脤脴脫脨16
+	DCT_GENERAL,			//<--脥篓脫脙脢媒戮脻17
+	DCT_USERSTAT,			//-->脫脙禄搂脢媒脕驴脥鲁录脝18
+	DCT_RAWDATA,			//<-->脭颅脢录脢媒戮脻19
+	DCT_NEWS,				//<--鹿芦赂忙脨脗脦脜碌脠脦脛卤戮脌脿脨脥脢媒戮脻20
+	DCT_SZL2_ORDER_QUEUE,	//<--脦炉脥脨露脫脕脨拢卢脡卯脹脷Level2脤脴脫脨21
+	DCT_SZL2_ORDER_STAT,	//<--脦炉脥脨露脫脕脨脥鲁录脝拢卢脡卯脹脷Level2脤脴脫脨22
 
-	DCT_SZL2_ORDER_FIVE=100,//<--Î¯ÍÐ¶ÓÁÐ¶à±ÊÃ÷Ï¸£¬ÉîÛÚLevel2ÌØÓÐ
-	DCT_SZL2_TRADE_FIVE=101,//<--³É½»,³·µ¥¶ÓÁÐ¶à±ÊÃ÷Ï¸£¬ÉîÛÚLevel2ÌØÓÐ
+	DCT_SZL2_ORDER_FIVE=100,//<--脦炉脥脨露脫脕脨露脿卤脢脙梅脧赂拢卢脡卯脹脷Level2脤脴脫脨
+	DCT_SZL2_TRADE_FIVE=101,//<--鲁脡陆禄,鲁路碌楼露脫脕脨露脿卤脢脙梅脧赂拢卢脡卯脹脷Level2脤脴脫脨
 };
 
 typedef struct DC_STKSTATIC_MY
 {
-	unsigned long	m_dwVersion;	//¾²Ì¬Êý¾Ý°æ±¾,Ã¿´Î¾²Ì¬Êý¾Ý·¢Éú±ä»¯Ôò±ØÐëÔö¼ÓÊýÖµ,Ã¿¸öÐÐÇéÔ´×îºÃÓÐÒ»¸öÏà¶Ô¶ÀÁ¢µÄ¸ßÎ»£¬ÕâÑù²»Í¬ÐÐÇéÔ´¾Í²»»áÓÐÏàÍ¬µÄ°æ±¾
-	unsigned short	m_wAttrib;		//°æ±¾ÊôÐÔ
-	unsigned int	m_nDay;			//¾²Ì¬¿âÈÕÆÚ£¬YYYYMMDD
-	short	m_nNum;			//m_dataÊýÁ¿
+	unsigned long	m_dwVersion;	//戮虏脤卢脢媒戮脻掳忙卤戮,脙驴麓脦戮虏脤卢脢媒戮脻路垄脡煤卤盲禄炉脭貌卤脴脨毛脭枚录脫脢媒脰碌,脙驴赂枚脨脨脟茅脭麓脳卯潞脙脫脨脪禄赂枚脧脿露脭露脌脕垄碌脛赂脽脦禄拢卢脮芒脩霉虏禄脥卢脨脨脟茅脭麓戮脥虏禄禄谩脫脨脧脿脥卢碌脛掳忙卤戮
+	unsigned short	m_wAttrib;		//掳忙卤戮脢么脨脭
+	unsigned int	m_nDay;			//戮虏脤卢驴芒脠脮脝脷拢卢YYYYMMDD
+	short	m_nNum;			//m_data脢媒脕驴
 }DC_STKSTATIC_MY;
 
 
 typedef struct STK_STATIC
 {
-	unsigned short	id;			//±¾ÊÐ³¡ÄÚÎ¨Ò»±êÊ¾,ÔÚ±¾ÊÐ³¡ÄÚµÄÐòºÅ
-	char	label[10];		//´úÂë
-	char	name[32];		//Ãû³Æ
+	unsigned short	id;			//卤戮脢脨鲁隆脛脷脦篓脪禄卤锚脢戮,脭脷卤戮脢脨鲁隆脛脷碌脛脨貌潞脜
+	char	label[10];		//麓煤脗毛
+	char	name[32];		//脙没鲁脝
 	unsigned char	type;			//STK_TYPE
-	unsigned char	price_digit;		//¼Û¸ñ×îÐ¡·Ö±æÂÊ£¬·Ç³£ÖØÒª£¬Ã¿Ò»¸öunsigned intÀàÐÍµÄ¼Û¸ñ¶¼Òª³ýÒÔ10^m_nPriceDigit²ÅÊÇÕæÕýµÄ¼Û¸ñ
-	short	 vol_unit;			//³É½»Á¿µ¥Î»£¬Ã¿Ò»³É½»Á¿µ¥Î»±íÊ¾¶àÉÙ¹É
-	MWORD	float_issued;		//Á÷Í¨¹É±¾
-	MWORD	total_issued;		//×Ü¹É±¾
+	unsigned char	price_digit;		//录脹赂帽脳卯脨隆路脰卤忙脗脢拢卢路脟鲁拢脰脴脪陋拢卢脙驴脪禄赂枚unsigned int脌脿脨脥碌脛录脹赂帽露录脪陋鲁媒脪脭10^m_nPriceDigit虏脜脢脟脮忙脮媒碌脛录脹赂帽
+	short	 vol_unit;			//鲁脡陆禄脕驴碌楼脦禄拢卢脙驴脪禄鲁脡陆禄脕驴碌楼脦禄卤铆脢戮露脿脡脵鹿脡
+	MWORD	float_issued;		//脕梅脥篓鹿脡卤戮
+	MWORD	total_issued;		//脳脺鹿脡卤戮
 
-	unsigned long	last_close;		//×òÊÕ
-	unsigned long	adv_stop;		//ÕÇÍ£
+	unsigned long	last_close;		//脳貌脢脮
+	unsigned long	adv_stop;		//脮脟脥拢
 	unsigned long	dec_stop;
 }STK_STATIC;
 
 typedef struct DC_STKSTATIC
 {
-	unsigned long	m_dwVersion;	//¾²Ì¬Êý¾Ý°æ±¾,Ã¿´Î¾²Ì¬Êý¾Ý·¢Éú±ä»¯Ôò±ØÐëÔö¼ÓÊýÖµ,Ã¿¸öÐÐÇéÔ´×îºÃÓÐÒ»¸öÏà¶Ô¶ÀÁ¢µÄ¸ßÎ»£¬ÕâÑù²»Í¬ÐÐÇéÔ´¾Í²»»áÓÐÏàÍ¬µÄ°æ±¾,0x80000000
-	unsigned short	m_wAttrib;		//°æ±¾ÊôÐÔ
-	unsigned int	m_nDay;			//¾²Ì¬¿âÈÕÆÚ£¬YYYYMMDD
-	short	 m_nNum;			//m_dataÊýÁ¿
-	STK_STATIC m_data[1];	//Êý¾Ý
+	unsigned long	m_dwVersion;	//戮虏脤卢脢媒戮脻掳忙卤戮,脙驴麓脦戮虏脤卢脢媒戮脻路垄脡煤卤盲禄炉脭貌卤脴脨毛脭枚录脫脢媒脰碌,脙驴赂枚脨脨脟茅脭麓脳卯潞脙脫脨脪禄赂枚脧脿露脭露脌脕垄碌脛赂脽脦禄拢卢脮芒脩霉虏禄脥卢脨脨脟茅脭麓戮脥虏禄禄谩脫脨脧脿脥卢碌脛掳忙卤戮,0x80000000
+	unsigned short	m_wAttrib;		//掳忙卤戮脢么脨脭
+	unsigned int	m_nDay;			//戮虏脤卢驴芒脠脮脝脷拢卢YYYYMMDD
+	short	 m_nNum;			//m_data脢媒脕驴
+	STK_STATIC m_data[1];	//脢媒戮脻
 }DC_STKSTATIC;
 
 typedef struct DC_STKDYNA_MY
 {
-	unsigned short	m_wDynaSeq;		//¶¯Ì¬ÐÐÇéÐòÁÐºÅ£¬ÓÃÓÚ¿Í»§¶Ë×ª·¢
+	unsigned short	m_wDynaSeq;		//露炉脤卢脨脨脟茅脨貌脕脨潞脜拢卢脫脙脫脷驴脥禄搂露脣脳陋路垄
 	short   m_nNum;
 }DC_STKDYNA_MY;
 
 typedef struct STK_DYNA
 {
-	unsigned short	id;			//¹ÉÆ±ID
-	time_t	deal_time;				//³É½»Ê±¼ä
-	unsigned long  open;			//¿ªÅÌ
-	unsigned long	high;			//×î¸ß
-	unsigned long	low;			//×îµÍ
-	unsigned long	last;			//×îÐÂ
-	MWORD	vol;			//³É½»Á¿
-	MWORD	amount;			//³É½»¶î
-	MWORD	inner_vol;		//ÄÚÅÌ³É½»Á¿,<0±íÊ¾¸Ã±Ê³É½»ÎªÖ÷¶¯Âô£¬>=0±íÊ¾Ö÷¶¯Âò,¾ø¶ÔÖµ±íÊ¾ÄÚÅÌ³É½»Á¿
-	unsigned long	tick_count;			//ÀÛ¼Æ³É½»±ÊÊý
-	unsigned long	buy_price[5];		//Î¯Âò¼Û¸ñ
-	unsigned long	buy_vol[5];			//Î¯ÂòÁ¿
-	unsigned long	sell_price[5];		//Î¯Âô¼Û¸ñ
-	unsigned long	sell_vol[5];			//Î¯ÂôÁ¿
-	unsigned long	open_interest;		//³Ö²ÖÁ¿(ÆÚ»õÆÚÖ¸ÌØÓÐ)
-	unsigned long	settle_price;		//½áËã¼Û(ÆÚ»õÆÚÖ¸ÏÖ»õÌØÓÐ)
+	unsigned short	id;			//鹿脡脝卤ID
+	time_t	deal_time;				//鲁脡陆禄脢卤录盲
+	unsigned long  open;			//驴陋脜脤
+	unsigned long	high;			//脳卯赂脽
+	unsigned long	low;			//脳卯碌脥
+	unsigned long	last;			//脳卯脨脗
+	MWORD	vol;			//鲁脡陆禄脕驴
+	MWORD	amount;			//鲁脡陆禄露卯
+	MWORD	inner_vol;		//脛脷脜脤鲁脡陆禄脕驴,<0卤铆脢戮赂脙卤脢鲁脡陆禄脦陋脰梅露炉脗么拢卢>=0卤铆脢戮脰梅露炉脗貌,戮酶露脭脰碌卤铆脢戮脛脷脜脤鲁脡陆禄脕驴
+	unsigned long	tick_count;			//脌脹录脝鲁脡陆禄卤脢脢媒
+	unsigned long	buy_price[5];		//脦炉脗貌录脹赂帽
+	unsigned long	buy_vol[5];			//脦炉脗貌脕驴
+	unsigned long	sell_price[5];		//脦炉脗么录脹赂帽
+	unsigned long	sell_vol[5];			//脦炉脗么脕驴
+	unsigned long	open_interest;		//鲁脰虏脰脕驴(脝脷禄玫脝脷脰赂脤脴脫脨)
+	unsigned long	settle_price;		//陆谩脣茫录脹(脝脷禄玫脝脷脰赂脧脰禄玫脤脴脫脨)
 }STK_DYNA;
 
 typedef struct DC_STKDYNA
 {
-	unsigned short	m_wDynaSeq;		//¶¯Ì¬ÐÐÇéÐòÁÐºÅ£¬ÓÃÓÚ¿Í»§¶Ë×ª·¢
+	unsigned short	m_wDynaSeq;		//露炉脤卢脨脨脟茅脨貌脕脨潞脜拢卢脫脙脫脷驴脥禄搂露脣脳陋路垄
 	short   m_nNum;
 	STK_DYNA m_data[1];
 }DC_STKDYNA;
 
 typedef struct SHL2_MMPEX
 {
-	unsigned short	id;			//¹ÉÆ±ID
-	unsigned int	avg_buy_price;	//¼ÓÈ¨Æ½¾ùÎ¯Âò¼Û¸ñ
-	MWORD	all_buy_vol;		//Î¯Âò×ÜÁ¿
-	unsigned int	avg_sell_price;	//¼ÓÈ¨Æ½¾ùÎ¯Âô¼Û¸ñ
-	MWORD	all_sell_vol;		//Î¯Âô×ÜÁ¿
-	unsigned int	buy_price[SHL2_MMP_SIZE];	//Î¯Âò¼Û6-10
-	unsigned int	buy_vol[SHL2_MMP_SIZE];		//Î¯ÂòÁ¿6-10
-	unsigned int	sell_price[SHL2_MMP_SIZE];	//Î¯Âô¼Û6-10
-	unsigned int	sell_vol[SHL2_MMP_SIZE];		//Î¯ÂôÁ¿6-10
+	unsigned short	id;			//鹿脡脝卤ID
+	unsigned int	avg_buy_price;	//录脫脠篓脝陆戮霉脦炉脗貌录脹赂帽
+	MWORD	all_buy_vol;		//脦炉脗貌脳脺脕驴
+	unsigned int	avg_sell_price;	//录脫脠篓脝陆戮霉脦炉脗么录脹赂帽
+	MWORD	all_sell_vol;		//脦炉脗么脳脺脕驴
+	unsigned int	buy_price[SHL2_MMP_SIZE];	//脦炉脗貌录脹6-10
+	unsigned int	buy_vol[SHL2_MMP_SIZE];		//脦炉脗貌脕驴6-10
+	unsigned int	sell_price[SHL2_MMP_SIZE];	//脦炉脗么录脹6-10
+	unsigned int	sell_vol[SHL2_MMP_SIZE];		//脦炉脗么脕驴6-10
 }SHL2_MMPEX;
 
 typedef struct SHL2_Queue
@@ -178,83 +178,83 @@ typedef struct STK_STATICEx
 	enum STK_SUBTYPE
 	{
 		NILTYPE = 0,
-		ASHARE	= 'A',			//A¹É,½ö¶ÔSTOCK,WARRANTÓÐÐ§
-		BSHARE	= 'B',			//B¹É,½ö¶ÔSTOCK,WARRANTÓÐÐ§
-		GOV_BOND = 'G',			//¹úÕ®,½ö¶ÔBONDÓÐÐ§
-		ENT_BOND = 'O',			//ÆóÒµÕ®,½ö¶ÔBONDÓÐÐ§
-		FIN_BOND = 'F',			//½ðÈÚÕ®,½ö¶ÔBONDÓÐÐ§
+		ASHARE	= 'A',			//A鹿脡,陆枚露脭STOCK,WARRANT脫脨脨搂
+		BSHARE	= 'B',			//B鹿脡,陆枚露脭STOCK,WARRANT脫脨脨搂
+		GOV_BOND = 'G',			//鹿煤脮庐,陆枚露脭BOND脫脨脨搂
+		ENT_BOND = 'O',			//脝贸脪碌脮庐,陆枚露脭BOND脫脨脨搂
+		FIN_BOND = 'F',			//陆冒脠脷脮庐,陆枚露脭BOND脫脨脨搂
 	};
-	enum STK_SP//¹ÉÆ±ÊôÐÔ
+	enum STK_SP//鹿脡脝卤脢么脨脭
 	{
 		NULLSP = 0,
-		NSP	= 'N',//Õý³£
-		SSP	= 'S',//ST¹É
-		PSP = 'P',//PT¹É
-		TSP = 'T',//´ú°ì×ªÈÃÖ¤È¯
-		LSP = 'L',//ÉÏÊÐ¿ª·ÅÐÍ»ù½ð£¨LOF£©
-		OSP = 'O',//½ö½ÒÊ¾¾»ÖµµÄ¿ª·ÅÊ½»ù½ð
-		FSP = 'F',//·Ç½»Ò×ÐÍ¿ª·ÅÊ½»ù½ð
+		NSP	= 'N',//脮媒鲁拢
+		SSP	= 'S',//ST鹿脡
+		PSP = 'P',//PT鹿脡
+		TSP = 'T',//麓煤掳矛脳陋脠脙脰陇脠炉
+		LSP = 'L',//脡脧脢脨驴陋路脜脨脥禄霉陆冒拢篓LOF拢漏
+		OSP = 'O',//陆枚陆脪脢戮戮禄脰碌碌脛驴陋路脜脢陆禄霉陆冒
+		FSP = 'F',//路脟陆禄脪脳脨脥驴陋路脜脢陆禄霉陆冒
 		ESP = 'E',//ETF
-		ZSP = 'Z',//´¦ÓÚÍËÊÐÕûÀíÆÚµÄÖ¤È¯
+		ZSP = 'Z',//麓娄脫脷脥脣脢脨脮没脌铆脝脷碌脛脰陇脠炉
 	};
-	char	m_cType;			//STK_TYPE,ÓÉ¸Ã±êÖ¾¾ö¶¨ÁªºÏÖÐÊ¹ÓÃÄÄÒ»¸ö½á¹¹
+	char	m_cType;			//STK_TYPE,脫脡赂脙卤锚脰戮戮枚露篓脕陋潞脧脰脨脢鹿脫脙脛脛脪禄赂枚陆谩鹿鹿
 	char	m_cSubType;			//STK_SUBTYPE
 	union
 	{
-		struct 		//¹ÉÆ±	(STOCK,OTHER_STOCK)
+		struct 		//鹿脡脝卤	(STOCK,OTHER_STOCK)
 		{
-			float	m_fFaceValue;		//	ÃæÖµ
-			float	m_fProfit;			//	Ã¿¹ÉÊÕÒæ
-			unsigned short	m_wIndustry;		//	ÐÐÒµ'A' -- 'M',²Î¼û industryClasify
-			char	m_cTradeStatus;		//	½»Ò××´Ì¬£¬'N'=Normal, 'H'=Halt, 'X'=Not trade on this Market
-			float	m_fCashDividend;	//	Ã¿¹ÉºìÀû
-			char	m_cSecurityProperties;//ÌØÊâ·ÖÀà±ê¼Ç£¬È¡Öµ¼¯ºÏSTK_SPÖÐµÄÖµ
-			unsigned long	m_dwLastTradeDate;//×îºó½»Ò×ÈÕ£¬Ä¿Ç°Îª¿Õ£¬×öÔ¤ÁôÓÃ
+			float	m_fFaceValue;		//	脙忙脰碌
+			float	m_fProfit;			//	脙驴鹿脡脢脮脪忙
+			unsigned short	m_wIndustry;		//	脨脨脪碌'A' -- 'M',虏脦录没 industryClasify
+			char	m_cTradeStatus;		//	陆禄脪脳脳麓脤卢拢卢'N'=Normal, 'H'=Halt, 'X'=Not trade on this Market
+			float	m_fCashDividend;	//	脙驴鹿脡潞矛脌没
+			char	m_cSecurityProperties;//脤脴脢芒路脰脌脿卤锚录脟拢卢脠隆脰碌录炉潞脧STK_SP脰脨碌脛脰碌
+			unsigned long	m_dwLastTradeDate;//脳卯潞贸陆禄脪脳脠脮拢卢脛驴脟掳脦陋驴脮拢卢脳枚脭陇脕么脫脙
 
 		} m_equitySpec;
-		 struct 		//»ù½ð,ETF,LOF	(FUND,ETF,LOF)
+		 struct 		//禄霉陆冒,ETF,LOF	(FUND,ETF,LOF)
 		{
-			float	m_fFaceValue;		//	ÃæÖµ
-			float	m_fTotalIssued;		//	×Ü¹É±¾
-			float	m_fIOPV;			//	IOPV¾»Öµ,½ö¶ÔETF,LOFÓÐÐ§£¬***
+			float	m_fFaceValue;		//	脙忙脰碌
+			float	m_fTotalIssued;		//	脳脺鹿脡卤戮
+			float	m_fIOPV;			//	IOPV戮禄脰碌,陆枚露脭ETF,LOF脫脨脨搂拢卢***
 		} m_fundSpec;
-		 struct		//È¨Ö¤,Ñ¡ÔñÈ¨	(OPTION,WARRANT)
+		 struct		//脠篓脰陇,脩隆脭帽脠篓	(OPTION,WARRANT)
 		{
 			char	m_cStyle;			//  'A' or 'E'	American or European Style
 			char	m_cCP;				//	'C' or 'P' Call or Put
-			float	m_fCnvtRatio;		//  ¶Ò»»/ÐÐÈ¨±ÈÀý
-			float	m_fStrikePrice;		//	ÐÐÈ¨¼Û¸ñ
-			unsigned long	m_dwMaturityDate;	//	µ½ÆÚÈÕ,YYYYMMDD
-			char	m_strUnderLine[12];	//	¶ÔÓ¦¹ÉÆ±,°üº¬ÊÐ³¡´úÂë£¬ÈçSH600000
-			float	m_fBalance;			//  Á÷Í¨Óà¶î
+			float	m_fCnvtRatio;		//  露脪禄禄/脨脨脠篓卤脠脌媒
+			float	m_fStrikePrice;		//	脨脨脠篓录脹赂帽
+			unsigned long	m_dwMaturityDate;	//	碌陆脝脷脠脮,YYYYMMDD
+			char	m_strUnderLine[12];	//	露脭脫娄鹿脡脝卤,掳眉潞卢脢脨鲁隆麓煤脗毛拢卢脠莽SH600000
+			float	m_fBalance;			//  脕梅脥篓脫脿露卯
 		} m_warrantSpec;
-		 struct 		//Õ®È¯	(BOND)
+		 struct 		//脮庐脠炉	(BOND)
 		{
-			unsigned long	m_dwMaturityDate;	//	µ½ÆÚÈÕ,YYYYMMDD
-			unsigned long	m_dwIntAccruDate;	//	ÆðÏ¢ÈÕ£¬YYYYMMDD
-			float	m_fIssuePrice;		//	·¢ÐÐ¼Û
-			float	m_fCouponRate;		//	ÀûÂÊ
-			float	m_fFaceValue;		//	ÃæÖµ
-			float	m_fAccruedInt;		//	Ó¦¼ÆÀûÏ¢,***
+			unsigned long	m_dwMaturityDate;	//	碌陆脝脷脠脮,YYYYMMDD
+			unsigned long	m_dwIntAccruDate;	//	脝冒脧垄脠脮拢卢YYYYMMDD
+			float	m_fIssuePrice;		//	路垄脨脨录脹
+			float	m_fCouponRate;		//	脌没脗脢
+			float	m_fFaceValue;		//	脙忙脰碌
+			float	m_fAccruedInt;		//	脫娄录脝脌没脧垄,***
 		} m_bondSpec;
-		 struct		//¿É×ªÕ®	(COV_BOND)
+		 struct		//驴脡脳陋脮庐	(COV_BOND)
 		{
 			char	m_cStyle;			//  'A' or 'E'	American or European Style
 			char	m_cCP;				//	'C' or 'P' Call or Put
-			float	m_fCnvtRatio;		//  ¶Ò»»/ÐÐÈ¨±ÈÀý
-			float	m_fStrikePrice;		//	ÐÐÈ¨¼Û¸ñ
-			unsigned long	m_dwMaturityDate;	//	µ½ÆÚÈÕ,YYYYMMDD
-			char	m_strUnderLine[12];	//	¶ÔÓ¦¹ÉÆ±,°üº¬ÊÐ³¡´úÂë£¬ÈçSH600000
-			float	m_fAccruedInt;		//	Ó¦¼ÆÀûÏ¢
+			float	m_fCnvtRatio;		//  露脪禄禄/脨脨脠篓卤脠脌媒
+			float	m_fStrikePrice;		//	脨脨脠篓录脹赂帽
+			unsigned long	m_dwMaturityDate;	//	碌陆脝脷脠脮,YYYYMMDD
+			char	m_strUnderLine[12];	//	露脭脫娄鹿脡脝卤,掳眉潞卢脢脨鲁隆麓煤脗毛拢卢脠莽SH600000
+			float	m_fAccruedInt;		//	脫娄录脝脌没脧垄
 		} m_CnvtSpec;
-	   struct		//ÆÚ»õ,ÉÌÆ·	(FUTURE,FTR_IDX,COMM)
+	   struct		//脝脷禄玫,脡脤脝路	(FUTURE,FTR_IDX,COMM)
 		{
-			unsigned long	last_day_oi;			//×òÈÕ³Ö²ÖÁ¿
-			float	last_settle_price;		//×òÈÕ½áËã¼Û
+			unsigned long	last_day_oi;			//脳貌脠脮鲁脰虏脰脕驴
+			float	last_settle_price;		//脳貌脠脮陆谩脣茫录脹
 		} m_futureSpec;
-		 struct	//ÐÅÍÐ	(TRUST)
+		 struct	//脨脜脥脨	(TRUST)
 		{
-			float	m_dwfAsset;			//¾»×Ê²ú
+			float	m_dwfAsset;			//戮禄脳脢虏煤
 			unsigned long	m_dwAssetDate;		//YYYYMMDD
 		} m_trustSpec;
 	}Spec;
@@ -262,14 +262,14 @@ typedef struct STK_STATICEx
 
 typedef struct STK_HKDYNA
 {
-	unsigned long	m_dwIEPrice;	//Æ½ºâ¼Û
-	MWORD	m_mIEVolume;	//Æ½ºâÁ¿
+	unsigned long	m_dwIEPrice;	//脝陆潞芒录脹
+	MWORD	m_mIEVolume;	//脝陆潞芒脕驴
 
-	//ÂòÂôÅÌ±ÊÊý
+	//脗貌脗么脜脤卤脢脢媒
 	unsigned short	m_wBuyOrderNum[5];
 	unsigned short	m_wSellOrderNum[5];
 
-	//¾­¼Í¶ÓÁÐ
+	//戮颅录脥露脫脕脨
 	struct HK_BROKER	
 	{
 		unsigned short	m_wNumBroker;
@@ -280,10 +280,10 @@ typedef struct STK_HKDYNA
 
 typedef struct SZL2_ORDER_STAT
 {
-	unsigned short m_wStkID;				//¹ÉÆ±ID
-	MWORD	m_nBuyOrderVol[4];		//ÂòÈëµ¥Á¿£¬Ð¡¡¢ÖÐ¡¢´ó¡¢ÌØ´ó
-	MWORD	m_nSellOrderVol[4];		//Âô³öµ¥Á¿£¬Ð¡¡¢ÖÐ¡¢´ó¡¢ÌØ´ó
-	UINT24	m_dwOrderNum[2];		//Î¯ÍÐµ¥ÊýÁ¿£¬ÂòÈë/Âô³ö
+	unsigned short m_wStkID;				//鹿脡脝卤ID
+	MWORD	m_nBuyOrderVol[4];		//脗貌脠毛碌楼脕驴拢卢脨隆隆垄脰脨隆垄麓贸隆垄脤脴麓贸
+	MWORD	m_nSellOrderVol[4];		//脗么鲁枚碌楼脕驴拢卢脨隆隆垄脰脨隆垄麓贸隆垄脤脴麓贸
+	UINT24	m_dwOrderNum[2];		//脦炉脥脨碌楼脢媒脕驴拢卢脗貌脠毛/脗么鲁枚
 	MWORD	m_nWDVol[2];			
 }SZL2_ORDER_STAT;
 

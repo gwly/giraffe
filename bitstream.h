@@ -10,30 +10,30 @@ using namespace std;
 
 //BITCODE::m_cCode
 
-//'B':Êı¾İ²»³¬¹ım_dwCodeDataÎ»,
-//'b':Êı¾İ²»³¬¹ım_dwCodeDataÎ», ´ø·ûºÅÊı
-//'m':Êı¾İ²»³¬¹ım_dwCodeDataÎ», ¸ºÊı
-//'S':Êı¾İÓÒÒÆHIWORD(m_dwCodeData)ºó²»³¬¹ıLOWORD(m_dwCodeData)Î»
-//'E':Êı¾İµÈÓÚCodeData
-//'Z':Êı¾İÎªx*10^N, x<CodeData,N==1-4
-//'P':ÔÚm_dwCodeDataÎ»Êı¾İÖĞ£¬´æÔÚÒ»¸ö1£¬Õâ¸ö1µÄÎ»ÖÃ
-//'D':Ô­Ê¼ÕûĞÎÊı¾İ£¬Ô­Ê¼Êı¾İ·ÅÈëBitÁ÷,×ÜÊÇ·ÅÔÚ×îºóÃæ£¬²»½øĞĞÆ¥Åä
-//'M':Ô­Ê¼MWORDÊı¾İ£¬Ô­Ê¼Êı¾İ·ÅÈëBitÁ÷,×ÜÊÇ·ÅÔÚ×îºóÃæ£¬²»½øĞĞÆ¥Åä
+//'B':æ•°æ®ä¸è¶…è¿‡m_dwCodeDataä½,
+//'b':æ•°æ®ä¸è¶…è¿‡m_dwCodeDataä½, å¸¦ç¬¦å·æ•°
+//'m':æ•°æ®ä¸è¶…è¿‡m_dwCodeDataä½, è´Ÿæ•°
+//'S':æ•°æ®å³ç§»HIWORD(m_dwCodeData)åä¸è¶…è¿‡LOWORD(m_dwCodeData)ä½
+//'E':æ•°æ®ç­‰äºCodeData
+//'Z':æ•°æ®ä¸ºx*10^N, x<CodeData,N==1-4
+//'P':åœ¨m_dwCodeDataä½æ•°æ®ä¸­ï¼Œå­˜åœ¨ä¸€ä¸ª1ï¼Œè¿™ä¸ª1çš„ä½ç½®
+//'D':åŸå§‹æ•´å½¢æ•°æ®ï¼ŒåŸå§‹æ•°æ®æ”¾å…¥Bitæµ,æ€»æ˜¯æ”¾åœ¨æœ€åé¢ï¼Œä¸è¿›è¡ŒåŒ¹é…
+//'M':åŸå§‹MWORDæ•°æ®ï¼ŒåŸå§‹æ•°æ®æ”¾å…¥Bitæµ,æ€»æ˜¯æ”¾åœ¨æœ€åé¢ï¼Œä¸è¿›è¡ŒåŒ¹é…
 
 struct BITCODE
 {
-	WORD	m_wCodeBits;	//±àÂë
-	char	m_nCodeLen;		//±àÂë³¤¶È
-	char	m_nDataLen;		//±àÂëºó¸úËæµÄÊı¾İ³¤¶È,µ¥Î»Bit£¬×î´ó32Bit
-	char	m_cCode;		//±àÂë·½·¨	  'B':Êı¾İ²»³¬¹ım_dwCodeDataÎ»,
-										//'X':Êı¾İÎªx*10^N, xÎªCodeDataÎ»,N==1-4
-										//'E':Êı¾İµÈÓÚCodeData
-										//'D':Ô­Ê¼ÕûĞÎÊı¾İ£¬Ô­Ê¼Êı¾İ·ÅÈëBitÁ÷,×ÜÊÇ·ÅÔÚ×îºóÃæ£¬²»½øĞĞÆ¥Åä
-										//'F':Ô­Ê¼¸¡µãÊı¾İ£¬Ô­Ê¼Êı¾İ·ÅÈëBitÁ÷,×ÜÊÇ·ÅÔÚ×îºóÃæ£¬²»½øĞĞÆ¥Åä
-	DWORD	m_dwCodeData;	//±àÂëÊı¾İ
-	DWORD	m_dwDataBias;	//±àÂëÊı¾İÆ«ÒÆÁ¿
+	WORD	m_wCodeBits;	//ç¼–ç 
+	char	m_nCodeLen;		//ç¼–ç é•¿åº¦
+	char	m_nDataLen;		//ç¼–ç åè·Ÿéšçš„æ•°æ®é•¿åº¦,å•ä½Bitï¼Œæœ€å¤§32Bit
+	char	m_cCode;		//ç¼–ç æ–¹æ³•	  'B':æ•°æ®ä¸è¶…è¿‡m_dwCodeDataä½,
+										//'X':æ•°æ®ä¸ºx*10^N, xä¸ºCodeDataä½,N==1-4
+										//'E':æ•°æ®ç­‰äºCodeData
+										//'D':åŸå§‹æ•´å½¢æ•°æ®ï¼ŒåŸå§‹æ•°æ®æ”¾å…¥Bitæµ,æ€»æ˜¯æ”¾åœ¨æœ€åé¢ï¼Œä¸è¿›è¡ŒåŒ¹é…
+										//'F':åŸå§‹æµ®ç‚¹æ•°æ®ï¼ŒåŸå§‹æ•°æ®æ”¾å…¥Bitæµ,æ€»æ˜¯æ”¾åœ¨æœ€åé¢ï¼Œä¸è¿›è¡ŒåŒ¹é…
+	DWORD	m_dwCodeData;	//ç¼–ç æ•°æ®
+	DWORD	m_dwDataBias;	//ç¼–ç æ•°æ®åç§»é‡
 #ifdef _DEBUG
-	DWORD	m_dwCodeCount;	//Æµ¶È
+	DWORD	m_dwCodeCount;	//é¢‘åº¦
 #endif
 	BOOL IsOriginalData() const {return m_cCode=='D' || m_cCode=='M';}
 	BOOL IsBitPos() const {return m_cCode=='P';}
@@ -42,58 +42,58 @@ struct BITCODE
 class CBitStream
 {
 protected:
-	BYTE* m_pData;				//»º³åÇø
-	int m_nBitSize;				//»º³åÇø´óĞ¡£¬Bit
-	int m_nCurPos;				//µ±Ç°Î»ÖÃ
+	BYTE* m_pData;				//ç¼“å†²åŒº
+	int m_nBitSize;				//ç¼“å†²åŒºå¤§å°ï¼ŒBit
+	int m_nCurPos;				//å½“å‰ä½ç½®
 
-	int m_nSavedPos;			//ÉÏÒ»´Î±£´æµÄÎ»ÖÃ
+	int m_nSavedPos;			//ä¸Šä¸€æ¬¡ä¿å­˜çš„ä½ç½®
 
-    BITCODE*	m_pCodes;	//µ±Ç°±à½âÂëÂë±í
+    BITCODE*	m_pCodes;	//å½“å‰ç¼–è§£ç ç è¡¨
 	int		m_nNumCode;
 
 public:
 	CBitStream();
-	CBitStream(BYTE* pData,int nSize);			//Ö±½ÓÊ¹ÓÃ¸ø¶¨»º³åÇø,nSizeÊÇ×Ö½ÚÊı
+	CBitStream(BYTE* pData,int nSize);			//ç›´æ¥ä½¿ç”¨ç»™å®šç¼“å†²åŒº,nSizeæ˜¯å­—èŠ‚æ•°
 
-	void SetBuffer(BYTE* pData,int nSize);		//Ö±½ÓÊ¹ÓÃ¸ø¶¨»º³åÇø,nSizeÊÇ×Ö½ÚÊı
-	void AttachToBuffer(BYTE* pData,int nSize,int nBitPos);	//Ê¹ÓÃ¸ø¶¨»º³åÇø£¬nSizeÊÇ×Ö½ÚÊı,nBitPosÊÇÖ®Ç°±àÂëËùµ½µÄÎ»ÖÃ,
+	void SetBuffer(BYTE* pData,int nSize);		//ç›´æ¥ä½¿ç”¨ç»™å®šç¼“å†²åŒº,nSizeæ˜¯å­—èŠ‚æ•°
+	void AttachToBuffer(BYTE* pData,int nSize,int nBitPos);	//ä½¿ç”¨ç»™å®šç¼“å†²åŒºï¼ŒnSizeæ˜¯å­—èŠ‚æ•°,nBitPosæ˜¯ä¹‹å‰ç¼–ç æ‰€åˆ°çš„ä½ç½®,
 
-	int GetBitLength(){return m_nCurPos;}						//µÃµ½µ±Ç°BitÁ÷BitÊı
-	int GetByteLength(){return (m_nCurPos+7)/8;}				//µÃµ½µ±Ç°BitÁ÷ByteÊı
+	int GetBitLength(){return m_nCurPos;}						//å¾—åˆ°å½“å‰BitæµBitæ•°
+	int GetByteLength(){return (m_nCurPos+7)/8;}				//å¾—åˆ°å½“å‰BitæµByteæ•°
 	int GetCurPos(){return m_nCurPos;}
 	int GetBitSize(){return m_nBitSize;}
 
-	virtual DWORD Get(int nBit);				//È¡µÃnBitÊı¾İ£¬×î¶à32Bit
-	virtual int GetNoMove(int nBit,DWORD& dw);	//²»ÒÆ¶¯ÄÚ²¿Ö¸Õë£¬È¡µÃnBitÊı¾İ£¬×î¶à32Bit£¬·µ»ØÊµ¼ÊÈ¡µÃµÄ³¤¶È
+	virtual DWORD Get(int nBit);				//å–å¾—nBitæ•°æ®ï¼Œæœ€å¤š32Bit
+	virtual int GetNoMove(int nBit,DWORD& dw);	//ä¸ç§»åŠ¨å†…éƒ¨æŒ‡é’ˆï¼Œå–å¾—nBitæ•°æ®ï¼Œæœ€å¤š32Bitï¼Œè¿”å›å®é™…å–å¾—çš„é•¿åº¦
 	int GetString(char* pBuf,int nBufSize);
 
-	virtual int Put(DWORD dw,int nBit);			//Ïòµ±Ç°Î»ÖÃÌí¼ÓnBitÊı¾İ
+	virtual int Put(DWORD dw,int nBit);			//å‘å½“å‰ä½ç½®æ·»åŠ nBitæ•°æ®
 	int PutString(LPCSTR str);
 
-	int Move(int nBit){return MoveTo(m_nCurPos+nBit);}		//ÒÆ¶¯ÄÚ²¿Ö¸Õë£¬nBit¿ÉÒÔÎª¸º£¬·µ»ØĞÂµÄÎ»ÖÃ
-	int MoveTo(int nPos);					//ÒÆ¶¯ÄÚ²¿Ö¸Õëµ½nPos´¦
+	int Move(int nBit){return MoveTo(m_nCurPos+nBit);}		//ç§»åŠ¨å†…éƒ¨æŒ‡é’ˆï¼ŒnBitå¯ä»¥ä¸ºè´Ÿï¼Œè¿”å›æ–°çš„ä½ç½®
+	int MoveTo(int nPos);					//ç§»åŠ¨å†…éƒ¨æŒ‡é’ˆåˆ°nPoså¤„
 
-	void SaveCurrentPos(){m_nSavedPos = m_nCurPos;}		//±£´æµ±Ç°Î»ÖÃ
-	int  RestoreToSavedPos(){return MoveTo(m_nSavedPos);}		//»Ø¾íµ½ÉÏÒ»´Î±£´æµÄÎ»ÖÃ
+	void SaveCurrentPos(){m_nSavedPos = m_nCurPos;}		//ä¿å­˜å½“å‰ä½ç½®
+	int  RestoreToSavedPos(){return MoveTo(m_nSavedPos);}		//å›å·åˆ°ä¸Šä¸€æ¬¡ä¿å­˜çš„ä½ç½®
 
 	void SetBitCode(BITCODE* pCodes,int nNumCode){m_pCodes = pCodes;m_nNumCode = nNumCode;}
 
-	int EncodeData(DWORD dwData,const DWORD* pdwLastData=NULL,BOOL bReverse=FALSE);	//¸ù¾İÇé¿ö±àÂë£¬·µ»Ø±àÂëBit³¤¶È
-	int EncodeData(MWORD mData,const MWORD* pmLastData=NULL);	//¸ù¾İÇé¿ö±àÂë£¬·µ»Ø±àÂëBit³¤¶È
-	int EncodeFloat(float f,BOOL bCheck0);				//·µ»Ø±àÂëBit³¤¶È,²»ĞèÒª±àÂë
-	int EncodeStringData(LPCSTR strData,DWORD& dwLastData);							//¸ù¾İÇé¿ö±àÂë£¬·µ»Ø±àÂëBit³¤¶È,¸üĞÂdwLastData
+	int EncodeData(DWORD dwData,const DWORD* pdwLastData=NULL,BOOL bReverse=FALSE);	//æ ¹æ®æƒ…å†µç¼–ç ï¼Œè¿”å›ç¼–ç Bité•¿åº¦
+	int EncodeData(MWORD mData,const MWORD* pmLastData=NULL);	//æ ¹æ®æƒ…å†µç¼–ç ï¼Œè¿”å›ç¼–ç Bité•¿åº¦
+	int EncodeFloat(float f,BOOL bCheck0);				//è¿”å›ç¼–ç Bité•¿åº¦,ä¸éœ€è¦ç¼–ç 
+	int EncodeStringData(LPCSTR strData,DWORD& dwLastData);							//æ ¹æ®æƒ…å†µç¼–ç ï¼Œè¿”å›ç¼–ç Bité•¿åº¦,æ›´æ–°dwLastData
 
 	DWORD DecodeData(const DWORD* pdwLastData=NULL,BOOL bReverse=FALSE);
 	MWORD DecodeMWordData(const MWORD* pmLastData=NULL,BOOL bReverse=FALSE);
 	float DecodeFloat(BOOL bCheck0);
-	DWORD DecodeStringData(char* pBuf,int nBufSize,DWORD& dwLastData);						//Èç¹û½â³öÊı×ÖLabel£¬Ôò·µ»Ø¸ÃÊı×Ö£¬·ñÔò·µ»Ø0xFFFFFFFF,¸üĞÂdwLastData
+	DWORD DecodeStringData(char* pBuf,int nBufSize,DWORD& dwLastData);						//å¦‚æœè§£å‡ºæ•°å­—Labelï¼Œåˆ™è¿”å›è¯¥æ•°å­—ï¼Œå¦åˆ™è¿”å›0xFFFFFFFF,æ›´æ–°dwLastData
 
 	int GetNumZero(DWORD& dw);
 	int GetNumZero(MWORD& m);
 
 protected:
-	const BITCODE* EncodeFindMatch(DWORD& dw);							//ÕÒµ½ÅäºÏµÄ±àÂë,±àÂëºóµÄÊı¾İÍ¨¹ıdw´ø»Ø
-	const BITCODE* DecodeFindMatch(DWORD& dw);							//ÕÒµ½ÅäºÏµÄ±àÂë£¬²¢Í¨¹ıdw·µ»Ø
+	const BITCODE* EncodeFindMatch(DWORD& dw);							//æ‰¾åˆ°é…åˆçš„ç¼–ç ,ç¼–ç åçš„æ•°æ®é€šè¿‡dwå¸¦å›
+	const BITCODE* DecodeFindMatch(DWORD& dw);							//æ‰¾åˆ°é…åˆçš„ç¼–ç ï¼Œå¹¶é€šè¿‡dwè¿”å›
 
 	const BITCODE* FindOrgMData();
 	const BITCODE* FindStringData();

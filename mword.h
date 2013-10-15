@@ -27,7 +27,7 @@ struct MWORD
 	MWORD(int nBase,DWORD dwMul);
 	operator INT64() const { return GetValue();}
 	INT64 GetValue() const;
-	INT64 GetABSValue() const;		//æ¯∂‘÷µ
+	INT64 GetABSValue() const;		//ÁªùÂØπÂÄº
 	MWORD operator-=(const MWORD& d);
 	MWORD operator-=(const INT64 d);
 	MWORD operator+=(const MWORD& d);

@@ -655,19 +655,19 @@ int DidUncompress::DisassemblePack(DC_HEAD* pPack,DataBuffer& buf)
 					sprintf(sFilePath, "%u.xml\0", pDidStruct->mDidInfo.did);
 					vector<TDidInfo*> vecDidFile;
 
-					//р╩╦Ждё╟Енд╪Ч©идэм╛й╠ж╖Ёж╤Ю╦Жdid
+					//Д╦─Д╦╙Ф╗║Ф²©Ф√┤Д╩╤Е▐╞Х┐╫Е░▄Ф≈╤Ф■╞Ф▄│Е╓ Д╦╙did
 					for (int i = 0; i < pDidStruct->m_pDids->m_wDidsNum; i++)
 					{
 						int did = pDidStruct->m_pDids->mDidName[i].m_dwDid;
 						map<int, TDidInfo>::iterator it2 = m_mapDidFile.find(did);
 						if (it2 != m_mapDidFile.end())
 						{
-							//и╬ЁЩ╬инд╪Ч
+							//Е┬═И≥╓Ф≈╖Ф√┤Д╩╤
 							remove(it2->second.strFilePath.c_str());
 							vecDidFile.push_back(&it2->second);
 						}
 					}
-					//п╢хКпбнд╪Ч
+					//Е├≥Е┘╔Ф√╟Ф√┤Д╩╤
 					FILE* fp = fopen(sFilePath, "wb");
 					if (NULL == fp)
 					{

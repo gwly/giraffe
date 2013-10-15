@@ -7,41 +7,41 @@
 
 #pragma pack(push,1)
 
-//ĞèÒªÊµÏÖµÄ2¸öº¯Êı
+//éœ€è¦å®ç°çš„2ä¸ªå‡½æ•°
 const struct STK_DYNA* GetDynDatById(WORD wMarket,WORD index);
 const struct STK_STATIC* GetStaticByID(WORD wMarket,WORD index);
-//Ã¿¸öĞÂÔöµÄÊĞ³¡ÓĞ¿ÉÄÜĞèÒªĞŞ¸ÄµÄº¯Êı
+//æ¯ä¸ªæ–°å¢çš„å¸‚åœºæœ‰å¯èƒ½éœ€è¦ä¿®æ”¹çš„å‡½æ•°
 BYTE	GetMarketDynaAttr(WORD wMarket);
 BYTE	myGetMarketDynaAttr(WORD wMarket);
 
-//·şÎñÆ÷µ½¿Í»§¶ËÊı¾İÍ·
+//æœåŠ¡å™¨åˆ°å®¢æˆ·ç«¯æ•°æ®å¤´
 struct SVRNetHead
 {
-	unsigned short m_type;//Êı¾İÀàĞÍ
-	DWORD	m_nLen;	//°ü³¤¶È
-	WORD	m_wAttrib;	//ÊôĞÔ
+	unsigned short m_type;//æ•°æ®ç±»å‹
+	DWORD	m_nLen;	//åŒ…é•¿åº¦
+	WORD	m_wAttrib;	//å±æ€§
 };
-//²ÉÊı»úµ½·şÎñÆ÷Êı¾İÍ·ÓÃ DC_HEAD
+//é‡‡æ•°æœºåˆ°æœåŠ¡å™¨æ•°æ®å¤´ç”¨ DC_HEAD
 
 
-//ÒÔÏÂº¯Êı£¬¶ÔÓÚ½«Êı¾İÍ·ºÍÊı¾İ±¾Éí·ÖÀëµÄ£¬Êı¾İÌå¿ÉÒÔÎªNULL£¬ÕâÊÇ±íÊ¾Êı¾İÌå½ô¸úÔÚÊı¾İÍ·ºóÃæ£¬nBufSizeÍ³Ò»±íÊ¾°üº¬Êı¾İÍ·´óĞ¡ÔÚÄÚµÄ»º³åÇø´óĞ¡
+//ä»¥ä¸‹å‡½æ•°ï¼Œå¯¹äºå°†æ•°æ®å¤´å’Œæ•°æ®æœ¬èº«åˆ†ç¦»çš„ï¼Œæ•°æ®ä½“å¯ä»¥ä¸ºNULLï¼Œè¿™æ˜¯è¡¨ç¤ºæ•°æ®ä½“ç´§è·Ÿåœ¨æ•°æ®å¤´åé¢ï¼ŒnBufSizeç»Ÿä¸€è¡¨ç¤ºåŒ…å«æ•°æ®å¤´å¤§å°åœ¨å†…çš„ç¼“å†²åŒºå¤§å°
 
 int CompressDataPack(WORD wMarket,BOOL bSeq,const DC_HEAD* pOrgPack,DC_HEAD* pBuf,int nBufSize);
 int CompressDataPack(WORD wMarket,BOOL bSeq,const SVRNetHead* pOrgPack,SVRNetHead* pBuf,int nBufSize);
 int CompressDataPack(WORD wMarket,BOOL bSeq,const DC_HEAD* pOrgHead,const BYTE* pOrgData,DC_HEAD* pHeadBuf,BYTE* pDataBuf,int nBufSize);
 int CompressDataPack(WORD wMarket,BOOL bSeq,const SVRNetHead* pOrgHead,const BYTE* pOrgData,SVRNetHead* pHeadBuf,BYTE* pDataBuf,int nBufSize);
 
-int ExpandDataPack(const DC_HEAD* pOrgPackHead,DC_HEAD* pBuf,int nBufSize,WORD* pwMarketBuf=NULL);		//pwMarketBufÓÃÓÚ½ÓÊÕ¸Ã°üµÄÊĞ³¡ĞÅÏ¢
+int ExpandDataPack(const DC_HEAD* pOrgPackHead,DC_HEAD* pBuf,int nBufSize,WORD* pwMarketBuf=NULL);		//pwMarketBufç”¨äºæ¥æ”¶è¯¥åŒ…çš„å¸‚åœºä¿¡æ¯
 int ExpandDataPack(const SVRNetHead* pOrgPack,SVRNetHead* pBuf,int nBufSize,WORD* pwMarketBuf=NULL);
 int ExpandDataPack(const DC_HEAD* pOrgHead,const BYTE* pOrgData,DC_HEAD* pHeadBuf,BYTE* pDataBuf,int nBufSize,WORD* pwMarketBuf=NULL);
 int ExpandDataPack(const SVRNetHead* pOrgHead,const BYTE* pOrgData,SVRNetHead* pHeadBuf,BYTE* pDataBuf,int nBufSize,WORD* pwMarketBuf=NULL);
 
-int CompressRawData(WORD wMarket,BOOL bSeq,int nType,const BYTE* pOrgData,int nOrgDataLen,BYTE* pBuf,int nBufSize);		//Ñ¹ËõÒ»¸ö°ü,·µ»ØÑ¹ËõºóµÄ³¤¶È,·µ»Ø0±íÊ¾Ñ¹Ëõ²»³É¹¦
-int ExpandRawData(int nType,const BYTE* pCpsedPack,int nPackLen,WORD& wMarket,BYTE* pBuf,int nBufSize);							//½âÑ¹ËõÒ»¸ö°ü£¬·µ»Ø½âÑ¹ËõºóµÄ³¤¶È
+int CompressRawData(WORD wMarket,BOOL bSeq,int nType,const BYTE* pOrgData,int nOrgDataLen,BYTE* pBuf,int nBufSize);		//å‹ç¼©ä¸€ä¸ªåŒ…,è¿”å›å‹ç¼©åçš„é•¿åº¦,è¿”å›0è¡¨ç¤ºå‹ç¼©ä¸æˆåŠŸ
+int ExpandRawData(int nType,const BYTE* pCpsedPack,int nPackLen,WORD& wMarket,BYTE* pBuf,int nBufSize);							//è§£å‹ç¼©ä¸€ä¸ªåŒ…ï¼Œè¿”å›è§£å‹ç¼©åçš„é•¿åº¦
 
-//¼ÓÃÜº¯Êı
+//åŠ å¯†å‡½æ•°
 BOOL EncryptDataPack(DC_ENCY_TYPE encType,DC_HEAD* pData);
-BOOL EncryptDataPack(DC_ENCY_TYPE encType,DC_HEAD* pHead,BYTE* pRawData);	//Êı¾İÍ·£¬Êı¾İ·ÖÀë
+BOOL EncryptDataPack(DC_ENCY_TYPE encType,DC_HEAD* pHead,BYTE* pRawData);	//æ•°æ®å¤´ï¼Œæ•°æ®åˆ†ç¦»
 BOOL DecryptDataPack(DC_HEAD* pData);
 BOOL DecryptDataPack(DC_HEAD* pHead,BYTE* pData);
 BOOL EncryptDataPack(DC_ENCY_TYPE encType,SVRNetHead* pData);

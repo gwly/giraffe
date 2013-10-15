@@ -29,9 +29,9 @@ using namespace std;
 
 struct TStructForGetBmData 
 {
-	STKIDMAP* pStkIDMapHash;			//stkid hashÓ³Éä¹ØÏµ
-	char* pFullData;					//È«Á¿Êı¾İÄÚ´æµØÖ·
-	unsigned int iBufferSize;			//È«Á¿Êı¾İÄÚ´æ´óĞ¡
+	STKIDMAP* pStkIDMapHash;			//stkid hashæ˜ å°„å…³ç³»
+	char* pFullData;					//å…¨é‡æ•°æ®å†…å­˜åœ°å€
+	unsigned int iBufferSize;			//å…¨é‡æ•°æ®å†…å­˜å¤§å°
 	unsigned int iTotalStk;    
 	TStructForGetBmData()
 	{
@@ -67,16 +67,16 @@ public:
 	struct TDidInfo 
 	{
 		int did;
-		string strFilePath;				//did Êı¾İÃèÊöÄ£°åÎÄ¼şÂ·¾¶
-		bool bCompress;					//ÊÇ·ñÏò·şÎñ¶ËÇëÇóÑ¹ËõºóµÄdid Êı¾İ
-		bool bFull;						//ÊÇ·ñÏë·şÎñ¶ËÇëÇóÍêÕûµÄdid Êı¾İ£¬Îªfalse ±íÊ¾ÊÇÔöÁ¿µÄÊı¾İ
-		bool bServerSupport;			//¼ÇÂ¼·şÎñ¶ËÊÇ·ñÖ§³Ö¸Ãdid
-		bool bNeedSynaDidStructFile;	//ÊÇ·ñĞèÒª·şÎñ¶ËÍ¬²½Êı¾İÃèÊöÄ£°åÎÄ¼ş
-		CDidStructApi* pDidStruct;		//Êı¾İÃèÊöÄ£°å
-		CDsCompressApi* pUnCompress;	//½âÑ¹Ëõ¶ÔÏó
-		char* pUnCompressBuffer;		//½âÑ¹Ëõ»º³åÇø
-		int iBufferLen;					//»º³åÇø´óĞ¡
-		bool bInitialized;				//³õÊ¼»¯³É¹¦
+		string strFilePath;				//did æ•°æ®æè¿°æ¨¡æ¿æ–‡ä»¶è·¯å¾„
+		bool bCompress;					//æ˜¯å¦å‘æœåŠ¡ç«¯è¯·æ±‚å‹ç¼©åçš„did æ•°æ®
+		bool bFull;						//æ˜¯å¦æƒ³æœåŠ¡ç«¯è¯·æ±‚å®Œæ•´çš„did æ•°æ®ï¼Œä¸ºfalse è¡¨ç¤ºæ˜¯å¢é‡çš„æ•°æ®
+		bool bServerSupport;			//è®°å½•æœåŠ¡ç«¯æ˜¯å¦æ”¯æŒè¯¥did
+		bool bNeedSynaDidStructFile;	//æ˜¯å¦éœ€è¦æœåŠ¡ç«¯åŒæ­¥æ•°æ®æè¿°æ¨¡æ¿æ–‡ä»¶
+		CDidStructApi* pDidStruct;		//æ•°æ®æè¿°æ¨¡æ¿
+		CDsCompressApi* pUnCompress;	//è§£å‹ç¼©å¯¹è±¡
+		char* pUnCompressBuffer;		//è§£å‹ç¼©ç¼“å†²åŒº
+		int iBufferLen;					//ç¼“å†²åŒºå¤§å°
+		bool bInitialized;				//åˆå§‹åŒ–æˆåŠŸ
 
 		TDidInfo(){
 			did = 0;
