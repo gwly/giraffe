@@ -379,6 +379,7 @@ void UncompressDCPacket::Uncompress(struct timeval timestamp, unsigned char *pkt
 			LOG4CXX_ERROR(logger_, "diduncompress read config error");
 		}
 		diducp.Initialize();
+		LOG4CXX_INFO(logger_, "pdch->m_nLen:" << pdch->m_nLen);
 		if( 1 == diducp.DisassemblePack(pdch,data_buf))
 		{
 			LOG4CXX_INFO(logger_, "uncompress did success!");

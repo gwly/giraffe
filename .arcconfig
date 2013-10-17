@@ -1,0 +1,4 @@
+{
+	"project_id" : "monitor",
+	"conduit_uri" : "http://phabricator.yison.com/"
+}

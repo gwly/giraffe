@@ -20,11 +20,6 @@ int printf(const char *fmt, ...);
 
 typedef unsigned int time_t;
 
-typedef struct IOPV
-{
-	float value;
-}IOPV;
-
 enum DC_GENERAL_INTYPE
 {
 	GE_IOPV = 5,
@@ -374,10 +369,9 @@ function InitZMQ(pattern, action, addr)
 	end
 end
 
-local msg
 function SendErrorMsg(error_msg)
-	msg = zmq.zmq_msg_t.init_data(error_msg)
-	sock:send_msg(msg)	
+	print(error_msg)
+	sock:send(error_msg)	
 end
 
 local did_template_id_table = {}
@@ -390,7 +384,7 @@ function test_process(dctype, num, pdcdata)
 	local stk 
 	local dc_type
 	local ret_error
-	local ret_str
+	local ret_str 
 
 	if dctype == C.DCT_STKSTATIC then
 		stk = ffi_cast("STK_STATIC *", pdcdata)
@@ -473,7 +467,7 @@ end
 
 function test_process_did(template_id, num, pdcdata)
 	local ret_error
-	local ret_str
+	local ret_str 
 	local pdata
 	local template_type 
 	local template = require(template_id)
@@ -557,7 +551,7 @@ end
 function process_general(intype, num, pdata)
 	local stk
 	local ret_error
-	local ret_str
+	local ret_str 
 		for i=1, num do
 			if(intype == C.GE_STATIC_EX) then
 				stk = ffi_cast("STK_STATICEx *" ,pdata)
@@ -644,15 +638,16 @@ function process_general(intype, num, pdata)
 				end
 				stk = stk + 1
 			elseif(intype == C.GE_IOPV) then
-				stk = ffi_cast("IOPV *",data)
-				dc_type = "ge iopv"
-				ret_error = handle_iopv(stk.value)
-				ret_str = FormatReturnError(dc_type,ret_error) 
-				ret_str = dc_type
-                if ret_str ~= nil then
-                    SendErrorMsg(ret_str)
-                end
-                stk = stk + 1
+				--stk = ffi_cast("IOPV *",data)
+				--dc_type = "ge iopv"
+				----ret_error = handle_iopv(stk.value)
+				--ret_error = nil
+				--ret_str = FormatReturnError(dc_type,ret_error) 
+				--ret_str = dc_type
+                --if ret_str ~= nil then
+                --    SendErrorMsg(ret_str)
+                --end
+                --stk = stk + 1
 			else 
 				ret_str = nil
 			end

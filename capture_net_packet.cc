@@ -146,10 +146,19 @@ void CaptureNetPacket::PacketHandler(unsigned char *param, const struct pcap_pkt
 	zmq::socket_t *sock = (zmq::socket_t *)param;
 	CapNetPacketItem item;
 	item.header = *header;
-	unsigned char *pdata = new unsigned char[CAP_PACK_BUF_SIZE];
-	assert(NULL != pdata);
-	memset(pdata, 0, CAP_PACK_BUF_SIZE);
-	assert(CAP_PACK_BUF_SIZE >= header->caplen);
+	unsigned char *pdata;
+	if(CAP_PACK_BUF_SIZE < header->caplen)
+	{
+		pdata = new unsigned char[header->caplen];
+		memset(pdata, 0, header->caplen);
+		LOG4CXX_INFO(logger_, "cap buffer len:" << header->caplen);
+	}
+	else
+	{
+		pdata = new unsigned char[CAP_PACK_BUF_SIZE];
+		memset(pdata, 0, CAP_PACK_BUF_SIZE);
+		//LOG4CXX_INFO(logger_, "cap buffer len:" << CAP_PACK_BUF_SIZE);
+	}
 	memcpy(pdata,pkt_data,header->caplen);
 	item.data = pdata;
 	DispatchCapData(sock, &item, sizeof(item));

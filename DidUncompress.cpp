@@ -587,6 +587,10 @@ int DidUncompress::DisassemblePack(DC_HEAD* pPack,DataBuffer& buf)
 			{
 				if(buf.Allocate(len)!= -1)
 				{
+					if(!it->second.bInitialized)
+					{
+						LOG4CXX_ERROR(logger_, "uncompress did init failed! did:" << did);
+					}
 					it->second.pUnCompress->SetUnCompressOutputBuffer(buf.GetData(),len);
 					if(it->second.pUnCompress->UnCompressData(pData,iCompressLen,num) == -1)
 						return -1;

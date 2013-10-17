@@ -167,15 +167,16 @@ function handle_hkdyna(stk)
 	return nil
 end
 
-function handle_iopv(iopv)
-   if(iopv >= 0.0) then
-    error_type = Error_Type.business
-    error_level = Error_Level.error
-    error_info = "iopv > 0.0"
-    return FormatErrorString(error_type, error_level, error_info)
-   end
-   return nil
-end
+--function handle_iopv(iopv)
+--	if iopv.value > 0 then
+--		print"iopv"
+--		error_type = Error_Type.business
+--		error_level = Error_Level.error
+--		error_info = "iopv > 0"
+--    	return FormatErrorString(error_type, error_level, error_info)
+--   	end
+--   	return nil
+--end
 
 function handle_t_buy_sell_info(info)
 	local buy_price_num = info.BuyPriceNum

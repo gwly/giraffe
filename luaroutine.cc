@@ -204,6 +204,10 @@ void LuaRoutine::DispatchToLua(unsigned char * pdcdata, int dc_type,int dc_gener
 	else if(DCT_GENERAL == dc_type)
 	{
 		unsigned char *pdata = pdcdata + stk_num *sizeof(WORD);
+		if(dc_general_intype == 5)
+		{
+			LOG4CXX_INFO(logger_, "intype is 5");
+		}
 		lua_getglobal(lua_state_, "process_general");
 		lua_pushinteger(lua_state_, dc_general_intype);
 		lua_pushinteger(lua_state_, stk_num);
