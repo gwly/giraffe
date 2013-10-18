@@ -46,12 +46,12 @@ void BusinessErrorInfo::InitLog()
 
 void BusinessErrorInfo::RunThreadFunc()
 {
-	zmq::message_t msg(32);
+	zmq::message_t msg;
 	while(true)
 	{
 		msg.rebuild();
 		sock_recv_->recv(&msg);
-		std::string error_str((char*)(msg.data()));
-		LOG4CXX_ERROR(logger_business_error_, error_str);
+		//std::cout<<"c++:"<<(char *)(msg.data())<<std::endl;
+		LOG4CXX_ERROR(logger_business_error_, (char*)(msg.data()));
 	}	
 }
