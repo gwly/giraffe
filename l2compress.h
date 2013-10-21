@@ -5,41 +5,41 @@
 
 #pragma pack(push,1)
 
-//ÒÔÏÂÑ¹ËõËã·¨¾ù·µ»ØÑ¹ËõÁËµÄÊı¾İÊıÁ¿£¬nBufSizeµ÷ÓÃÊ±´øÈë»º³åÇøÊı¾İÈİÁ¿£¬·µ»ØÊ±µÃµ½Êµ¼ÊÊı¾İÊıÁ¿£¬Èç¹û»º³åÇø²»¹»£¬Ôò·µ»Ø-1£¬²¢ÓÃnBufSize´ø»ØĞèÒªµÄÈİÁ¿»º³åÇø
-//Ñ¹ËõÖğ±Ê³É½»
+//ä»¥ä¸‹å‹ç¼©ç®—æ³•å‡è¿”å›å‹ç¼©äº†çš„æ•°æ®æ•°é‡ï¼ŒnBufSizeè°ƒç”¨æ—¶å¸¦å…¥ç¼“å†²åŒºæ•°æ®å®¹é‡ï¼Œè¿”å›æ—¶å¾—åˆ°å®é™…æ•°æ®æ•°é‡ï¼Œå¦‚æœç¼“å†²åŒºä¸å¤Ÿï¼Œåˆ™è¿”å›-1ï¼Œå¹¶ç”¨nBufSizeå¸¦å›éœ€è¦çš„å®¹é‡ç¼“å†²åŒº
+//å‹ç¼©é€ç¬”æˆäº¤
 int CompressL2Report(WORD wMarket,const SH_L2_REPORT* pRep,int nNum,BYTE* pBuf,int& nBufSize);		
 int ExpandL2Report(const BYTE* pData,int nDataLen,WORD& wMarket,SH_L2_REPORT* pRepBuf,int& nBufSize);
 
-//Ñ¹ËõÀ©Õ¹ÂòÂôÅÌ
+//å‹ç¼©æ‰©å±•ä¹°å–ç›˜
 //int CompressL2MMPEx(WORD wMarket,const SH_L2_MMPEX* pMMPEx,int nNum,BYTE* pBuf,int& nBufSize);
 //int ExpandL2MMPEx(const BYTE* pData,int nDataLen,WORD& wMarket,SH_L2_MMPEX* pMMPExBuf,int& nBufSize);
 
-//Ñ¹ËõÂòÂôÅÌ¶ÓÁĞ
-//¶ÓÁĞË÷ÒıºÍ¶ÓÁĞ·Ö²»Í¬»º³åÇø´æ´¢
+//å‹ç¼©ä¹°å–ç›˜é˜Ÿåˆ—
+//é˜Ÿåˆ—ç´¢å¼•å’Œé˜Ÿåˆ—åˆ†ä¸åŒç¼“å†²åŒºå­˜å‚¨
 int CompressL2Queue(WORD wMarket,const DWORD* pQueue,int nQueueLen,BYTE* pBuf,int& nBufSize,BOOL bOrderQueue=FALSE);
 int ExpandL2Queue(const BYTE* pData,int nDataLen,DWORD* pQueueBuf,int& nQueueBufSize,BOOL bOrderQueue=FALSE);
 
-//Ñ¹Ëõ¼´Ê±×î´ó³·µ¥
+//å‹ç¼©å³æ—¶æœ€å¤§æ’¤å•
 int CompressL2BigWD(WORD wMarket,const DC_SHL2_BIG_WD* pWD,BYTE* pBuf,int& nBufSize);
-int ExpandL2BigWD(const BYTE* pData,int nDataLen,WORD& wMarket,DC_SHL2_BIG_WD* pWDBuf,int& nBufSize);	//nBufSize±íÊ¾×Ö½ÚÊı
+int ExpandL2BigWD(const BYTE* pData,int nDataLen,WORD& wMarket,DC_SHL2_BIG_WD* pWDBuf,int& nBufSize);	//nBufSizeè¡¨ç¤ºå­—èŠ‚æ•°
 
-//Ñ¹ËõÀÛ¼Æ×î´ó³·µ¥
+//å‹ç¼©ç´¯è®¡æœ€å¤§æ’¤å•
 int CompressL2AccuWD(WORD wMarket,const DC_SHL2_ACCU_WD* pWD,BYTE* pBuf,int& nBufSize);
-int ExpandL2AccuWD(const BYTE* pData,int nDataLen,WORD& wMarket,DC_SHL2_ACCU_WD* pWDBuf,int& nBufSize);	//nBufSize±íÊ¾×Ö½ÚÊı
+int ExpandL2AccuWD(const BYTE* pData,int nDataLen,WORD& wMarket,DC_SHL2_ACCU_WD* pWDBuf,int& nBufSize);	//nBufSizeè¡¨ç¤ºå­—èŠ‚æ•°
 
-//ÓÃÓÚÂòÂôÁ½¸ö¼´Ê±×î´ó³·µ¥Ñ¹Ëõµ½Ò»Æğ
+//ç”¨äºä¹°å–ä¸¤ä¸ªå³æ—¶æœ€å¤§æ’¤å•å‹ç¼©åˆ°ä¸€èµ·
 
 //int CompressL2BigWD(WORD wMarket,const DC_SHL2_BIG_WD* pBuyWD,const DC_SHL2_BIG_WD* pSellWD,SVRNetHead* pBuf,int& nBufSize);
-//int ExpandL2BigWD(const SVRNetHead* pData,WORD& wMarket,SH_L2_BIG_WD* pBuyBuf,int& nBuyBufSize,SH_L2_BIG_WD* pSellBuf,int& nSellBufSize);	//nBufBufSize, nSellBufSize±íÊ¾ÊıÁ¿
-//int ExpandL2BigWD(const SVRNetHead* pHead,const BYTE* pData,WORD& wMarket,SH_L2_BIG_WD* pBuyBuf,int& nBuyBufSize,SH_L2_BIG_WD* pSellBuf,int& nSellBufSize);	//nBufBufSize, nSellBufSize±íÊ¾ÊıÁ¿
+//int ExpandL2BigWD(const SVRNetHead* pData,WORD& wMarket,SH_L2_BIG_WD* pBuyBuf,int& nBuyBufSize,SH_L2_BIG_WD* pSellBuf,int& nSellBufSize);	//nBufBufSize, nSellBufSizeè¡¨ç¤ºæ•°é‡
+//int ExpandL2BigWD(const SVRNetHead* pHead,const BYTE* pData,WORD& wMarket,SH_L2_BIG_WD* pBuyBuf,int& nBuyBufSize,SH_L2_BIG_WD* pSellBuf,int& nSellBufSize);	//nBufBufSize, nSellBufSizeè¡¨ç¤ºæ•°é‡
 //
 //int CompressL2AccuWD(WORD wMarket,const DC_SHL2_ACCU_WD* pBuyWD,const DC_SHL2_ACCU_WD* pSellWD,SVRNetHead* pBuf,int& nBufSize);
-//int ExpandL2AccuWD(const SVRNetHead* pData,WORD& wMarket,SH_L2_ACCU_WD* pBuyBuf,int& nBuyBufSize,SH_L2_ACCU_WD* pSellBuf,int& nSellBufSize);	//nBuyBufSize,nSellBufSize±íÊ¾ÊıÁ¿
-//int ExpandL2AccuWD(const SVRNetHead* pHead,const BYTE* pData,WORD& wMarket,SH_L2_ACCU_WD* pBuyBuf,int& nBuyBufSize,SH_L2_ACCU_WD* pSellBuf,int& nSellBufSize);	//nBuyBufSize,nSellBufSize±íÊ¾ÊıÁ¿
+//int ExpandL2AccuWD(const SVRNetHead* pData,WORD& wMarket,SH_L2_ACCU_WD* pBuyBuf,int& nBuyBufSize,SH_L2_ACCU_WD* pSellBuf,int& nSellBufSize);	//nBuyBufSize,nSellBufSizeè¡¨ç¤ºæ•°é‡
+//int ExpandL2AccuWD(const SVRNetHead* pHead,const BYTE* pData,WORD& wMarket,SH_L2_ACCU_WD* pBuyBuf,int& nBuyBufSize,SH_L2_ACCU_WD* pSellBuf,int& nSellBufSize);	//nBuyBufSize,nSellBufSizeè¡¨ç¤ºæ•°é‡
 
-//Ñ¹ËõÖğ±ÊÎ¯ÍĞÍ³¼Æ
-BOOL CompressL2OrderStat(WORD wMarket,const DC_SZL2_ORDER_STAT* pStat,BYTE* pBuf,int& nBufSize);				//nBufSize±íÊ¾×Ö½ÚÊı,·µ»Øºó±íÊ¾Ñ¹ËõºóµÄ×Ü³¤¶È,Ñ¹Ëõ³É¹¦·µ»ØTRUE
-int ExpandL2OrderStat(const BYTE* pData,int nDataLen,DC_SZL2_ORDER_STAT* pStatBuf,int& nBufSize);	//nBufSize±íÊ¾×Ö½ÚÊı,·µ»Øºó±íÊ¾Ñ¹ËõºóµÄ×Ü³¤¶È,·µ»Ø½âÑ¹Ëõ³É¹¦ÊıÁ¿
+//å‹ç¼©é€ç¬”å§”æ‰˜ç»Ÿè®¡
+BOOL CompressL2OrderStat(WORD wMarket,const DC_SZL2_ORDER_STAT* pStat,BYTE* pBuf,int& nBufSize);				//nBufSizeè¡¨ç¤ºå­—èŠ‚æ•°,è¿”å›åè¡¨ç¤ºå‹ç¼©åçš„æ€»é•¿åº¦,å‹ç¼©æˆåŠŸè¿”å›TRUE
+int ExpandL2OrderStat(const BYTE* pData,int nDataLen,DC_SZL2_ORDER_STAT* pStatBuf,int& nBufSize);	//nBufSizeè¡¨ç¤ºå­—èŠ‚æ•°,è¿”å›åè¡¨ç¤ºå‹ç¼©åçš„æ€»é•¿åº¦,è¿”å›è§£å‹ç¼©æˆåŠŸæ•°é‡
 
 #pragma pack(pop)
 

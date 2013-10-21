@@ -10,19 +10,19 @@
 #include "vfloat.h"
 
 
-#define  STKID "id" //¹Ø¼ü×Ö
-const int MAX_FIELD_NAME = 32;//×Ö¶ÎÃû³Æ×î´ó³¤¶È
-const int MAX_FIELDS_NUM = 1024;//Ã¿¸ödid¸öÀïÃ¿¼¶Ã¿×é×Ö¶Î×î´óÊıÄ¿
-const int MAX_TYPE_NAME = 16;//Êı¾İÀàĞÍÃû³Æ×î´ó³¤¶È
+#define  STKID "id" //å…³é”®å­—
+const int MAX_FIELD_NAME = 32;//å­—æ®µåç§°æœ€å¤§é•¿åº¦
+const int MAX_FIELDS_NUM = 1024;//æ¯ä¸ªdidä¸ªé‡Œæ¯çº§æ¯ç»„å­—æ®µæœ€å¤§æ•°ç›®
+const int MAX_TYPE_NAME = 16;//æ•°æ®ç±»å‹åç§°æœ€å¤§é•¿åº¦
 const int MAX_ORULES_LEN = 32;
-const int MAXSEQCODELEN = 32;//¹ÉÆ±´úÂë×î´ó³¤¶È
+const int MAXSEQCODELEN = 32;//è‚¡ç¥¨ä»£ç æœ€å¤§é•¿åº¦
 
 const int SHL2_EXMMPBS_DAT = 100000;
 const int SHL2_EXZB_DAT = 100001;
 enum
 {
-	NO_HDIDS_ELM_ERR=-49,///hdidsÏÂÎŞÊı¾İ
-	NO_HDIDS_ATTR_ERR=-48,//ÎŞhdids½Ú
+	NO_HDIDS_ELM_ERR=-49,///hdidsä¸‹æ— æ•°æ®
+	NO_HDIDS_ATTR_ERR=-48,//æ— hdidsèŠ‚
 	WEEKDAY_ERR=-47,
 	GMTMINTIME_ERR=-46,
 	TIMELEN_ERR=-45,
@@ -51,25 +51,25 @@ enum
 	ID_ERROR=-22,
 	NO_NAME_ERR=-21,
 	NO_CID_ERR=-20,
-	NO_CIDS_ELM_ERR=-19,//cidsÏÂÎŞÊı¾İ
-	NO_FIELDS_ELM_ERR=-18,//fieldsÏÂÎŞÊı¾İ
-	NO_FIELDS_ATTR_ERR=-17,//ÎŞfields½Ú
-	NO_DIDS_ELM_ERR=-16,///didsÏÂÎŞÊı¾İ
-	NO_DIDS_ATTR_ERR=-15,//ÎŞdids½Ú
-	CLASS_NODATA_ERR=-14,//¸Ã¶ÔÏó»¹Ã»³õÊ¼»¯¹ı
-	KEY_POS_ERR=-13,//stkid¹Ø¼ü×Ö²»ÔÚ¼ÇÂ¼Í·Ò»¸öÎ»ÖÃ
-	KEY_TYPE_ERR=-12,//stkid¹Ø¼ü×ÖÊı¾İÀàĞÍ²»Îªunsigned int
-	NO_KEY_FIELD=-11,//Ã»ÓĞ¹Ø¼ü×Ö¶Î
-	MAXMIN_ERR=-10,//maxsize²»ÊÇminsizeµÄÕûÊı±¶
-	MALLOC_ERR=-9,//·ÖÅäÄÚ´æÊ§°Ü
-	DID_VAL_ERR=-8,//didÖµ·Ç·¨
-	NO_DID_ATTR_ERR=-7,//ÎŞdid×Ö¶Î
-	NO_DATA_ELM_ERR=-6,//dataÏÂÎŞÊı¾İ
-	NO_DATA_NODE_ERR=-5,//ÎŞdata½Ú
-	NO_DATAS_ELM_ERR=-4,//datasÏÂÎŞÊı¾İ
-	NO_DATAS_NODE_ERR=-3,//ÎŞdatas½Ú
-	PARSE_ERR=-2,//xmlÎÄ¼ş½âÎöÊ§°Ü
-	ARGS_ERR=-1,//²ÎÊı·Ç·¨
+	NO_CIDS_ELM_ERR=-19,//cidsä¸‹æ— æ•°æ®
+	NO_FIELDS_ELM_ERR=-18,//fieldsä¸‹æ— æ•°æ®
+	NO_FIELDS_ATTR_ERR=-17,//æ— fieldsèŠ‚
+	NO_DIDS_ELM_ERR=-16,///didsä¸‹æ— æ•°æ®
+	NO_DIDS_ATTR_ERR=-15,//æ— didsèŠ‚
+	CLASS_NODATA_ERR=-14,//è¯¥å¯¹è±¡è¿˜æ²¡åˆå§‹åŒ–è¿‡
+	KEY_POS_ERR=-13,//stkidå…³é”®å­—ä¸åœ¨è®°å½•å¤´ä¸€ä¸ªä½ç½®
+	KEY_TYPE_ERR=-12,//stkidå…³é”®å­—æ•°æ®ç±»å‹ä¸ä¸ºunsigned int
+	NO_KEY_FIELD=-11,//æ²¡æœ‰å…³é”®å­—æ®µ
+	MAXMIN_ERR=-10,//maxsizeä¸æ˜¯minsizeçš„æ•´æ•°å€
+	MALLOC_ERR=-9,//åˆ†é…å†…å­˜å¤±è´¥
+	DID_VAL_ERR=-8,//didå€¼éæ³•
+	NO_DID_ATTR_ERR=-7,//æ— didå­—æ®µ
+	NO_DATA_ELM_ERR=-6,//dataä¸‹æ— æ•°æ®
+	NO_DATA_NODE_ERR=-5,//æ— dataèŠ‚
+	NO_DATAS_ELM_ERR=-4,//datasä¸‹æ— æ•°æ®
+	NO_DATAS_NODE_ERR=-3,//æ— datasèŠ‚
+	PARSE_ERR=-2,//xmlæ–‡ä»¶è§£æå¤±è´¥
+	ARGS_ERR=-1,//å‚æ•°éæ³•
 };
 
 enum FIELD_TYPE
@@ -101,25 +101,25 @@ private:
 
 #pragma pack(1)
 
-//ÉÏº£L2À©Õ¹Öğ±Ê
+//ä¸Šæµ·L2æ‰©å±•é€ç¬”
 struct ExSH_L2_REPORT
 {
 	DWORD m_dwStkID;			
-	dzh_time_t m_dtTime;//³É½»Ê±¼ä
-	PFloat m_pfPrice;//³É½»¼Û¸ñ
-	DWORD m_dwVolume;//³É½»Á¿
+	dzh_time_t m_dtTime;//æˆäº¤æ—¶é—´
+	PFloat m_pfPrice;//æˆäº¤ä»·æ ¼
+	DWORD m_dwVolume;//æˆäº¤é‡
 	BYTE m_byteInOutFlag;
 	UINT64 m_uint64BuyOrderId;
 	UINT64 m_uint64SellOrderId;
 };
 
-//ÉÏº£L2À©Õ¹Öğ±Ê
+//ä¸Šæµ·L2æ‰©å±•é€ç¬”
 struct ExSH_L2_REPORTV2
 {
 	DWORD m_dwStkID;			
-	dzh_time_t m_dtTime;//³É½»Ê±¼ä
-	PFloat m_pfPrice;//³É½»¼Û¸ñ
-	VFloat m_vfVolume;//³É½»Á¿
+	dzh_time_t m_dtTime;//æˆäº¤æ—¶é—´
+	PFloat m_pfPrice;//æˆäº¤ä»·æ ¼
+	VFloat m_vfVolume;//æˆäº¤é‡
 	BYTE m_byteInOutFlag;
 	UINT64 m_uint64BuyOrderId;
 	UINT64 m_uint64SellOrderId;
@@ -146,15 +146,15 @@ struct MmpBs
 
 struct MemOffsetLen
 {
-	UINT64 m_uint64Offset;//Æ«ÒÆ
-	UINT64 m_uint64Len;//³¤¶È
+	UINT64 m_uint64Offset;//åç§»
+	UINT64 m_uint64Len;//é•¿åº¦
 };
 
 struct SinTableLastAddress
 {
 	DWORD m_dwDid;
 	DWORD m_dwSeq;
-	UINT64 m_uint64Address;//µØÖ·
+	UINT64 m_uint64Address;//åœ°å€
 };
 
 struct ds_type
@@ -165,7 +165,7 @@ struct ds_type
 
 struct DidName
 {
-	char m_cName[MAX_FIELD_NAME+1];//DIDÃû³Æ
+	char m_cName[MAX_FIELD_NAME+1];//DIDåç§°
 	DWORD m_dwDid;
 };
 
@@ -191,9 +191,9 @@ struct CidFieldInfo
 {
 	DWORD m_dwFid;//id
 	BYTE m_cBmType;//bmt
-	BYTE m_cBlockCmp;//Ò»°ãÎª0£¬Èç¹ûÎª1£¬ĞèÒª¶ÔºóÃæµÄ×Ö¶ÎÓë0×ö±È½Ï±àÂë
-	UINT64 m_uint64BmaVal;//¿ÉÄÜÈ¡Öµ:×Ö¶Îid,×Ö·û´®ÁĞ±íid,Êµ¼ÊÊıÖµ,0xFFFFFFFFFFFFFFFF±íÊ¾¸ú¾²Ì¬Âë±íµÄÈÕÆÚbmav
-	UINT64 m_uint64BmbVal;//¿ÉÄÜÈ¡Öµ:×Ö¶Îid m_vBmTypeÎªEQUALÓĞĞ§bmbv
+	BYTE m_cBlockCmp;//ä¸€èˆ¬ä¸º0ï¼Œå¦‚æœä¸º1ï¼Œéœ€è¦å¯¹åé¢çš„å­—æ®µä¸0åšæ¯”è¾ƒç¼–ç 
+	UINT64 m_uint64BmaVal;//å¯èƒ½å–å€¼:å­—æ®µid,å­—ç¬¦ä¸²åˆ—è¡¨id,å®é™…æ•°å€¼,0xFFFFFFFFFFFFFFFFè¡¨ç¤ºè·Ÿé™æ€ç è¡¨çš„æ—¥æœŸbmav
+	UINT64 m_uint64BmbVal;//å¯èƒ½å–å€¼:å­—æ®µid m_vBmTypeä¸ºEQUALæœ‰æ•ˆbmbv
 	char m_cOperRules[MAX_ORULES_LEN];//x2-x1,bmor
 	DWORD m_dwCbId;//CodeBits ID,cbid
 	BYTE m_cOperType;//m_cOperRules
@@ -201,84 +201,84 @@ struct CidFieldInfo
 
 struct CidField
 {
-	enum BMT_TYPE//Ïà¹ØÀàĞÍ
+	enum BMT_TYPE//ç›¸å…³ç±»å‹
 	{
-		VAL = 0,				//¸úºóÃæbmavµÄ¾ßÌåÈ¡ÖµÏà¹Ø,BmaVÄ¬ÈÏÖµÎª0
-		LAST = 1,				//¸úÏàÍ¬¹Ø¼ü×ÖµÄÇ°Ò»Ìõ¼ÇÂ¼bmavÖµID×Ö¶ÎÏà¹Ø
-		PREV = 2,				//¸úÒ»¸öÊı¾İ°üÀïÇ°ÃæµÄÒ»Ìõ¼ÇÂ¼bmavÖµID×Ö¶ÎÏà¹Ø
-		NOW = 3,				//¸ú±¾¼ÇÂ¼bmavÖµID×Ö¶ÎÏà¹Ø
-		STR = 4,				//ºóÃæbmavÖµµÄ×Ö·û´®ÁĞ±íÀïÆ¥Åä
-		EQUAL = 5,				//¸úºóÃæbmbvÈ¡Öµ×Ö¶ÎÏàµÈµÄÇ°Ò»Ìõ¼ÇÂ¼Ïà¹Ø
-		STATICDAY = 6,			//¸ú¾²Ì¬Êı¾İÀïµÄÈÕÆÚÏà¹Ø
+		VAL = 0,				//è·Ÿåé¢bmavçš„å…·ä½“å–å€¼ç›¸å…³,BmaVé»˜è®¤å€¼ä¸º0
+		LAST = 1,				//è·Ÿç›¸åŒå…³é”®å­—çš„å‰ä¸€æ¡è®°å½•bmavå€¼IDå­—æ®µç›¸å…³
+		PREV = 2,				//è·Ÿä¸€ä¸ªæ•°æ®åŒ…é‡Œå‰é¢çš„ä¸€æ¡è®°å½•bmavå€¼IDå­—æ®µç›¸å…³
+		NOW = 3,				//è·Ÿæœ¬è®°å½•bmavå€¼IDå­—æ®µç›¸å…³
+		STR = 4,				//åé¢bmavå€¼çš„å­—ç¬¦ä¸²åˆ—è¡¨é‡ŒåŒ¹é…
+		EQUAL = 5,				//è·Ÿåé¢bmbvå–å€¼å­—æ®µç›¸ç­‰çš„å‰ä¸€æ¡è®°å½•ç›¸å…³
+		STATICDAY = 6,			//è·Ÿé™æ€æ•°æ®é‡Œçš„æ—¥æœŸç›¸å…³
 	};
-	CidFieldInfo mCFInfo[3];//0ÎªÒ»°ã×Ö¶Î,1ÎªpfloatĞ¡Êı²¿·ÖµÄÑ¹Ëõ»òÕßdtimeºÁÃëÊı²¿·ÖµÄÑ¹Ëõ,2ÎªdtimeÎ¢ÃëÊı²¿·ÖµÄÑ¹Ëõ
+	CidFieldInfo mCFInfo[3];//0ä¸ºä¸€èˆ¬å­—æ®µ,1ä¸ºpfloatå°æ•°éƒ¨åˆ†çš„å‹ç¼©æˆ–è€…dtimeæ¯«ç§’æ•°éƒ¨åˆ†çš„å‹ç¼©,2ä¸ºdtimeå¾®ç§’æ•°éƒ¨åˆ†çš„å‹ç¼©
 };
 
 struct CidInfo
 {
-	char m_cName[MAX_FIELD_NAME+1];//CIDÃû³Æ
+	char m_cName[MAX_FIELD_NAME+1];//CIDåç§°
 	DWORD m_dwCid;//CID
-	DWORD m_dwDCid;//µ±ÕÒ²»µ½±È½ÏµÄ¼ÇÂ¼²ÉÓÃµÄÑ¹Ëõ·½Ê½
-	DWORD m_dwFiledsNum;//×Ö¶ÎÊıÄ¿
-	UINT64 m_uint64Offset;//Æ«ÒÆÁ¿£¬Ö¸Ïò¾ßÌåÃ¿¸ö×Ö¶ÎµÄÑ¹ËõÏà¹Ø·½Ê½ĞÅÏ¢
+	DWORD m_dwDCid;//å½“æ‰¾ä¸åˆ°æ¯”è¾ƒçš„è®°å½•é‡‡ç”¨çš„å‹ç¼©æ–¹å¼
+	DWORD m_dwFiledsNum;//å­—æ®µæ•°ç›®
+	UINT64 m_uint64Offset;//åç§»é‡ï¼ŒæŒ‡å‘å…·ä½“æ¯ä¸ªå­—æ®µçš„å‹ç¼©ç›¸å…³æ–¹å¼ä¿¡æ¯
 };
 struct Cids
 {
-	DWORD m_wCidsNum;//ÓĞ¶àÉÙÖÖÑ¹ËõÏà¹Ø·½Ê½,Ò»°ãÓĞprev,last,now
-	CidInfo  mCidInfo[1];//Ïà¹Ø·½Ê½ĞÅÏ¢
+	DWORD m_wCidsNum;//æœ‰å¤šå°‘ç§å‹ç¼©ç›¸å…³æ–¹å¼,ä¸€èˆ¬æœ‰prev,last,now
+	CidInfo  mCidInfo[1];//ç›¸å…³æ–¹å¼ä¿¡æ¯
 };
 
 struct CodeBitInfo
 {
-	char m_cName[MAX_FIELD_NAME+1];//CodeBitÃû³Æ
+	char m_cName[MAX_FIELD_NAME+1];//CodeBitåç§°
 	DWORD m_dwCid;//CID
-	DWORD m_dwNum;//±àÂëÊıÄ¿
-	UINT64 m_uint64Offset;//Æ«ÒÆÁ¿£¬Ö¸Ïò¾ßÌå±àÂëĞÅÏ¢
+	DWORD m_dwNum;//ç¼–ç æ•°ç›®
+	UINT64 m_uint64Offset;//åç§»é‡ï¼ŒæŒ‡å‘å…·ä½“ç¼–ç ä¿¡æ¯
 };
 
 struct CodeBitIds
 {
-	DWORD m_wCodeBitIdNum;//ÓĞ¶àÉÙÖÖcodebitid
-	CodeBitInfo  mCodeBitInfo[1];//Ïà¹Ø·½Ê½ĞÅÏ¢
+	DWORD m_wCodeBitIdNum;//æœ‰å¤šå°‘ç§codebitid
+	CodeBitInfo  mCodeBitInfo[1];//ç›¸å…³æ–¹å¼ä¿¡æ¯
 };
 
 struct StrList
 {
-	char m_cName[MAX_FIELD_NAME+1];//stridÃû³Æ
+	char m_cName[MAX_FIELD_NAME+1];//stridåç§°
 	DWORD m_dwStrId;//strid
-	DWORD m_wStrNum;//ÓĞ¶àÉÙ¸ö×Ö·û´®
-	DWORD m_wMaxStrLen;//×î´ó×Ö·û´®³¤¶È
-	UINT64 m_uint64Offset;//Æ«ÒÆÁ¿£¬Ö¸Ïò¾ßÌåµÄ×Ö·û´®ÁĞ±í
+	DWORD m_wStrNum;//æœ‰å¤šå°‘ä¸ªå­—ç¬¦ä¸²
+	DWORD m_wMaxStrLen;//æœ€å¤§å­—ç¬¦ä¸²é•¿åº¦
+	UINT64 m_uint64Offset;//åç§»é‡ï¼ŒæŒ‡å‘å…·ä½“çš„å­—ç¬¦ä¸²åˆ—è¡¨
 };
 
 struct StrIds
 {
-	DWORD m_wStrIdNum;//ÓĞ¶àÉÙ¸östrid
-	StrList  mStrList[1];//Ïà¹Ø·½Ê½ĞÅÏ¢
+	DWORD m_wStrIdNum;//æœ‰å¤šå°‘ä¸ªstrid
+	StrList  mStrList[1];//ç›¸å…³æ–¹å¼ä¿¡æ¯
 };
 
 //BitCodeField::m_cCode
 
-//'B':Êı¾İ²»³¬¹ım_dwCodeDataÎ», 
-//'b':Êı¾İ²»³¬¹ım_dwCodeDataÎ», ´ø·ûºÅÊı£¬ËùÒÔ´æÖüÊ±ÓĞÒ»Î»ÓÃÓÚ´æÖü·ûºÅÎ»
-//'m':Êı¾İ²»³¬¹ım_dwCodeDataÎ», ¸ºÊı
-//'S':Êı¾İÓÒÒÆHIWORD(m_dwCodeData)ºó²»³¬¹ıLOWORD(m_dwCodeData)Î»
-//'E':Êı¾İµÈÓÚCodeData
-//'Z':Êı¾İÎªx*10^N, x<CodeData,N==1-4
-//'P':ÔÚm_qwCodeDataÎ»Êı¾İÖĞ£¬´æÔÚÒ»¸ö1£¬Õâ¸ö1µÄÎ»ÖÃ
-//'M':±àÂë°üÀ¨Æäºó¶à¸ö×Ö¶ÎÍ³Ò»±È½Ï
-//'Q':Ô­Ê¼64Î»ÕûĞÎÊı¾İ,Ô­Ê¼Êı¾İ·ÅÈëBitÁ÷,×ÜÊÇ·ÅÔÚ×îºóÃæ£¬²»½øĞĞÆ¥Åä
-//'s':×Ö·û´®
+//'B':æ•°æ®ä¸è¶…è¿‡m_dwCodeDataä½, 
+//'b':æ•°æ®ä¸è¶…è¿‡m_dwCodeDataä½, å¸¦ç¬¦å·æ•°ï¼Œæ‰€ä»¥å­˜è´®æ—¶æœ‰ä¸€ä½ç”¨äºå­˜è´®ç¬¦å·ä½
+//'m':æ•°æ®ä¸è¶…è¿‡m_dwCodeDataä½, è´Ÿæ•°
+//'S':æ•°æ®å³ç§»HIWORD(m_dwCodeData)åä¸è¶…è¿‡LOWORD(m_dwCodeData)ä½
+//'E':æ•°æ®ç­‰äºCodeData
+//'Z':æ•°æ®ä¸ºx*10^N, x<CodeData,N==1-4
+//'P':åœ¨m_qwCodeDataä½æ•°æ®ä¸­ï¼Œå­˜åœ¨ä¸€ä¸ª1ï¼Œè¿™ä¸ª1çš„ä½ç½®
+//'M':ç¼–ç åŒ…æ‹¬å…¶åå¤šä¸ªå­—æ®µç»Ÿä¸€æ¯”è¾ƒ
+//'Q':åŸå§‹64ä½æ•´å½¢æ•°æ®,åŸå§‹æ•°æ®æ”¾å…¥Bitæµ,æ€»æ˜¯æ”¾åœ¨æœ€åé¢ï¼Œä¸è¿›è¡ŒåŒ¹é…
+//'s':å­—ç¬¦ä¸²
 struct BitCodeField
 {
-	WORD	m_wCodeBits;	//±àÂë
-	char	m_nCodeLen;		//±àÂë³¤¶È
-	char	m_nDataLen;		//±àÂëºó¸úËæµÄÊı¾İ³¤¶È,µ¥Î»Bit£¬×î´ó64Bit
-	char	m_cCode;		//±àÂë·½·¨	  
-	UINT64	m_uint64CodeData;	//±àÂëÊı¾İ
-	UINT64	m_uint64DataBias;	//±àÂëÊı¾İÆ«ÒÆÁ¿
+	WORD	m_wCodeBits;	//ç¼–ç 
+	char	m_nCodeLen;		//ç¼–ç é•¿åº¦
+	char	m_nDataLen;		//ç¼–ç åè·Ÿéšçš„æ•°æ®é•¿åº¦,å•ä½Bitï¼Œæœ€å¤§64Bit
+	char	m_cCode;		//ç¼–ç æ–¹æ³•	  
+	UINT64	m_uint64CodeData;	//ç¼–ç æ•°æ®
+	UINT64	m_uint64DataBias;	//ç¼–ç æ•°æ®åç§»é‡
 #ifdef _DEBUG
-	DWORD	m_dwCodeCount;	//Æµ¶È
+	DWORD	m_dwCodeCount;	//é¢‘åº¦
 #endif
 	BOOL IsOriginalData() const {return  (m_cCode=='Q');}
 	BOOL IsBitPos() const {return m_cCode=='P';}
@@ -287,95 +287,95 @@ struct BitCodeField
 struct ds_did_info
 {
 	unsigned int did;//did
-	unsigned char index_key;//Îª1±íÊ¾,¿ÉÒÔ¸ù¾İ¹Ø¼ü×Ö¶ÎÖ±½Ó¶¨Î»
-	char m_cName[MAX_FIELD_NAME+1];//DIDÃû³Æ
-	short m_sKeyFieldPos;//¹Ø¼ü×Ö¶ÎÎ»ÖÃ,Ã¿¼¶Ä¿Ç°Ö»Ö§³ÖÒ»¸ö¹Ø¼ü×Ö¶Î
-	unsigned short m_wSortSecs;//¶àÉÙÃëÅÅÒ»´ÎĞò
-	unsigned short m_wFieldsNum;//×Ö¶ÎÊıÄ¿
-	unsigned short m_wAllFieldsNum;//×Ü×Ö¶ÎÊıÄ¿
-	unsigned short m_wTablesNum;//½á¹¹ÌåÊıÄ¿£¬±íÊıÄ¿
-	unsigned int m_dwRRecSize;//Ò»Ìõ¼ÇÂ¼³¤¶È£¬Ã¿¸öRÀàĞÍ×Ö¶ÎÔÙ¼ÓÉÏÒ»¸öÆ«ÒÆµØÖ·³¤¶È8×Ö½Ú
-	unsigned int m_dwVRecSize;//Ò»Ìõ¼ÇÂ¼³¤¶È
-	unsigned int m_dwAllVRecSize;//Ò»Ìõ¼ÇÂ¼³¤¶È
-	unsigned char m_byteMaxBits;//±àÂë×î´ó³¤¶È
-	unsigned char m_byteEqual;//¸Ã¼¶×Ö¶Î³¤¶È£¬ÀàĞÍ£¬Î»ÖÃÍêÈ«Ò»Ä£Ò»ÑùÎª1
-	unsigned int drvver;//Çı¶¯°æ±¾ºÅ
-	unsigned char m_byteFullPush:1;//È«ÍÆ£¬Îª1±íÊ¾ĞèÒªÈ«ÍÆ
-	unsigned char m_byteDatType:7;//0ÇĞÆ¬Êı¾İ£¬1ĞòÁĞÊı¾İ
-	dzh_time_t m_dtGmtMinTimes;//×îĞ¡ÆğÊ¼Ê±¼ä
-	UINT64 m_uint64TimeLen;//Ê±¼ä¶Î
+	unsigned char index_key;//ä¸º1è¡¨ç¤º,å¯ä»¥æ ¹æ®å…³é”®å­—æ®µç›´æ¥å®šä½
+	char m_cName[MAX_FIELD_NAME+1];//DIDåç§°
+	short m_sKeyFieldPos;//å…³é”®å­—æ®µä½ç½®,æ¯çº§ç›®å‰åªæ”¯æŒä¸€ä¸ªå…³é”®å­—æ®µ
+	unsigned short m_wSortSecs;//å¤šå°‘ç§’æ’ä¸€æ¬¡åº
+	unsigned short m_wFieldsNum;//å­—æ®µæ•°ç›®
+	unsigned short m_wAllFieldsNum;//æ€»å­—æ®µæ•°ç›®
+	unsigned short m_wTablesNum;//ç»“æ„ä½“æ•°ç›®ï¼Œè¡¨æ•°ç›®
+	unsigned int m_dwRRecSize;//ä¸€æ¡è®°å½•é•¿åº¦ï¼Œæ¯ä¸ªRç±»å‹å­—æ®µå†åŠ ä¸Šä¸€ä¸ªåç§»åœ°å€é•¿åº¦8å­—èŠ‚
+	unsigned int m_dwVRecSize;//ä¸€æ¡è®°å½•é•¿åº¦
+	unsigned int m_dwAllVRecSize;//ä¸€æ¡è®°å½•é•¿åº¦
+	unsigned char m_byteMaxBits;//ç¼–ç æœ€å¤§é•¿åº¦
+	unsigned char m_byteEqual;//è¯¥çº§å­—æ®µé•¿åº¦ï¼Œç±»å‹ï¼Œä½ç½®å®Œå…¨ä¸€æ¨¡ä¸€æ ·ä¸º1
+	unsigned int drvver;//é©±åŠ¨ç‰ˆæœ¬å·
+	unsigned char m_byteFullPush:1;//å…¨æ¨ï¼Œä¸º1è¡¨ç¤ºéœ€è¦å…¨æ¨
+	unsigned char m_byteDatType:7;//0åˆ‡ç‰‡æ•°æ®ï¼Œ1åºåˆ—æ•°æ®
+	dzh_time_t m_dtGmtMinTimes;//æœ€å°èµ·å§‹æ—¶é—´
+	UINT64 m_uint64TimeLen;//æ—¶é—´æ®µ
 };
 struct ds_field_info
 {
-	unsigned char m_byteTypeIndex;//Êı¾İÀàĞÍË÷Òı
-	unsigned char m_byteTypeSize;//Êı¾İÀàĞÍ´óĞ¡
+	unsigned char m_byteTypeIndex;//æ•°æ®ç±»å‹ç´¢å¼•
+	unsigned char m_byteTypeSize;//æ•°æ®ç±»å‹å¤§å°
 	unsigned char m_byteSortFlag;
-	unsigned char m_byteSaveFlag;//±íÊ¾¿Í»§¶Ë¸Ã¼¶ÊÇ·ñĞèÇó´æÖü
+	unsigned char m_byteSaveFlag;//è¡¨ç¤ºå®¢æˆ·ç«¯è¯¥çº§æ˜¯å¦éœ€æ±‚å­˜è´®
 	unsigned short m_wId;
-	unsigned short m_wASize;//Êı×é´óĞ¡
-	unsigned int m_dwOffset;//¸Ã×Ö¶Î¾àÀë¼ÇÂ¼Í·µÄ³¤¶È
-	unsigned int m_dwROffset;//¸Ã×Ö¶Î¾àÀë¼ÇÂ¼Í·µÄ³¤¶È,°üÀ¨RÀàĞÍ×Ö¶ÎÆ«ÒÆµØÖ·
-	char m_cName[MAX_FIELD_NAME+1];//×Ö¶ÎÃû³Æ
-	int idpos;//¶ÔÓ¦´æÖüÄ£°åµÄ×Ö¶ÎÎ»ÖÃ
+	unsigned short m_wASize;//æ•°ç»„å¤§å°
+	unsigned int m_dwOffset;//è¯¥å­—æ®µè·ç¦»è®°å½•å¤´çš„é•¿åº¦
+	unsigned int m_dwROffset;//è¯¥å­—æ®µè·ç¦»è®°å½•å¤´çš„é•¿åº¦,åŒ…æ‹¬Rç±»å‹å­—æ®µåç§»åœ°å€
+	char m_cName[MAX_FIELD_NAME+1];//å­—æ®µåç§°
+	int idpos;//å¯¹åº”å­˜è´®æ¨¡æ¿çš„å­—æ®µä½ç½®
 
-	UINT64 m_uint64Offset;//Æ«ÒÆÁ¿£¬Ö¸ÏòÇ¶Ì×µÄ×Ö¶ÎĞÅÏ¢
-	unsigned short m_wFieldsNum;//Ç¶Ì×µÄ×Ö¶ÎÊıÄ¿,¸ÃÖµÎª0±íÊ¾Ã»Ç¶Ì×
-	unsigned int m_dwRRecSize;//Ò»Ìõ¼ÇÂ¼³¤¶È£¬Ã¿¸öRÀàĞÍ×Ö¶ÎÔÙ¼ÓÉÏÒ»¸öÆ«ÒÆµØÖ·³¤¶È8×Ö½Ú
-	unsigned int m_dwVRecSize;//Ò»Ìõ¼ÇÂ¼³¤¶È
-	short m_sKeyFieldPos;//¹Ø¼ü×Ö¶ÎÎ»ÖÃ
-	unsigned char m_byteEqual;//¸Ã¼¶×Ö¶Î³¤¶È£¬ÀàĞÍ£¬Î»ÖÃÍêÈ«Ò»Ä£Ò»ÑùÎª1
-	unsigned char index_key;//Îª1±íÊ¾,¿ÉÒÔ¸ù¾İ¹Ø¼ü×Ö¶ÎÖ±½Ó¶¨Î»
-	unsigned short tableid;//µÚ¼¸¸ötableµÄ
+	UINT64 m_uint64Offset;//åç§»é‡ï¼ŒæŒ‡å‘åµŒå¥—çš„å­—æ®µä¿¡æ¯
+	unsigned short m_wFieldsNum;//åµŒå¥—çš„å­—æ®µæ•°ç›®,è¯¥å€¼ä¸º0è¡¨ç¤ºæ²¡åµŒå¥—
+	unsigned int m_dwRRecSize;//ä¸€æ¡è®°å½•é•¿åº¦ï¼Œæ¯ä¸ªRç±»å‹å­—æ®µå†åŠ ä¸Šä¸€ä¸ªåç§»åœ°å€é•¿åº¦8å­—èŠ‚
+	unsigned int m_dwVRecSize;//ä¸€æ¡è®°å½•é•¿åº¦
+	short m_sKeyFieldPos;//å…³é”®å­—æ®µä½ç½®
+	unsigned char m_byteEqual;//è¯¥çº§å­—æ®µé•¿åº¦ï¼Œç±»å‹ï¼Œä½ç½®å®Œå…¨ä¸€æ¨¡ä¸€æ ·ä¸º1
+	unsigned char index_key;//ä¸º1è¡¨ç¤º,å¯ä»¥æ ¹æ®å…³é”®å­—æ®µç›´æ¥å®šä½
+	unsigned short tableid;//ç¬¬å‡ ä¸ªtableçš„
 };
 
 struct timemyval
 {
-	UINT64 m_uint64TimeSec;//×îºó¸üĞÂÊ±¼äÃë
-	UINT64 m_uint64TimeUSec;//×îºó¸üĞÂÊ±¼äÎ¢Ãë
+	UINT64 m_uint64TimeSec;//æœ€åæ›´æ–°æ—¶é—´ç§’
+	UINT64 m_uint64TimeUSec;//æœ€åæ›´æ–°æ—¶é—´å¾®ç§’
 };
 
 struct stock_head
 {
 	timemyval m_tmTime;
-	UINT64 m_uint64Ver;//°æ±¾ºÅ
+	UINT64 m_uint64Ver;//ç‰ˆæœ¬å·
 };
 struct first_head
 {
-	unsigned int m_dwRecsNum;//Ä¿Ç°ÒÑÓĞ¼ÇÂ¼Êı£¬¹Ø¼ü×ÖÎªstkid,stkid×î´óÖµ£¬·ñÔò¾ÍÊÇÒÑÓĞ¼ÇÂ¼ÊıÄ¿
-	UINT64 m_uint64FullCompressCurPos;//È«Á¿°üµ±Ç°Êı¾İ´æÖüÎ»ÖÃ+1
-	UINT64 m_uint64FullCompressDatVer;//È«Á¿°üµ±Ç°Êı¾İ°æ±¾ºÅ
-	stock_head mStockHead;//×Ü±í¸üĞÂÊı¾İ
+	unsigned int m_dwRecsNum;//ç›®å‰å·²æœ‰è®°å½•æ•°ï¼Œå…³é”®å­—ä¸ºstkid,stkidæœ€å¤§å€¼ï¼Œå¦åˆ™å°±æ˜¯å·²æœ‰è®°å½•æ•°ç›®
+	UINT64 m_uint64FullCompressCurPos;//å…¨é‡åŒ…å½“å‰æ•°æ®å­˜è´®ä½ç½®+1
+	UINT64 m_uint64FullCompressDatVer;//å…¨é‡åŒ…å½“å‰æ•°æ®ç‰ˆæœ¬å·
+	stock_head mStockHead;//æ€»è¡¨æ›´æ–°æ•°æ®
 };
 
 struct table_head
 {
-	//short m_sTableFieldsOffset;//Ö¸Ïò±í×Ö¶ÎĞÅÏ¢,Îª-1±íÊ¾Æğµã
-	UINT64 m_uint64TableHeadOffset;//Ö¸Ïòfirst_head
-	UINT64 m_uint64TableDataOffset;//Ö¸Ïò±í¼ÇÂ¼Êı¾İĞÅÏ¢
-	unsigned int m_uintTableRecsMaxNum;//±í¼ÇÂ¼×î´óÊıÄ¿
-	unsigned int m_uintTableBlockRecsNum;//±í·Ö¿é¼ÇÂ¼ÊıÄ¿
-	unsigned int m_uintTableBlockSize;//±í·Ö¿é´óĞ¡,µ¥Î»bytes=8+m_uintTableBlockRecsNum*RecSize
-	UINT64 m_uint64TableCurOffset;//Ö¸ÏòÄ¿Ç°ÒÑ·ÖÅäµÄÎ»ÖÃ,µ¥Î»bytes
+	//short m_sTableFieldsOffset;//æŒ‡å‘è¡¨å­—æ®µä¿¡æ¯,ä¸º-1è¡¨ç¤ºèµ·ç‚¹
+	UINT64 m_uint64TableHeadOffset;//æŒ‡å‘first_head
+	UINT64 m_uint64TableDataOffset;//æŒ‡å‘è¡¨è®°å½•æ•°æ®ä¿¡æ¯
+	unsigned int m_uintTableRecsMaxNum;//è¡¨è®°å½•æœ€å¤§æ•°ç›®
+	unsigned int m_uintTableBlockRecsNum;//è¡¨åˆ†å—è®°å½•æ•°ç›®
+	unsigned int m_uintTableBlockSize;//è¡¨åˆ†å—å¤§å°,å•ä½bytes=8+m_uintTableBlockRecsNum*RecSize
+	UINT64 m_uint64TableCurOffset;//æŒ‡å‘ç›®å‰å·²åˆ†é…çš„ä½ç½®,å•ä½bytes
 };
 
 struct repeat_head
 {
-	unsigned int num;//Êı¾İÁ¿
-	UINT64 m_uint64OffSet;//Æ«ÒÆÎ»ÖÃ
+	unsigned int num;//æ•°æ®é‡
+	UINT64 m_uint64OffSet;//åç§»ä½ç½®
 };
 
 struct CircularBufferArgs
 {
-	UINT64 m_qwBufferSize;//´æÖüÇø×Ü³¤¶È
-	DWORD m_dwPosNum;//´æÖüÎ»ÖÃÊıÄ¿
+	UINT64 m_qwBufferSize;//å­˜è´®åŒºæ€»é•¿åº¦
+	DWORD m_dwPosNum;//å­˜è´®ä½ç½®æ•°ç›®
 };
 
 struct LastArgs
 {
-	ds_field_info* pRevF;//Ç°Ò»¼¶±íÊö¸Ã¼¶¼ÇÂ¼ĞÅÏ¢µÄ×Ö¶Î£¬Èç¹ûÎªÓ¦¸ÃÈ¡pDidStruct->mDidInfo
-	ds_field_info* pF;//¸Ã²ã¼¶×Ö¶ÎĞÅÏ¢ÆğÊ¼Î»ÖÃ
-	char* pRec;//¼ÇÂ¼¸Ã²ã¼¶ÆğÊ¼µØÖ·
-	int index;//¸Ã¼¶ĞèÒª±È½ÏµÄ×Ö¶ÎË÷ÒıÖµ,Ä¬ÈÏÈ¡Öµ-1
+	ds_field_info* pRevF;//å‰ä¸€çº§è¡¨è¿°è¯¥çº§è®°å½•ä¿¡æ¯çš„å­—æ®µï¼Œå¦‚æœä¸ºåº”è¯¥å–pDidStruct->mDidInfo
+	ds_field_info* pF;//è¯¥å±‚çº§å­—æ®µä¿¡æ¯èµ·å§‹ä½ç½®
+	char* pRec;//è®°å½•è¯¥å±‚çº§èµ·å§‹åœ°å€
+	int index;//è¯¥çº§éœ€è¦æ¯”è¾ƒçš„å­—æ®µç´¢å¼•å€¼,é»˜è®¤å–å€¼-1
 };
 
 struct UserArgs
@@ -400,16 +400,16 @@ struct WeekTime
 
 struct SeqBufArgs
 {
-	DWORD m_dwDiskSavePartsNum;//×î´ó´æÅÌµÄË÷ÒıÌõÊı
+	DWORD m_dwDiskSavePartsNum;//æœ€å¤§å­˜ç›˜çš„ç´¢å¼•æ¡æ•°
 	/*DWORD m_dwMemSavePartsNum;*/
-	DWORD m_dwMemSaveRevPartsNum;//Ô¤Áô¶àÉÙÌõË÷ÒıµÄÄÚ´æ£¬Ò»ÌõË÷ÒıÖ¸ÏòÒ»¸ö¹Ì¶¨Ê±¼ä¶ÎµÄÊı¾İ£¬±ÈÈçÈÕÏß¿ÉÒÔ°Ñ90Ìì»®ÎªÒ»¸ö¹Ì¶¨Ê±¼ä¶Î£¬Ò»ÆğÑ¹Ëõ
-	DWORD m_dwBlkSize;//Ã¿¿é´óĞ¡
-	UINT64 m_uint64BufSize;//Êı¾İ×ÜÄÚ´æ´óĞ¡
+	DWORD m_dwMemSaveRevPartsNum;//é¢„ç•™å¤šå°‘æ¡ç´¢å¼•çš„å†…å­˜ï¼Œä¸€æ¡ç´¢å¼•æŒ‡å‘ä¸€ä¸ªå›ºå®šæ—¶é—´æ®µçš„æ•°æ®ï¼Œæ¯”å¦‚æ—¥çº¿å¯ä»¥æŠŠ90å¤©åˆ’ä¸ºä¸€ä¸ªå›ºå®šæ—¶é—´æ®µï¼Œä¸€èµ·å‹ç¼©
+	DWORD m_dwBlkSize;//æ¯å—å¤§å°
+	UINT64 m_uint64BufSize;//æ•°æ®æ€»å†…å­˜å¤§å°
 };
 struct SeqNumArgs
 {
-	DWORD m_dwMaxCodeNum;//×î´ó¹ÉÆ±ÊıÄ¿
-	DWORD m_dwMemMaxIndexNum;//ÄÚ´æÀï±£´æµÄ×î´óË÷ÒıÌõÊı°üÀ¨Ô¤Áô²¿·Ö
+	DWORD m_dwMaxCodeNum;//æœ€å¤§è‚¡ç¥¨æ•°ç›®
+	DWORD m_dwMemMaxIndexNum;//å†…å­˜é‡Œä¿å­˜çš„æœ€å¤§ç´¢å¼•æ¡æ•°åŒ…æ‹¬é¢„ç•™éƒ¨åˆ†
 
 	DWORD m_dwLastMaxNum;
 	DWORD m_dwLastPartSize;
@@ -430,9 +430,9 @@ struct SeqFilter
 	char m_cDatTypeName[MAX_FIELD_NAME+1];
 	char m_cKeyFieldName[MAX_FIELD_NAME+1];
 	char m_cFunName[MAX_FIELD_NAME+1];
-	int m_nUpdateDatType;//Êı¾İ¸üĞÂ·½Ê½
-	int m_nMinTimeMins;//Êı¾İ×îĞ¡Ê±¼ä·ÖÖÓÊı£¬¿ÉÒÔÎª¸ºÊı
-	int m_nMaxTimeMins;//Êı¾İ×î´óÊ±¼ä·ÖÖÓÊı
+	int m_nUpdateDatType;//æ•°æ®æ›´æ–°æ–¹å¼
+	int m_nMinTimeMins;//æ•°æ®æœ€å°æ—¶é—´åˆ†é’Ÿæ•°ï¼Œå¯ä»¥ä¸ºè´Ÿæ•°
+	int m_nMaxTimeMins;//æ•°æ®æœ€å¤§æ—¶é—´åˆ†é’Ÿæ•°
 };
 
 struct SeqArgs
@@ -444,22 +444,22 @@ struct SeqArgs
 	SeqFilter mSeqFilter;
 };
 
-//idxÎÄ¼şÍ·
+//idxæ–‡ä»¶å¤´
 struct SeqIdxHead
 {
-	DWORD m_dwNum;//ÊıÄ¿
-	DWORD m_dwCrc;//Ä£°åcrc
+	DWORD m_dwNum;//æ•°ç›®
+	DWORD m_dwCrc;//æ¨¡æ¿crc
 };
-//datÎÄ¼şÍ·
+//datæ–‡ä»¶å¤´
 struct SeqDatHead
 {
 	DWORD m_dwDid;//did
-	DWORD m_dwCrc;//Ä£°åcrc
-	DWORD m_dwNum;//¼ÇÂ¼Êı
-	DWORD m_dwBlkNum;//Ä¿Ç°Êı¾İ¿éÊı
+	DWORD m_dwCrc;//æ¨¡æ¿crc
+	DWORD m_dwNum;//è®°å½•æ•°
+	DWORD m_dwBlkNum;//ç›®å‰æ•°æ®å—æ•°
 };
-//+×îºóÒ»Ìõ¼ÇÂ¼Êı¾İ
-//+Ñ¹Ëõ¿éÊı¾İ
+//+æœ€åä¸€æ¡è®°å½•æ•°æ®
+//+å‹ç¼©å—æ•°æ®
 
 struct SeqFixHead
 {
@@ -467,61 +467,61 @@ struct SeqFixHead
 	UINT64 m_uint64BufLen;
 };
 
-//m_wDidNum¸ö
+//m_wDidNumä¸ª
 struct SeqDidFixHead
 {
-	DWORD m_dwDid;//Êı¾İdid
-	DWORD m_dwXmlCrc;//didÄ£°åcrc
-	SeqNumArgs mSeqNumArgs;//ÊıÄ¿²ÎÊı
-	SeqBufArgs mSeqBufArgs;//ÄÚ´æ²ÎÊı
+	DWORD m_dwDid;//æ•°æ®did
+	DWORD m_dwXmlCrc;//didæ¨¡æ¿crc
+	SeqNumArgs mSeqNumArgs;//æ•°ç›®å‚æ•°
+	SeqBufArgs mSeqBufArgs;//å†…å­˜å‚æ•°
 	MemOffsetLen m_moSeqMem;
 };
 
-//Ã¿¸ödidµÄseq¿é
+//æ¯ä¸ªdidçš„seqå—
 struct SeqMemHead
 {
-	DWORD m_dwChangeStkNum;//ÓĞĞ§¹ÉÆ±ÊıÄ¿
-	UINT64 m_uint64OffSet;//Ö¸ÏòµÚËÄ¿éÒÑÓÃµÄÄÚ´æÆ«ÒÆ
-	MemOffsetLen m_moIdx;//idxË÷ÒıÄÚ´æ£¬Ïà¶ÔÓÚ»ùµØÖ·,m_pBase
-	MemOffsetLen m_moLast;//×î½üÒ»´Î±ä»¯ÄÚ´æ,Ïà¶ÔÓÚ»ùµØÖ·,m_pBase
-	MemOffsetLen m_moRcnt;//×î½ün±Ê±ä»¯ÄÚ´æ,Ïà¶ÔÓÚ»ùµØÖ·,m_pBase
-	MemOffsetLen m_moDat;//È«²¿Êı¾İÄÚ´æ,Ïà¶ÔÓÚ»ùµØÖ·,m_pBase
-	BYTE m_byteReadFalg;//Îª0¿É¶Á£¬Îª1²»¿É¶Á£¬Ğè´ÓÄÚ´æ·ÃÎÊ
+	DWORD m_dwChangeStkNum;//æœ‰æ•ˆè‚¡ç¥¨æ•°ç›®
+	UINT64 m_uint64OffSet;//æŒ‡å‘ç¬¬å››å—å·²ç”¨çš„å†…å­˜åç§»
+	MemOffsetLen m_moIdx;//idxç´¢å¼•å†…å­˜ï¼Œç›¸å¯¹äºåŸºåœ°å€,m_pBase
+	MemOffsetLen m_moLast;//æœ€è¿‘ä¸€æ¬¡å˜åŒ–å†…å­˜,ç›¸å¯¹äºåŸºåœ°å€,m_pBase
+	MemOffsetLen m_moRcnt;//æœ€è¿‘nç¬”å˜åŒ–å†…å­˜,ç›¸å¯¹äºåŸºåœ°å€,m_pBase
+	MemOffsetLen m_moDat;//å…¨éƒ¨æ•°æ®å†…å­˜,ç›¸å¯¹äºåŸºåœ°å€,m_pBase
+	BYTE m_byteReadFalg;//ä¸º0å¯è¯»ï¼Œä¸º1ä¸å¯è¯»ï¼Œéœ€ä»å†…å­˜è®¿é—®
 };
-//m_dwChangeMaxNum¸ö*2
+//m_dwChangeMaxNumä¸ª*2
 struct SeqCodeIndex
 {
 	char code[MAXSEQCODELEN];
 	DWORD m_dwIndex;
-	int m_nTodayIndex;//Ã¿´ÎÔö¼ÓÂë±í¶¼ÒªÖØĞÂ¸³ÖµºÍÅÅĞò
+	int m_nTodayIndex;//æ¯æ¬¡å¢åŠ ç è¡¨éƒ½è¦é‡æ–°èµ‹å€¼å’Œæ’åº
 };
-//m_dwChangeMaxNum¸ö
+//m_dwChangeMaxNumä¸ª
 //{
 	struct SeqMemIdxHead
 	{
-		DWORD m_dwNum;//Êµ¼ÊË÷ÒıÊıÄ¿
-		UINT64 m_uint64NewId;//×îĞÂid
+		DWORD m_dwNum;//å®é™…ç´¢å¼•æ•°ç›®
+		UINT64 m_uint64NewId;//æœ€æ–°id
 	};
 	
-	//×îºóÒ»Ìõ¼ÇÂ¼ÄÚÈİ
+	//æœ€åä¸€æ¡è®°å½•å†…å®¹
 
-	//m_dwMemMaxIndexNum¸ö
+	//m_dwMemMaxIndexNumä¸ª
 	struct SeqIdx
 	{
-		dzh_time_t m_dtStartTime;//Êı¾İÆğÊ¼Ê±¼ä
-		dzh_time_t m_dtEndTime;//Êı¾İ½áÊøÊ±¼ä
-		DWORD m_dwId;//Î»ÖÃ,´Ó1¿ªÊ¼,¶ÔÓÚËùÓĞÊı¾İÀ´Ëµ
-		DWORD m_dwNum;//¸Ã¿é±£´æµÄÊı¾İÊıÄ¿
-		DWORD m_dwCrc;//¸Ã¿éÊı¾İµÄcrc
-		UINT64 m_uint64Offset;//¸Ã¿éÊı¾İµÄÄÚ´æÆ«ÒÆµØÖ·,´Óm_pJSegBaseËãÆğ
-		DWORD m_dwDatBitSize;//¸Ã¿éÊı¾İÑ¹ËõºóµÄÎ»³¤¶È
+		dzh_time_t m_dtStartTime;//æ•°æ®èµ·å§‹æ—¶é—´
+		dzh_time_t m_dtEndTime;//æ•°æ®ç»“æŸæ—¶é—´
+		DWORD m_dwId;//ä½ç½®,ä»1å¼€å§‹,å¯¹äºæ‰€æœ‰æ•°æ®æ¥è¯´
+		DWORD m_dwNum;//è¯¥å—ä¿å­˜çš„æ•°æ®æ•°ç›®
+		DWORD m_dwCrc;//è¯¥å—æ•°æ®çš„crc
+		UINT64 m_uint64Offset;//è¯¥å—æ•°æ®çš„å†…å­˜åç§»åœ°å€,ä»m_pJSegBaseç®—èµ·
+		DWORD m_dwDatBitSize;//è¯¥å—æ•°æ®å‹ç¼©åçš„ä½é•¿åº¦
 	};
 	struct MSeqIdx
 	{
 		SeqIdx mSeqIdx;
-		UINT64 m_uint64Segment;//µÚÒ»¿ésegment,´Óm_pJSegBaseËãÆğ
-		DWORD m_dwPutBitStartPosByte;//¸ÃË÷Òı¿éÊı¾İÔÚ×îºóÒ»¿éblkÀï¿ªÊ¼ÆğÊ¼Î»ÖÃ,Èç¹û×îºóÒ»¿éblkÖ»±£´æÁËÒ»¸öË÷Òı¿é£¬Îª0
-		DWORD m_dwPutBitSize;//¸ÃË÷Òı¿éÊı¾İÔÚ×îºóÒ»¿éblkÀïÒÑÊ¹ÓÃµÄÎ»Êı
+		UINT64 m_uint64Segment;//ç¬¬ä¸€å—segment,ä»m_pJSegBaseç®—èµ·
+		DWORD m_dwPutBitStartPosByte;//è¯¥ç´¢å¼•å—æ•°æ®åœ¨æœ€åä¸€å—blké‡Œå¼€å§‹èµ·å§‹ä½ç½®,å¦‚æœæœ€åä¸€å—blkåªä¿å­˜äº†ä¸€ä¸ªç´¢å¼•å—ï¼Œä¸º0
+		DWORD m_dwPutBitSize;//è¯¥ç´¢å¼•å—æ•°æ®åœ¨æœ€åä¸€å—blké‡Œå·²ä½¿ç”¨çš„ä½æ•°
 	};
 //}
 #pragma pack()

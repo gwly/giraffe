@@ -87,11 +87,11 @@ struct CPS_STATIC_HEAD
 {
 	enum ATTR
 	{
-		SEQ_ID = 1,				//˳��ID
-		FULLDATA = 2,			//����ѹ��/����ѹ��
+		SEQ_ID = 1,				//顺序ID
+		FULLDATA = 2,			//完整压缩/精简压缩
 	};
-	WORD	m_wMarket;		//�г�
-	WORD	m_wNum;			//��������
+	WORD	m_wMarket;		//市场
+	WORD	m_wNum;			//数据数量
 	BYTE	m_cAttrib;
 };
 
@@ -99,24 +99,24 @@ struct CPS_DYNA_HEAD
 {
 	enum ATTR
 	{
-		SEQ_CPS =		1,			//���ѹ��
-		HAS_TIME_BIAS = 2,			//ӵ��ʱ��ƫ��(������������ӵ����ͬʱ��)
-		HAS_TICK_COUNT= 0x40,		//ӵ�гɽ�����
-		HAS_AMOUNT =	0x80,		//�������޳ɽ���
+		SEQ_CPS =		1,			//相关压缩
+		HAS_TIME_BIAS = 2,			//拥有时间偏移(否则所有数据拥有相同时间)
+		HAS_TICK_COUNT= 0x40,		//拥有成交笔数
+		HAS_AMOUNT =	0x80,		//数据中无成交额
 
-		EQUITY =		0,			//��Ʊ����������Ʒ��
-		FUTURE =		0x8,		//��Ʒ�ڻ����ڻ�Ʒ��
-		FOREIGN_EXG	=	0x10,		//����ֻ�п��ߵ�������һ�۵�Ʒ��
-		HKSEC =			0x18,		//�۹ɵ������̼۸���������
-		FTR_IDX =		0x20,		//�ڻ�ָ������5�������̺ͳֲ���������۵�Ʒ��
+		EQUITY =		0,			//股票等完整数据品种
+		FUTURE =		0x8,		//商品期货等期货品种
+		FOREIGN_EXG	=	0x10,		//外汇等只有开高低收买卖一价的品种
+		HKSEC =			0x18,		//港股等买卖盘价格是连续的
+		FTR_IDX =		0x20,		//期货指数，有5档买卖盘和持仓量、结算价的品种
 		TYPEMASK =		0x38,
 	};
-	BYTE	m_cCRC;			//CRCУ���
-	WORD	m_wMarket;		//�г�
-	WORD	m_wNum;			//��������
-	time_t	m_baseTime;		//��׼ʱ�䣬���е�ʱ��ƫ�������ǻ��ڸ�ʱ��
-	BYTE	m_cAttrib;		//����
-	BYTE	m_cVer;			//ѹ���汾
+	BYTE	m_cCRC;			//CRC校验和
+	WORD	m_wMarket;		//市场
+	WORD	m_wNum;			//数据数量
+	time_t	m_baseTime;		//基准时间，所有的时间偏移量都是基于该时间
+	BYTE	m_cAttrib;		//属性
+	BYTE	m_cVer;			//压缩版本
 };
 
 

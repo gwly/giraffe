@@ -7,3 +7,8 @@
 *.log
 *.out
 error.out.*
+core
+core.*
+monitor
+log
+print.txt

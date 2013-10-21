@@ -11,7 +11,7 @@ INC = -I/usr/include/libxml2
 CPPFLAGS  = -D _LINUX_VERSION -Wall -Wno-sign-compare -Wno-unused-variable -Wno-strict-aliasing
 
 # The options used in linking as well as in any direct use of ld.
-LDFLAGS   = -llog4cxx -lpcap -lpthread  -lz -lzmq -lluajit-5.1 -lxml2 -ldscompress_x32
+LDFLAGS   = -L"/usr/local/lib" -llog4cxx -lpcap -lpthread  -lz -lzmq -lluajit-5.1 -lxml2 -ldscompress_x32
 
 # The directories in which source files reside.
 # If not specified, only the current directory will be serached.
@@ -19,7 +19,7 @@ SRCDIRS   = .
 
 # The executable file name.
 # If not specified, current directory name or `a.out' will be used.
-PROGRAM   =monitor
+PROGRAM   = monitor
 
 ## Implicit Section: change the following only when necessary.
 ##==========================================================================
@@ -33,12 +33,13 @@ HDREXTS = .h .H .hh .hpp .HPP .h++ .hxx .hp
 
 # The pre-processor and compiler options.
 # Users can override those variables from the command line.
-CFLAGS  = -g -O2
-#CXXFLAGS= -g -O2
-CXXFLAGS= -g -O2 -v  -fsanitize=address -fno-omit-frame-pointer
+CFLAGS  = -g 
+#CXXFLAGS= -g -v
+CXXFLAGS= -g -v  -fsanitize=address -fno-omit-frame-pointer
 
 # The C program compiler.
 #CC     = gcc
+#CC		= clang
 
 # The C++ program compiler.
 #CXX    = g++
@@ -83,8 +84,8 @@ DEPEND      = $(CC)  $(DEP_OPT)  $(MY_CFLAGS) $(CFLAGS) $(CPPFLAGS) $(INC)
 DEPEND.d    = $(subst -g ,,$(DEPEND))
 COMPILE.c   = $(CC)  $(MY_CFLAGS) $(CFLAGS)   $(CPPFLAGS) $(INC) -c
 COMPILE.cxx = $(CXX) $(MY_CFLAGS) $(CXXFLAGS) $(CPPFLAGS) $(INC) -c
-LINK.c      = $(CC)  $(MY_CFLAGS) $(CFLAGS)   $(CPPFLAGS) $(INC) $(LDFLAGS)
-LINK.cxx    = $(CXX) $(MY_CFLAGS) $(CXXFLAGS) $(CPPFLAGS) $(INC) $(LDFLAGS)
+LINK.c      = $(CC)  $(MY_CFLAGS) $(CFLAGS)   $(CPPFLAGS) $(INC) 
+LINK.cxx    = $(CXX) $(MY_CFLAGS) $(CXXFLAGS) $(CPPFLAGS) $(INC) 
 
 .PHONY: all objs tags ctags clean distclean help show
 
@@ -168,10 +169,10 @@ ctags: $(HEADERS) $(SOURCES)
 #-------------------------------------
 $(PROGRAM):$(OBJS)
 ifeq ($(SRC_CXX),)              # C program
-	$(LINK.c)   $(OBJS) $(MY_LIBS) -o $@
+	$(LINK.c) $(OBJS) $(MY_LIBS) -o $@ $(LDFLAGS)
 	@echo Type ./$@ to execute the program.
 else                            # C++ program
-	$(LINK.cxx) $(OBJS) $(MY_LIBS) -o $@
+	$(LINK.cxx) $(OBJS) $(MY_LIBS) -o $@ $(LDFLAGS)
 	@echo Type ./$@ to execute the program.
 endif
 

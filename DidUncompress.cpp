@@ -7,6 +7,10 @@
 
 #define MaxStocksCount 4000;
 
+using namespace log4cxx;
+
+LoggerPtr DidUncompress::logger_(Logger::getLogger("did uncompress"));
+
 char* GetBmData(int num,LastArgs* pLastArgs,LastArgs* pNowArgs,DWORD did,CDidStruct* pDidStruct,char* pUserArg,ds_field_info*& pSaveField)
 {
 	if (NULL == pUserArg)
@@ -583,9 +587,16 @@ int DidUncompress::DisassemblePack(DC_HEAD* pPack,DataBuffer& buf)
 			{
 				if(buf.Allocate(len)!= -1)
 				{
+					if(!it->second.bInitialized)
+					{
+						LOG4CXX_ERROR(logger_, "uncompress did init failed! did:" << did);
+					}
 					it->second.pUnCompress->SetUnCompressOutputBuffer(buf.GetData(),len);
 					if(it->second.pUnCompress->UnCompressData(pData,iCompressLen,num) == -1)
 						return -1;
+					int temp_finish_uncompress_len = it->second.pUnCompress->FinishUnCompressedData();
+					
+					LOG4CXX_INFO(logger_, "finish uncompress len:" << temp_finish_uncompress_len);
 					if(it->second.pUnCompress->FinishUnCompressedData() != len)
 						return -1;
 					return 1;
@@ -648,19 +659,19 @@ int DidUncompress::DisassemblePack(DC_HEAD* pPack,DataBuffer& buf)
 					sprintf(sFilePath, "%u.xml\0", pDidStruct->mDidInfo.did);
 					vector<TDidInfo*> vecDidFile;
 
-					//Ò»¸öÄ£°åÎÄ¼ş¿ÉÄÜÍ¬Ê±Ö§³Ö¶à¸ödid
+					//ä¸€ä¸ªæ¨¡æ¿æ–‡ä»¶å¯èƒ½åŒæ—¶æ”¯æŒå¤šä¸ªdid
 					for (int i = 0; i < pDidStruct->m_pDids->m_wDidsNum; i++)
 					{
 						int did = pDidStruct->m_pDids->mDidName[i].m_dwDid;
 						map<int, TDidInfo>::iterator it2 = m_mapDidFile.find(did);
 						if (it2 != m_mapDidFile.end())
 						{
-							//É¾³ı¾ÉÎÄ¼ş
+							//åˆ é™¤æ—§æ–‡ä»¶
 							remove(it2->second.strFilePath.c_str());
 							vecDidFile.push_back(&it2->second);
 						}
 					}
-					//Ğ´ÈëĞÂÎÄ¼ş
+					//å†™å…¥æ–°æ–‡ä»¶
 					FILE* fp = fopen(sFilePath, "wb");
 					if (NULL == fp)
 					{

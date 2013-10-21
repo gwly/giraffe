@@ -6,9 +6,9 @@
 #include "generalcps.h"
 
 //////////////////////////////////////////////////////////////////////////////////////////////////////////
-//—πÀı¿©’πæ≤Ã¨
+//ÂéãÁº©Êâ©Â±ïÈùôÊÄÅ
 
-static BITCODE seSubTypeCode[] = //◊”¿‡–Õ
+static BITCODE seSubTypeCode[] = //Â≠êÁ±ªÂûã
 {
 	{0		,	1,	0,'E',		0,	0},			// 0			
 	{4		,	3,	0,'E',	  'A',	0},			// 100			
@@ -241,8 +241,8 @@ int ExpandStaticEx(CBitStream& stream,STK_STATICEx* pBuf,int& nBufSize)
 
 
 //////////////////////////////////////////////////////////////////////////////////////////////////////////
-//—πÀı∏€π…∂ØÃ¨
-static BITCODE hkPriceCode[] =	//º€∏Ò
+//ÂéãÁº©Ê∏ØËÇ°Âä®ÊÄÅ
+static BITCODE hkPriceCode[] =	//‰ª∑Ê†º
 {
 	{0		,	2,  0,'E',		0,  0},			// 00			= 0
 	{6		,	3,  8,'B',		8,  1},			// 110+8Bit		= 8Bit+1
@@ -253,7 +253,7 @@ static BITCODE hkPriceCode[] =	//º€∏Ò
 
 extern BITCODE hkVolCode[6];
 
-static BITCODE hkOrderNumCode[] =	//µ•¡ø
+static BITCODE hkOrderNumCode[] =	//ÂçïÈáè
 {
 	{0		,	2,  0,'E',		0,  0},			// 00			= 0
 	{1		,	2,  6,'B',		6,  1},			// 01+6Bit		= 6Bit
@@ -261,7 +261,7 @@ static BITCODE hkOrderNumCode[] =	//µ•¡ø
 	{3		,	2, 16,'D',	    0,	0},			// 11+16Bit		= 16Bit Org
 };
 
-static BITCODE hkBrokerTypeCode[] =	//æ≠ºÕ
+static BITCODE hkBrokerTypeCode[] =	//ÁªèÁ∫™
 {
 	{0		,	1,  0,'E',	   'B',  0},		// 0			= 'B'
 	{2		,	2,  0,'E',	   'R',  0},		// 10			= 'R'
@@ -269,7 +269,7 @@ static BITCODE hkBrokerTypeCode[] =	//æ≠ºÕ
 	{7		,	3,  8,'D',	    0,	0},			// 111			= 8Bit
 };
 
-static BITCODE hkBrokerCode[] =	//æ≠ºÕ
+static BITCODE hkBrokerCode[] =	//ÁªèÁ∫™
 {
 	{0		,	1, 11,'B',	   11,  0},			// 0+11Bit		= 11Bit
 	{1		,	1, 16,'D',	    0,	0},			// 1+16Bit		= 16Bit Org
@@ -380,9 +380,9 @@ int ExpandHKDyna(CBitStream& stream,STK_HKDYNA* pBuf,int& nBufSize)
 
 static BITCODE geStkIDCode[] =	//StockID
 {
-	{0		,	1,	0,'E',		1,	0},			// 0				À≥–Ú
-	{2		,	2,	4,'B',		4,	1},			// 10	+4Bit		À≥–Ú,1+4Bit
-	{3		,	2, 16,'D',		0,	0},			// 11	+16Bit		÷±Ω”¥Ê∑≈wStockID
+	{0		,	1,	0,'E',		1,	0},			// 0				È°∫Â∫è
+	{2		,	2,	4,'B',		4,	1},			// 10	+4Bit		È°∫Â∫è,1+4Bit
+	{3		,	2, 16,'D',		0,	0},			// 11	+16Bit		Áõ¥Êé•Â≠òÊîæwStockID
 };
 
 int CompressGeneralData(DC_GENERAL* pData,BYTE* pBuf,int nBufSize)

@@ -133,33 +133,27 @@ void LuaRoutine::DispatchToLua(unsigned char * pdcdata, int dc_type,int dc_gener
 	//did
 	if(DCT_DID == dc_type)
 	{
-		for(int i=0;i<stk_num;i++)
+		lua_getglobal(lua_state_, "test_process_did");
+		lua_pushinteger(lua_state_, did_template_id);
+		lua_pushinteger(lua_state_, stk_num);
+		lua_pushlightuserdata(lua_state_, pdcdata);
+		if(lua_pcall(lua_state_, 3, 0, 0) != 0)
 		{
-			count_pack += 1;
-			//count_pack += stk_num*struct_size;
-			//cout<<i<<endl;
-			lua_getglobal(lua_state_,"process_did");
-			lua_pushinteger(lua_state_,listening_item_.get_port());
-			lua_pushinteger(lua_state_, did_template_id);
-			lua_pushlightuserdata(lua_state_, pdcdata+i*struct_size);
-			if(lua_pcall(lua_state_,3,0,0) != 0)
-			{
-				LOG4CXX_ERROR(logger_, lua_tostring(lua_state_,-1));
-				lua_pop(lua_state_,-1);
-				lua_close(lua_state_);
-			}
-			else
-			{
-				lua_pop(lua_state_,-1);
-			}
+			LOG4CXX_ERROR(logger_, lua_tostring(lua_state_,-1));
+			lua_pop(lua_state_,-1);
+			lua_close(lua_state_);
 		}
+		else
+		{
+			lua_pop(lua_state_,-1);
+		}		
 	}
-	//static or dyna
-	else if (	DCT_STKSTATIC == dc_type || \
-				DCT_STKDYNA == dc_type || \
-				DCT_SHL2_MMPEx == dc_type || \
-				DCT_SZL2_ORDER_STAT == dc_type || \
-				DCT_SZL2_ORDER_FIVE == dc_type || \
+	//static || dyna || shl2-mmpex || szl2-order-stat || szl2-order-five || szl2-trade-five
+	else if (	DCT_STKSTATIC == dc_type 		|| \
+				DCT_STKDYNA == dc_type 	 		|| \
+				DCT_SHL2_MMPEx == dc_type 		|| \
+				DCT_SZL2_ORDER_STAT == dc_type 	|| \
+				DCT_SZL2_ORDER_FIVE == dc_type 	|| \
 				DCT_SZL2_TRADE_FIVE == dc_type)
 	{
 		//working_lua
@@ -190,7 +184,7 @@ void LuaRoutine::DispatchToLua(unsigned char * pdcdata, int dc_type,int dc_gener
 		//		lua_pop(lua_state_,-1);
 		//	}
 		//}
-		count_pack += 1;
+		LOG4CXX_INFO(logger_, "dc_type:" << dc_type);
         lua_getglobal(lua_state_, "test_process");
         lua_pushinteger(lua_state_, dc_type);
         lua_pushinteger(lua_state_, stk_num);
@@ -198,56 +192,54 @@ void LuaRoutine::DispatchToLua(unsigned char * pdcdata, int dc_type,int dc_gener
         if(lua_pcall(lua_state_,3,0,0) != 0)
         {
             string s = lua_tostring(lua_state_,-1);
-            //std::cout<<s<<endl;
 			LOG4CXX_ERROR(logger_, s);
             lua_pop(lua_state_,-1);
             lua_close(lua_state_);
         }
         else
         {
-            //const char * lua_ret = lua_tostring(lua_state,-1);
-            //int stkid = lua_tonumber(lua_state, -2);
-            //if(NULL != lua_ret)
-            {
-              //cout<<"lua stkid:"<<stkid<<"  lua_ret:"<<lua_ret<<endl;
-              //DispatchToMonitor(stkid, lua_ret);
-            }
             lua_pop(lua_state_,-1);
         }
 	}
 	else if(DCT_GENERAL == dc_type)
 	{
-		//unsigned short *pstk_id = (unsigned short *)pdcdata;
 		unsigned char *pdata = pdcdata + stk_num *sizeof(WORD);
-		//count_pack += stk_num*2;
-		for(int i=0;i<stk_num;i++)
+		if(dc_general_intype == 5)
 		{
-			count_pack += 1;
-			//count_pack += stk_num*struct_size;
-			//cout<<"dc_general:stk_num:"<<i<<endl;
-			lua_getglobal(lua_state_,"process_general");
-			lua_pushinteger(lua_state_,dc_general_intype);
-			lua_pushlightuserdata(lua_state_,pdata + struct_size * i);
-			
-			if(lua_pcall(lua_state_,2,1,0) != 0)
-			{
-				string s = lua_tostring(lua_state_,-1);
-				//std::cout<<s<<endl;
-				LOG4CXX_ERROR(logger_, s);
-				lua_pop(lua_state_,-1);
-				lua_close(lua_state_);
-			}
-			else
-			{
-				//const char * lua_ret = lua_tostring(lua_state_,-1);
-				//if(NULL != lua_ret)
-				//{
-				//	cout<<"general stkid:"<<*(pstk_id+i)<<" lua_ret:"<<lua_ret<<endl;
-				//	//DispatchToMonitor(*(pstk_id+i),lua_ret);
-				//}
-				lua_pop(lua_state_, -1);
-			}
+			LOG4CXX_INFO(logger_, "intype is 5");
 		}
+		lua_getglobal(lua_state_, "process_general");
+		lua_pushinteger(lua_state_, dc_general_intype);
+		lua_pushinteger(lua_state_, stk_num);
+		lua_pushlightuserdata(lua_state_, pdata);
+		if(lua_pcall(lua_state_, 3, 0, 0) != 0)
+		{
+			string s = lua_tostring(lua_state_,-1);
+			LOG4CXX_ERROR(logger_, s);
+			lua_pop(lua_state_,-1);
+			lua_close(lua_state_);
+		}
+		else
+			lua_pop(lua_state_, -1);
+			
+		//for(int i=0;i<stk_num;i++)
+		//{
+		//	lua_getglobal(lua_state_,"process_general");
+		//	lua_pushinteger(lua_state_,dc_general_intype);
+		//	lua_pushlightuserdata(lua_state_,pdata + struct_size * i);
+		//	
+		//	if(lua_pcall(lua_state_,2,0,0) != 0)
+		//	{
+		//		string s = lua_tostring(lua_state_,-1);
+		//		LOG4CXX_ERROR(logger_, s);
+		//		lua_pop(lua_state_,-1);
+		//		lua_close(lua_state_);
+		//	}
+		//	else
+		//	{
+		//		lua_pop(lua_state_, -1);
+		//	}
+		//}
 	}
 	else if (DCT_SHL2_QUEUE)
 	{
@@ -256,7 +248,6 @@ void LuaRoutine::DispatchToLua(unsigned char * pdcdata, int dc_type,int dc_gener
 	else
 	{
 			
-		//count_pack += stk_num*struct_size;
 	}
 	free(pdcdata);
 	pdcdata = NULL;

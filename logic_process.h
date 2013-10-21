@@ -10,7 +10,7 @@ namespace Monitor_Win {
 	using namespace System::Drawing;
 
 	/// <summary>
-	/// logic_process ÕªÒª
+	/// logic_process æ‘˜è¦
 	/// </summary>
 	public ref class logic_process : public System::Windows::Forms::Form
 	{
@@ -19,13 +19,13 @@ namespace Monitor_Win {
 		{
 			InitializeComponent();
 			//
-			//TODO: ÔÚ´Ë´¦Ìí¼Ó¹¹Ôìº¯Êı´úÂë
+			//TODO: åœ¨æ­¤å¤„æ·»åŠ æ„é€ å‡½æ•°ä»£ç 
 			//
 		}
 
 	protected:
 		/// <summary>
-		/// ÇåÀíËùÓĞÕıÔÚÊ¹ÓÃµÄ×ÊÔ´¡£
+		/// æ¸…ç†æ‰€æœ‰æ­£åœ¨ä½¿ç”¨çš„èµ„æºã€‚
 		/// </summary>
 		~logic_process()
 		{
@@ -37,14 +37,14 @@ namespace Monitor_Win {
 
 	private:
 		/// <summary>
-		/// ±ØĞèµÄÉè¼ÆÆ÷±äÁ¿¡£
+		/// å¿…éœ€çš„è®¾è®¡å™¨å˜é‡ã€‚
 		/// </summary>
 		System::ComponentModel::Container ^components;
 
 #pragma region Windows Form Designer generated code
 		/// <summary>
-		/// Éè¼ÆÆ÷Ö§³ÖËùĞèµÄ·½·¨ - ²»Òª
-		/// Ê¹ÓÃ´úÂë±à¼­Æ÷ĞŞ¸Ä´Ë·½·¨µÄÄÚÈİ¡£
+		/// è®¾è®¡å™¨æ”¯æŒæ‰€éœ€çš„æ–¹æ³• - ä¸è¦
+		/// ä½¿ç”¨ä»£ç ç¼–è¾‘å™¨ä¿®æ”¹æ­¤æ–¹æ³•çš„å†…å®¹ã€‚
 		/// </summary>
 		void InitializeComponent(void)
 		{

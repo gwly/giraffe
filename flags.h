@@ -41,35 +41,35 @@ typedef unsigned int  UINT32;
 #endif
 #endif
 
-//ÊĞ³¡¶¨Òå
+//å¸‚åœºå®šä¹‰
 
-#define		MKT_SH			0x4853	//'HS'		// ÉÏº£Ö¤È¯½»Ò×Ëù
-#define		MKT_SZ			0x5A53	//'ZS'		// ÉîÛÚÖ¤È¯½»Ò×Ëù
-#define		MKT_HK			0x4B48	//'KH'		// Ïã¸ÛÁª½»Ëù
-#define		MKT_TW			0x5754	//'WT'		// Ì¨ÍåÖ¤È¯½»Ò×Ëù
-#define		MKT_NY			0x594E	//'YN'		// Å¦Ô¼Ö¤È¯½»Ò×Ëù
-#define		MKT_NSQ			0x534E	//'SN'		// NasdaqÖ¤È¯½»Ò×Ëù
+#define		MKT_SH			0x4853	//'HS'		// ä¸Šæµ·è¯åˆ¸äº¤æ˜“æ‰€
+#define		MKT_SZ			0x5A53	//'ZS'		// æ·±åœ³è¯åˆ¸äº¤æ˜“æ‰€
+#define		MKT_HK			0x4B48	//'KH'		// é¦™æ¸¯è”äº¤æ‰€
+#define		MKT_TW			0x5754	//'WT'		// å°æ¹¾è¯åˆ¸äº¤æ˜“æ‰€
+#define		MKT_NY			0x594E	//'YN'		// çº½çº¦è¯åˆ¸äº¤æ˜“æ‰€
+#define		MKT_NSQ			0x534E	//'SN'		// Nasdaqè¯åˆ¸äº¤æ˜“æ‰€
 
-#define		MKT_FE			0x4546	//'EF'		// Íâ»ã
+#define		MKT_FE			0x4546	//'EF'		// å¤–æ±‡
 
-#define		MKT_SC			0x4353	//'CS'		// ÉÏº£ÆÚ½»Ëù
-#define		MKT_ZC			0x435A	//'CZ'		// Ö£ÖİÆÚ½»Ëù
-#define		MKT_DC			0x4344	//'CD'		// ´óÁ¬ÆÚ½»Ëù
-#define		MKT_CC			0x4343	//'CC'		// Ö¥¼Ó¸çÆÚ»õ
-#define		MKT_SF			0x4653	//'FS'		//ÉÏº£½ğÈÚÆÚ»õ½»Ò×Ëù
-#define		MKT_SG			0x4753	//'GS'		//ÉÏº£»Æ½ğÏÖ»õ½»Ò×Ëù
-#define		MKT_BI			0x2442	//'$B'		// °å¿éÖ¸Êı
-#define		MKT_UI			0x2424	//'$$'		// ×Ô¶¨ÒåÖ¸Êı
-#define		MKT_FI			0x4946	//'IF'		// ÉÏ½»Ëù¹Ì¶¨ÊÕÒæÆ½Ì¨
-#define		MKT_IX			0x5849	//'XI'		// È«ÇòÖ÷ÒªÊĞ³¡Ö¸Êı
-#define		MKT_ZI			0x495A	//'IZ'		// ÖĞÖ¤Ö¸Êı
-#define		MKT_NW			0x574E	//'WN'		// ĞÂÎÅÊĞ³¡
-#define		MKT_HS			0x5348	//'SH'		// H¹ÉÊĞ³¡£¬ÉÏ½»ËùÌá¹©µÄH¹É¹É¼ÛÊĞ³¡
-#define		MKT_BO			0x4F42	//'OB'		// ²³º£ÉÌÆ·½»Ò×Ëù
-#define		MKT_DSM			0x2323	//'##'		//¼à¿Ø¿Í»§¶Ë
-#define		MKT_SS			0x5353	//'SS'		//ÉÏº£º½ÔËÊĞ³¡
-#define		MKT_Z$			0x245A	//'$Z'		//ÉîÛÚÈ«¶ÓÁĞÊĞ³¡
-#define		MKT_TE			0x4554	//'ET'		// Ì¨Íå¹ñÂòÖĞĞÄ
+#define		MKT_SC			0x4353	//'CS'		// ä¸Šæµ·æœŸäº¤æ‰€
+#define		MKT_ZC			0x435A	//'CZ'		// éƒ‘å·æœŸäº¤æ‰€
+#define		MKT_DC			0x4344	//'CD'		// å¤§è¿æœŸäº¤æ‰€
+#define		MKT_CC			0x4343	//'CC'		// èŠåŠ å“¥æœŸè´§
+#define		MKT_SF			0x4653	//'FS'		//ä¸Šæµ·é‡‘èæœŸè´§äº¤æ˜“æ‰€
+#define		MKT_SG			0x4753	//'GS'		//ä¸Šæµ·é»„é‡‘ç°è´§äº¤æ˜“æ‰€
+#define		MKT_BI			0x2442	//'$B'		// æ¿å—æŒ‡æ•°
+#define		MKT_UI			0x2424	//'$$'		// è‡ªå®šä¹‰æŒ‡æ•°
+#define		MKT_FI			0x4946	//'IF'		// ä¸Šäº¤æ‰€å›ºå®šæ”¶ç›Šå¹³å°
+#define		MKT_IX			0x5849	//'XI'		// å…¨çƒä¸»è¦å¸‚åœºæŒ‡æ•°
+#define		MKT_ZI			0x495A	//'IZ'		// ä¸­è¯æŒ‡æ•°
+#define		MKT_NW			0x574E	//'WN'		// æ–°é—»å¸‚åœº
+#define		MKT_HS			0x5348	//'SH'		// Hè‚¡å¸‚åœºï¼Œä¸Šäº¤æ‰€æä¾›çš„Hè‚¡è‚¡ä»·å¸‚åœº
+#define		MKT_BO			0x4F42	//'OB'		// æ¸¤æµ·å•†å“äº¤æ˜“æ‰€
+#define		MKT_DSM			0x2323	//'##'		//ç›‘æ§å®¢æˆ·ç«¯
+#define		MKT_SS			0x5353	//'SS'		//ä¸Šæµ·èˆªè¿å¸‚åœº
+#define		MKT_Z$			0x245A	//'$Z'		//æ·±åœ³å…¨é˜Ÿåˆ—å¸‚åœº
+#define		MKT_TE			0x4554	//'ET'		// å°æ¹¾æŸœä¹°ä¸­å¿ƒ
 
 enum THREAD_TAG
 {
@@ -80,24 +80,24 @@ enum THREAD_TAG
 enum STK_SUBTYPE
 {
     NILTYPE = 0,
-    ASHARE	= 'A',			//A¹É,½ö¶ÔSTOCK,WARRANTÓĞĞ§
-    BSHARE	= 'B',			//B¹É,½ö¶ÔSTOCK,WARRANTÓĞĞ§
-    GOV_BOND = 'G',			//¹úÕ®,½ö¶ÔBONDÓĞĞ§
-    ENT_BOND = 'O',			//ÆóÒµÕ®,½ö¶ÔBONDÓĞĞ§
-    FIN_BOND = 'F',			//½ğÈÚÕ®,½ö¶ÔBONDÓĞĞ§
+    ASHARE	= 'A',			//Aè‚¡,ä»…å¯¹STOCK,WARRANTæœ‰æ•ˆ
+    BSHARE	= 'B',			//Bè‚¡,ä»…å¯¹STOCK,WARRANTæœ‰æ•ˆ
+    GOV_BOND = 'G',			//å›½å€º,ä»…å¯¹BONDæœ‰æ•ˆ
+    ENT_BOND = 'O',			//ä¼ä¸šå€º,ä»…å¯¹BONDæœ‰æ•ˆ
+    FIN_BOND = 'F',			//é‡‘èå€º,ä»…å¯¹BONDæœ‰æ•ˆ
 };
-enum STK_SP//¹ÉÆ±ÊôĞÔ
+enum STK_SP//è‚¡ç¥¨å±æ€§
 {
     NULLSP = 0,
-    NSP	= 'N',//Õı³£
-    SSP	= 'S',//ST¹É
-    PSP = 'P',//PT¹É
-    TSP = 'T',//´ú°ì×ªÈÃÖ¤È¯
-    LSP = 'L',//ÉÏÊĞ¿ª·ÅĞÍ»ù½ğ£¨LOF£©
-    OSP = 'O',//½ö½ÒÊ¾¾»ÖµµÄ¿ª·ÅÊ½»ù½ğ
-    FSP = 'F',//·Ç½»Ò×ĞÍ¿ª·ÅÊ½»ù½ğ
+    NSP	= 'N',//æ­£å¸¸
+    SSP	= 'S',//STè‚¡
+    PSP = 'P',//PTè‚¡
+    TSP = 'T',//ä»£åŠè½¬è®©è¯åˆ¸
+    LSP = 'L',//ä¸Šå¸‚å¼€æ”¾å‹åŸºé‡‘ï¼ˆLOFï¼‰
+    OSP = 'O',//ä»…æ­ç¤ºå‡€å€¼çš„å¼€æ”¾å¼åŸºé‡‘
+    FSP = 'F',//éäº¤æ˜“å‹å¼€æ”¾å¼åŸºé‡‘
     ESP = 'E',//ETF
-    ZSP = 'Z',//´¦ÓÚÍËÊĞÕûÀíÆÚµÄÖ¤È¯
+    ZSP = 'Z',//å¤„äºé€€å¸‚æ•´ç†æœŸçš„è¯åˆ¸
 };
 
 

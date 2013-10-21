@@ -3,7 +3,7 @@
 	filename: 	dscomapi.h
 	author:		fu.changyou
 	
-	purpose:	Êı¾İÄ£°åÑ¹Ëõ½Ó¿ÚÎÄ¼ş¶¨Òå
+	purpose:	æ•°æ®æ¨¡æ¿å‹ç¼©æ¥å£æ–‡ä»¶å®šä¹‰
 *********************************************************************/
 #ifndef _DZH_DS_COMPRESS_API_H_
 #define _DZH_DS_COMPRESS_API_H_
@@ -22,39 +22,40 @@ typedef unsigned char BYTE;
 #endif
 #endif
 
-//didÊı¾İÄ£°å½âÎöÆ÷
+
+//didæ•°æ®æ¨¡æ¿è§£æå™¨
 class COMPRESS_API CDidStructApi:private JUncopyable
 {
 public:
-    DWORD m_dwCrc;  //Ä£°åÎÄ¼şCRC
-    Dids* m_pDids;  //didÁĞ±í
-    ds_did_info mDidInfo;   //×Ö¶Î
-    ds_field_info* m_pFieldsInfo;   //×Ö¶ÎÊı×é
-    Cids* m_pCids;  //Ñ¹ËõËã·¨Êı×é
-    CodeBitIds* m_pCodeBitIds;  //Ñ¹Ëõ±àÂëÊı×é
-    StrIds* m_pStrIds;  //×Ö·û´®ÁĞ±í
-    static unsigned int ds_crc32_table256[];    //¼ÆËãcrcÓÃ
+    DWORD m_dwCrc;  //æ¨¡æ¿æ–‡ä»¶CRC
+    Dids* m_pDids;  //didåˆ—è¡¨
+    ds_did_info mDidInfo;   //å­—æ®µ
+    ds_field_info* m_pFieldsInfo;   //å­—æ®µæ•°ç»„
+    Cids* m_pCids;  //å‹ç¼©ç®—æ³•æ•°ç»„
+    CodeBitIds* m_pCodeBitIds;  //å‹ç¼©ç¼–ç æ•°ç»„
+    StrIds* m_pStrIds;  //å­—ç¬¦ä¸²åˆ—è¡¨
+    static unsigned int ds_crc32_table256[];    //è®¡ç®—crcç”¨
 
 public:
-    //¸ù¾İindex´Ó×Ö·û´®ÁĞ±íÖĞ»ñÈ¡×Ö·û´®
+    //æ ¹æ®indexä»å­—ç¬¦ä¸²åˆ—è¡¨ä¸­è·å–å­—ç¬¦ä¸²
     static int getIndexByStr(char* str,StrList* pStrList);  
 
-    //¼ÆËãcrc
+    //è®¡ç®—crc
     static unsigned int ds_cal_crc(const char* p,unsigned int len);
 
-    //·Ö²½¼ÆËãcrc,×îºó¼ÆËãÍê±Ï¼ÓÉÏcrc ^ 0xffffffff¼´¿É
+    //åˆ†æ­¥è®¡ç®—crc,æœ€åè®¡ç®—å®Œæ¯•åŠ ä¸Šcrc ^ 0xffffffffå³å¯
     static unsigned int ds_cal_crc_part(unsigned int oldcrc,const char* p,unsigned int len);
 
-    //´´½¨DIDStruct¶ÔÏó
+    //åˆ›å»ºDIDStructå¯¹è±¡
     static CDidStructApi* CreateDidStructObj();
 
-    //Ïú»ÙDidStruct¶ÔÏó
+    //é”€æ¯DidStructå¯¹è±¡
     static void DestoryDidStructObj(CDidStructApi* pDidStruct);
 
-    //¼ÓÔØ²¢½âÎödidÊı¾İÄ£°å
+    //åŠ è½½å¹¶è§£ædidæ•°æ®æ¨¡æ¿
     virtual int LoadMemXmlBuffer(const char* xmlbuf,unsigned int xmlbuflen) = 0;   
 
-    //´òÓ¡×Ö¶Î
+    //æ‰“å°å­—æ®µ
     virtual int PrintfFields(void) = 0;
 };
 
@@ -64,83 +65,91 @@ class CDidStruct;
 class CSlice;
 #endif
 
-//Ö¸Ïòº¯ÊıµÄÖ¸Õë
-//¸Ãº¯ÊıÓÃÀ´Ñ¹ËõÊ±È¡µÃ¹Ø¼ü×ÖÏàÍ¬µÄÉÏÒ»Ìõ¼ÇÂ¼ĞÅÏ¢
-//num±íÊ¾pLastArgsÊı×éÓĞ¶àÉÙ¸ö
-//pLastArgsÃèÊöµ±Ç°¼¶±ğÖ®Ç°¼¶±ğµÄ¹Ø¼ü×ÖĞÅÏ¢
-//pNowArgsÃèÊöµ±Ç°¼¶±ğµÄ×Ö¶ÎĞÅÏ¢
-//pDidStructÃèÊö¸ÃÄ£°åÎÄ¼şµÄĞÅÏ¢
-//pUserArgÓÃÓÚÓÃ»§×Ô¼ºÖ¸¶¨µÄÊı¾İµØÖ·
-//×¢Òâµ±¸Ã¹Ø¼ü×Ö¼ÇÂ¼»¹²»´æÔÚÊ±£¬Çë·µ»ØNULL
-//pSaveField²ÎÊıÓÃÓÚĞĞÇé·şÎñÆ÷È¡µÃ´æÖüÄ£°åµÄ×Ö¶ÎĞÅÏ¢£¬ÆäËüµØ·½ÎŞÒâÒå
+//æŒ‡å‘å‡½æ•°çš„æŒ‡é’ˆ
+//è¯¥å‡½æ•°ç”¨æ¥å‹ç¼©æ—¶å–å¾—å…³é”®å­—ç›¸åŒçš„ä¸Šä¸€æ¡è®°å½•ä¿¡æ¯
+//numè¡¨ç¤ºpLastArgsæ•°ç»„æœ‰å¤šå°‘ä¸ª
+//pLastArgsæè¿°å½“å‰çº§åˆ«ä¹‹å‰çº§åˆ«çš„å…³é”®å­—ä¿¡æ¯
+//pNowArgsæè¿°å½“å‰çº§åˆ«çš„å­—æ®µä¿¡æ¯
+//pDidStructæè¿°è¯¥æ¨¡æ¿æ–‡ä»¶çš„ä¿¡æ¯
+//pUserArgç”¨äºç”¨æˆ·è‡ªå·±æŒ‡å®šçš„æ•°æ®åœ°å€
+//æ³¨æ„å½“è¯¥å…³é”®å­—è®°å½•è¿˜ä¸å­˜åœ¨æ—¶ï¼Œè¯·è¿”å›NULL
+//pSaveFieldå‚æ•°ç”¨äºè¡Œæƒ…æœåŠ¡å™¨å–å¾—å­˜è´®æ¨¡æ¿çš„å­—æ®µä¿¡æ¯ï¼Œå…¶å®ƒåœ°æ–¹æ— æ„ä¹‰
 typedef char* (*LPGetBmData)(int num,LastArgs* pLastArgs,LastArgs* pNowArgs,DWORD did,CDidStruct* pDidStruct,char* pUserArg,ds_field_info*& pSaveField);
 
-//¸Ãº¯ÊıÓÃÀ´Ä³Ìõ¼ÇÂ¼Ñ¹ËõÍê³ÉÊ±¸üĞÂÄÚ´æ£¬£¨½â¾öÈç¹ûÒ»¸ö°üÀïÓĞ¶àÌõ¹Ø¼ü×ÖÏàÍ¬µÄ¼ÇÂ¼£©
-//pNowArgsÓÃÀ´ÃèÊıµÚÒ»¼¶¹Ø¼ü×ÖĞÅÏ¢
-//pRecBuf¼ÇÂ¼ÆğÊ¼µØÖ·
-//pUserArgÓÃÓÚÓÃ»§×Ô¼ºÖ¸¶¨µÄÊı¾İµØÖ·
+//è¯¥å‡½æ•°ç”¨æ¥æŸæ¡è®°å½•å‹ç¼©å®Œæˆæ—¶æ›´æ–°å†…å­˜ï¼Œï¼ˆè§£å†³å¦‚æœä¸€ä¸ªåŒ…é‡Œæœ‰å¤šæ¡å…³é”®å­—ç›¸åŒçš„è®°å½•ï¼‰
+//pNowArgsç”¨æ¥ææ•°ç¬¬ä¸€çº§å…³é”®å­—ä¿¡æ¯
+//pRecBufè®°å½•èµ·å§‹åœ°å€
+//pUserArgç”¨äºç”¨æˆ·è‡ªå·±æŒ‡å®šçš„æ•°æ®åœ°å€
 typedef bool (*LPSetBmData)(LastArgs* pNowArgs,DWORD did,CDidStruct* pDidStruct,char* pUserArg,char* pRecBuf);
 
 
-//Ñ¹Ëõ½Ó¿Ú
+#ifdef __cplusplus
+extern "C" {
+#endif
+//å‹ç¼©æ¥å£
 class COMPRESS_API CDsCompressApi:private JUncopyable
 {
 public:
-    //´´½¨Ñ¹Ëõ¶ÔÏó
+    //åˆ›å»ºå‹ç¼©å¯¹è±¡
     static CDsCompressApi* CreateCompressObj();
 
-    //Ïú»ÙÑ¹Ëõ¶ÔÏó
+    //é”€æ¯å‹ç¼©å¯¹è±¡
     static void DestroyCompressObj(CDsCompressApi* pCompress);
 
-    //³õÊ¼»¯
-    virtual bool Initialize(CDidStructApi* pDidStruct,//pDidStructÊı¾İ½á¹¹£¬Ñ¹ËõËã·¨ÃèÊö
-        DWORD did,//Êı¾İdid
-        int cid,//cidÑ¹ËõËã·¨id
-        int lastcmp=0,//Îª1±íÃ÷¿ÉÄÜ¸úlast¼ÇÂ¼ĞèÒª×ö±È½Ï£¬Îª1Ê±´ÓµÚ¶ş¼¶¿ªÊ¼²»ÔÊĞíÓĞ¹Ø¼ü×Ö¶ÎÖØ¸´µÄ¼ÇÂ¼ÔÚÒ»¸öÊı¾İ°üÀï
-        DWORD staticday=0,//µ±Ñ¹ËõËã·¨¸ú¾²Ì¬ĞÅÏ¢ÈÕÆÚÏà¹ØÊ±ĞèÒª
-        LPGetBmData pGetBmData=NULL,LPSetBmData pSetBmData=NULL,//pGetBmDataÈ¡µÃÏàÍ¬¹Ø¼ü×ÖµÄÉÏÒ»Ìõ¼ÇÂ¼£¬pSetBmData¸ù¾İ¹Ø¼ü×Ö¸üĞÂ¼ÇÂ¼
-        char* pUserArg=NULL,//pUserArgÓÃÓÚÓÃ»§×Ô¼ºÖ¸¶¨µÄÊı¾İµØÖ·,±ÈÈç¿Í»§¶ËÇı¶¯Ê¹ÓÃµÄ·şÎñÆ÷ÀàĞÍ£¬ÊĞ³¡ĞÅÏ¢µÈ
-        CDidStructApi* pComDidStruct=NULL//pComDidStructÓÃÓÚÃèÊöÑ¹ËõËã·¨µÄÄ£°å,Èç¹ûÎª¿Õ±íÊ¾ºÍpDidStruct²ÎÊıÒ»Ñù
+    //åˆå§‹åŒ–
+    virtual bool Initialize(CDidStructApi* pDidStruct,//pDidStructæ•°æ®ç»“æ„ï¼Œå‹ç¼©ç®—æ³•æè¿°
+        DWORD did,//æ•°æ®did
+        int cid,//cidå‹ç¼©ç®—æ³•id
+        int lastcmp=0,//ä¸º1è¡¨æ˜å¯èƒ½è·Ÿlastè®°å½•éœ€è¦åšæ¯”è¾ƒï¼Œä¸º1æ—¶ä»ç¬¬äºŒçº§å¼€å§‹ä¸å…è®¸æœ‰å…³é”®å­—æ®µé‡å¤çš„è®°å½•åœ¨ä¸€ä¸ªæ•°æ®åŒ…é‡Œ
+        DWORD staticday=0,//å½“å‹ç¼©ç®—æ³•è·Ÿé™æ€ä¿¡æ¯æ—¥æœŸç›¸å…³æ—¶éœ€è¦
+        LPGetBmData pGetBmData=NULL,LPSetBmData pSetBmData=NULL,//pGetBmDataå–å¾—ç›¸åŒå…³é”®å­—çš„ä¸Šä¸€æ¡è®°å½•ï¼ŒpSetBmDataæ ¹æ®å…³é”®å­—æ›´æ–°è®°å½•
+        char* pUserArg=NULL,//pUserArgç”¨äºç”¨æˆ·è‡ªå·±æŒ‡å®šçš„æ•°æ®åœ°å€,æ¯”å¦‚å®¢æˆ·ç«¯é©±åŠ¨ä½¿ç”¨çš„æœåŠ¡å™¨ç±»å‹ï¼Œå¸‚åœºä¿¡æ¯ç­‰
+        CDidStructApi* pComDidStruct=NULL//pComDidStructç”¨äºæè¿°å‹ç¼©ç®—æ³•çš„æ¨¡æ¿,å¦‚æœä¸ºç©ºè¡¨ç¤ºå’ŒpDidStructå‚æ•°ä¸€æ ·
         ) = 0;
 
 
-    //Ñ¹Ëõ¹ı³Ì
-    //»ñµÃĞèÒª·ÖÅäµÄÑ¹Ëõ»º³åÇøÔ¤¹À³¤¶È
-    //Ê§°Ü·µ»Ø0£¬³É¹¦·µ»ØrecnumÌõ¼ÇÂ¼ÊıĞèÔ¤·ÖÅäµÄÑ¹Ëõ»º³åÇø³¤¶È
+    //å‹ç¼©è¿‡ç¨‹
+    //è·å¾—éœ€è¦åˆ†é…çš„å‹ç¼©ç¼“å†²åŒºé¢„ä¼°é•¿åº¦
+    //å¤±è´¥è¿”å›0ï¼ŒæˆåŠŸè¿”å›recnumæ¡è®°å½•æ•°éœ€é¢„åˆ†é…çš„å‹ç¼©ç¼“å†²åŒºé•¿åº¦
     virtual int GetCompressOutputBufferLen(int recnum=1) = 0;
-    //ÉèÖÃÑ¹ËõÊı¾İÄ¿±ê»º³åÇø
+    //è®¾ç½®å‹ç¼©æ•°æ®ç›®æ ‡ç¼“å†²åŒº
     virtual bool SetCompressOutputBuffer(char* pDestBuf,int destbuf_len) = 0;
-    //Ò»´ÎĞÔÑ¹Ëõ¶àÌõ¼ÇÂ¼Êı¾İ
-    //Ñ¹ËõÊ§°Ü·µ»Ø-1£¬³É¹¦·µ»Ø1
-    //pOrgData´ıÑ¹ËõÊı¾İ,orgdata_len´ıÑ¹ËõÊı¾İ³¤¶È,¼ÇÂ¼Êı
-    //Ñ¹ËõÍê³ÉÒÔºóµ÷ÓÃFinishCompressedDataº¯ÊıÍê³ÉÑ¹Ëõ²¢»ñÈ¡Ñ¹ËõºóµÄÊı¾İ³¤¶È
+    //ä¸€æ¬¡æ€§å‹ç¼©å¤šæ¡è®°å½•æ•°æ®
+    //å‹ç¼©å¤±è´¥è¿”å›-1ï¼ŒæˆåŠŸè¿”å›1
+    //pOrgDataå¾…å‹ç¼©æ•°æ®,orgdata_lenå¾…å‹ç¼©æ•°æ®é•¿åº¦,è®°å½•æ•°
+    //å‹ç¼©å®Œæˆä»¥åè°ƒç”¨FinishCompressedDataå‡½æ•°å®Œæˆå‹ç¼©å¹¶è·å–å‹ç¼©åçš„æ•°æ®é•¿åº¦
     virtual int CompressData(char* pOrgData,UINT64 orgdata_len,int recnum) = 0;
-    //Ñ¹ËõÒ»Ìõ¼ÇÂ¼,¸Ãº¯ÊıÓÃÓÚÔöÁ¿Ñ¹Ëõ(¸úlast¼ÇÂ¼ĞèÒª×ö±È½Ï),±ãÓÚ²ÉÊı¶Ë·½±ãÑ­»·µ÷ÓÃ¶øÌá¹©,
-    //Ñ¹ËõÈ«²¿Íê³ÉÒÔºóµ÷ÓÃFinishCompressedDataº¯ÊıÍê³ÉÑ¹Ëõ²¢»ñÈ¡Ñ¹ËõºóµÄÊı¾İ³¤¶È
-    //pOrgOneRec´ıÑ¹Ëõµ¥Ìõ¼ÇÂ¼,onerec_len´ıÑ¹Ëõµ¥Ìõ¼ÇÂ¼,¼ÇÂ¼Êı
-    //Ñ¹ËõÊ§°Ü·µ»Ø-1£¬³É¹¦·µ»Ø1
+    //å‹ç¼©ä¸€æ¡è®°å½•,è¯¥å‡½æ•°ç”¨äºå¢é‡å‹ç¼©(è·Ÿlastè®°å½•éœ€è¦åšæ¯”è¾ƒ),ä¾¿äºé‡‡æ•°ç«¯æ–¹ä¾¿å¾ªç¯è°ƒç”¨è€Œæä¾›,
+    //å‹ç¼©å…¨éƒ¨å®Œæˆä»¥åè°ƒç”¨FinishCompressedDataå‡½æ•°å®Œæˆå‹ç¼©å¹¶è·å–å‹ç¼©åçš„æ•°æ®é•¿åº¦
+    //pOrgOneRecå¾…å‹ç¼©å•æ¡è®°å½•,onerec_lenå¾…å‹ç¼©å•æ¡è®°å½•,è®°å½•æ•°
+    //å‹ç¼©å¤±è´¥è¿”å›-1ï¼ŒæˆåŠŸè¿”å›1
     virtual int CompressDataOneRecData(	char* pOrgOneRec,UINT64 onerec_len) = 0;
-    //Íê³ÉÑ¹Ëõ,»ñµÃÑ¹ËõÒÔºóµÄÄ¿±ê»º³åÇøÀïÊı¾İ³¤¶È
+    //å®Œæˆå‹ç¼©,è·å¾—å‹ç¼©ä»¥åçš„ç›®æ ‡ç¼“å†²åŒºé‡Œæ•°æ®é•¿åº¦
     virtual int FinishCompressedData(void) = 0; 
 
-    //»ñÈ¡µ±Ç°Ñ¹ËõÒÔºóµÄÄ¿±ê»º³åÇøÊı¾İ³¤¶È
+    //è·å–å½“å‰å‹ç¼©ä»¥åçš„ç›®æ ‡ç¼“å†²åŒºæ•°æ®é•¿åº¦
     virtual int GetCompressedDataLen(void) = 0;
-    //Ñ¹Ëõ¹ı³Ì½áÊø
+    //å‹ç¼©è¿‡ç¨‹ç»“æŸ
 
 
-    //½âÑ¹¹ı³Ì
-    //ÉèÖÃ½âÑ¹Êı¾İÄ¿±ê»º³åÇø
+    //è§£å‹è¿‡ç¨‹
+    //è®¾ç½®è§£å‹æ•°æ®ç›®æ ‡ç¼“å†²åŒº
     virtual bool SetUnCompressOutputBuffer(char* pDestBuf,int destbuf_len) = 0;
-    //½âÑ¹Êı¾İ
-    //pOrgData´ı½âÑ¹Êı¾İ,orgdata_len´ı½âÑ¹Êı¾İ³¤¶È£¬recnum´ı½âÑ¹¼ÇÂ¼Êı
-    //½âÑ¹Ê§°Ü·µ»Ø-1£¬³É¹¦·µ»Ø1
+    //è§£å‹æ•°æ®
+    //pOrgDataå¾…è§£å‹æ•°æ®,orgdata_lenå¾…è§£å‹æ•°æ®é•¿åº¦ï¼Œrecnumå¾…è§£å‹è®°å½•æ•°
+    //è§£å‹å¤±è´¥è¿”å›-1ï¼ŒæˆåŠŸè¿”å›1
     virtual int UnCompressData(char* pOrgData,UINT64 orgdata_len,int recnum,int fd=0) = 0;
-    //Íê³É½âÑ¹Ëõ,»ñµÃ½âÑ¹ËõÒÔºóµÄÄ¿±ê»º³åÇøÀïÊı¾İ³¤¶È
+    //å®Œæˆè§£å‹ç¼©,è·å¾—è§£å‹ç¼©ä»¥åçš„ç›®æ ‡ç¼“å†²åŒºé‡Œæ•°æ®é•¿åº¦
     virtual int FinishUnCompressedData(bool bCmbCrc=true) = 0;
-    //½âÑ¹¹ı³Ì½áÊø
+    //è§£å‹è¿‡ç¨‹ç»“æŸ
 
 #ifdef _REDHAT_VERSION
     virtual int CompressZmAllRecsFullData(CSlice* pSlice) = 0;
 #endif
 };
+
+#ifdef __cplusplus
+}
+#endif
+
 #endif

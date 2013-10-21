@@ -201,6 +201,14 @@ void UncompressDCPacket::Uncompress(struct timeval timestamp, unsigned char *pkt
             }
         }
     }
+	else if(DCT_XML == pdch->m_cType)//no need to listening dct_xml data
+	{
+		LOG4CXX(logger_, "recv DCT_XML");	
+	}
+	else if(DCT_RAWDATA == pdch->m_cType)//no need to listening raw data
+	{
+		LOG4CXX(logger_, "recv DCT_RAWDATA");	
+	}
     else if(DCT_SHL2_MMPEx == pdch->m_cType)
     {
 		DC_SHL2_MMPEx_MY *p= (DC_SHL2_MMPEx_MY *)(pdch+1);
@@ -379,6 +387,7 @@ void UncompressDCPacket::Uncompress(struct timeval timestamp, unsigned char *pkt
 			LOG4CXX_ERROR(logger_, "diduncompress read config error");
 		}
 		diducp.Initialize();
+		LOG4CXX_INFO(logger_, "pdch->m_nLen:" << pdch->m_nLen);
 		if( 1 == diducp.DisassemblePack(pdch,data_buf))
 		{
 			LOG4CXX_INFO(logger_, "uncompress did success!");

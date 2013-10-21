@@ -8,27 +8,27 @@ struct SVRNetHead;
 
 #pragma pack(push,1)
 
-//Ñ¹ËõÀ©Õ¹¾²Ì¬
+//å‹ç¼©æ‰©å±•é™æ€
 int CompressStaticEx(const STK_STATICEx* pStatic,int nNum,CBitStream& stream);
-int ExpandStaticEx(CBitStream& stream,STK_STATICEx* pBuf,int& nBufSize);		//nBufSize±íÊ¾pBufµÄ¸öÊı,Èç¹û»º³åÇø²»¹»£¬Ôò·µ»Ø-1£¬nBufSize´ø»ØĞèÒªµÄÊıÁ¿
+int ExpandStaticEx(CBitStream& stream,STK_STATICEx* pBuf,int& nBufSize);		//nBufSizeè¡¨ç¤ºpBufçš„ä¸ªæ•°,å¦‚æœç¼“å†²åŒºä¸å¤Ÿï¼Œåˆ™è¿”å›-1ï¼ŒnBufSizeå¸¦å›éœ€è¦çš„æ•°é‡
 
-//Ñ¹Ëõ¸Û¹É¶¯Ì¬
+//å‹ç¼©æ¸¯è‚¡åŠ¨æ€
 int CompressHKDyna(const STK_HKDYNA* pHKDyna,int nNum,CBitStream& stream);
-int ExpandHKDyna(CBitStream& stream,STK_HKDYNA* pBuf,int& nBufSize);				//nBufSize±íÊ¾pBufµÄ¸öÊı,Èç¹û»º³åÇø²»¹»£¬Ôò·µ»Ø-1£¬nBufSize´ø»ØĞèÒªµÄÊıÁ¿
+int ExpandHKDyna(CBitStream& stream,STK_HKDYNA* pBuf,int& nBufSize);				//nBufSizeè¡¨ç¤ºpBufçš„ä¸ªæ•°,å¦‚æœç¼“å†²åŒºä¸å¤Ÿï¼Œåˆ™è¿”å›-1ï¼ŒnBufSizeå¸¦å›éœ€è¦çš„æ•°é‡
 
-//Ñ¹ËõÍ¨ÓÃÊı¾İ
+//å‹ç¼©é€šç”¨æ•°æ®
 struct CPS_GENERAL_HEAD
 {
-	WORD	m_wDataID;			//Êı¾İID
-	WORD	m_wMarket;			//ÊĞ³¡
-	DWORD	m_dwDataAttr;		//Êı¾İÊôĞÔ
-	short	m_nDataSize;		//Ã¿¸öÊı¾İµÄ³¤¶È,¶ÔÓÚ±ä³¤Êı¾İ,±íÊ¾Ã¿¸öÊı¾İµÄ×î´óÖµ(0±íÊ¾Ã»ÓĞ×î´óÖµ£¬ÈÎÒâ³¤¶È)
-	UINT24	m_nTotalLen;		//°üº¬±¾Êı¾İÍ·ÔÚÄÚµÄÊı¾İ×Ü³¤¶È
+	WORD	m_wDataID;			//æ•°æ®ID
+	WORD	m_wMarket;			//å¸‚åœº
+	DWORD	m_dwDataAttr;		//æ•°æ®å±æ€§
+	short	m_nDataSize;		//æ¯ä¸ªæ•°æ®çš„é•¿åº¦,å¯¹äºå˜é•¿æ•°æ®,è¡¨ç¤ºæ¯ä¸ªæ•°æ®çš„æœ€å¤§å€¼(0è¡¨ç¤ºæ²¡æœ‰æœ€å¤§å€¼ï¼Œä»»æ„é•¿åº¦)
+	UINT24	m_nTotalLen;		//åŒ…å«æœ¬æ•°æ®å¤´åœ¨å†…çš„æ•°æ®æ€»é•¿åº¦
 	WORD	m_wNum;
 };
 
-int CompressGeneralData(DC_GENERAL* pData,BYTE* pBuf,int nBufSize);		//·µ»ØÑ¹ËõÊı¾İ³¤¶È£¬0±íÊ¾²»ÄÜÑ¹Ëõ»òÑ¹ËõÊ§°Ü£¬-1±íÊ¾»º³åÇø³¤¶È²»¹»
-int ExpandGeneralData(const BYTE* pCpsData,int nDataLen,DC_GENERAL* pBuf,int& nBufSize);		//nBufSize±íÊ¾pBuf×Ö½ÚÊı£¬·µ»Ø½âÑ¹ËõºóµÄ×Ö½ÚÊı£¬0±íÊ¾Ê§°Ü£¬-1±íÊ¾»º³åÇø²»¹»,nBufSize´ø»ØĞèÒªµÄ×Ö½ÚÊı
+int CompressGeneralData(DC_GENERAL* pData,BYTE* pBuf,int nBufSize);		//è¿”å›å‹ç¼©æ•°æ®é•¿åº¦ï¼Œ0è¡¨ç¤ºä¸èƒ½å‹ç¼©æˆ–å‹ç¼©å¤±è´¥ï¼Œ-1è¡¨ç¤ºç¼“å†²åŒºé•¿åº¦ä¸å¤Ÿ
+int ExpandGeneralData(const BYTE* pCpsData,int nDataLen,DC_GENERAL* pBuf,int& nBufSize);		//nBufSizeè¡¨ç¤ºpBufå­—èŠ‚æ•°ï¼Œè¿”å›è§£å‹ç¼©åçš„å­—èŠ‚æ•°ï¼Œ0è¡¨ç¤ºå¤±è´¥ï¼Œ-1è¡¨ç¤ºç¼“å†²åŒºä¸å¤Ÿ,nBufSizeå¸¦å›éœ€è¦çš„å­—èŠ‚æ•°
 
 #pragma pack(pop)
 #endif //_GENERAL_COMPRESS_H_INCLUDE

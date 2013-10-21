@@ -36,9 +36,9 @@ struct TQ_Config
     int           m_nMaxStbhqSize;
 	unsigned char m_byGzlxFlag;
     int           m_nMaxGzlxSize;
-    unsigned char m_bySHQzxxFlag;   //2006-10-18 Ôö¼Ó
+    unsigned char m_bySHQzxxFlag;   //2006-10-18 å¢åŠ 
     int           m_nMaxSHQzxxSize;
-    unsigned char m_byHTIndexFlag;   //2006-10-18 Ôö¼Ó
+    unsigned char m_byHTIndexFlag;   //2006-10-18 å¢åŠ 
     int           m_nMaxHTIndexSize;
 	unsigned char m_byHghqFlag;
 	int           m_nMaxHghqSize;
@@ -70,45 +70,45 @@ struct MDF_Config
 
 struct WF_Config
 {
-	int  m_nMaxFiles;            //×î´óÎÄ¼şÊı
-	int  m_bCompress;            //ÊÇ·ñÑ¹Ëõ
-	int  m_nDelay;               //ÑÓÊ±(ºÁÃë)
-	int  m_nTimeout;             //Ğ´¿ØÖÆÎÄ¼ş³¬Ê±(ºÁÃë)
-	int  m_nFullImageDelay;      //ÍêÕûĞĞÇéÊ±¼ä¼ä¸ô(Ãë)
-	int  m_nEncyType;            //¼ÓÃÜÀàĞÍ
-	char m_strConFile[64];       //¿ØÖÆÎÄ¼şÃû
-	char m_strWritePath[64];     //Êä³öÎÄ¼şÄ¿Â¼
+	int  m_nMaxFiles;            //æœ€å¤§æ–‡ä»¶æ•°
+	int  m_bCompress;            //æ˜¯å¦å‹ç¼©
+	int  m_nDelay;               //å»¶æ—¶(æ¯«ç§’)
+	int  m_nTimeout;             //å†™æ§åˆ¶æ–‡ä»¶è¶…æ—¶(æ¯«ç§’)
+	int  m_nFullImageDelay;      //å®Œæ•´è¡Œæƒ…æ—¶é—´é—´éš”(ç§’)
+	int  m_nEncyType;            //åŠ å¯†ç±»å‹
+	char m_strConFile[64];       //æ§åˆ¶æ–‡ä»¶å
+	char m_strWritePath[64];     //è¾“å‡ºæ–‡ä»¶ç›®å½•
 };
 
 struct Spip_Config
 {
-    int  m_nMaxFiles;            //×î´óÎÄ¼şÊı
-    int  m_bCompress;            //ÊÇ·ñÑ¹Ëõ
-    int  m_nDelay;               //²ÉÑùÊ±¼ä¼ä¸ô£¨ºÁÃë£©
-    int  m_nFullImageDelay;      //ÍêÕûĞĞÇé²ÉÑù¼ä¸ô£¨Ãë£©
-    int  m_nEncyType;            //¼ÓÃÜ·½Ê½
-    char m_strWritePath[64];     //ÎÄ¼şÂäÅÌÂ·¾¶£¬¿ÕÔò²»ÂäÅÌ
-    char m_strSpipServer[32];    //SPIP·şÎñÆ÷µØÖ·
-    int  m_nSpipPort;            //SPIP¶Ë¿Ú
-    char m_strSpipUser[16];      //SPIPÓÃ»§Ãû
-    char m_strSpipPwd[16];       //SPIPÓÃ»§ÃÜÂë
+    int  m_nMaxFiles;            //æœ€å¤§æ–‡ä»¶æ•°
+    int  m_bCompress;            //æ˜¯å¦å‹ç¼©
+    int  m_nDelay;               //é‡‡æ ·æ—¶é—´é—´éš”ï¼ˆæ¯«ç§’ï¼‰
+    int  m_nFullImageDelay;      //å®Œæ•´è¡Œæƒ…é‡‡æ ·é—´éš”ï¼ˆç§’ï¼‰
+    int  m_nEncyType;            //åŠ å¯†æ–¹å¼
+    char m_strWritePath[64];     //æ–‡ä»¶è½ç›˜è·¯å¾„ï¼Œç©ºåˆ™ä¸è½ç›˜
+    char m_strSpipServer[32];    //SPIPæœåŠ¡å™¨åœ°å€
+    int  m_nSpipPort;            //SPIPç«¯å£
+    char m_strSpipUser[16];      //SPIPç”¨æˆ·å
+    char m_strSpipPwd[16];       //SPIPç”¨æˆ·å¯†ç 
 };
 
 struct SM_Type
 {
     WORD m_wType;
 	char m_strTypeName[16];
-    WORD m_wFxjType;      //·ÖÎö¼ÒÀàĞÍ
+    WORD m_wFxjType;      //åˆ†æå®¶ç±»å‹
     WORD m_wSubType;      //
-    WORD m_wAmtUnit;      //ĞĞÇé¿â½ğ¶îµ¥Î»
-    WORD m_wVolUnit;      //ĞĞÇé¿âÊıÁ¿µ¥Î»
-    WORD m_wPerHand;      //Ã¿ÊÖ¹ÉÊı
-    WORD m_wMMPAmtUnit;   //ĞĞÇé¿âÂòÂôÅÌÊıÁ¿µ¥Î»
-    WORD m_wPriceDigit;   //¼Û¸ñĞ¡ÊıÎ»Êı
+    WORD m_wAmtUnit;      //è¡Œæƒ…åº“é‡‘é¢å•ä½
+    WORD m_wVolUnit;      //è¡Œæƒ…åº“æ•°é‡å•ä½
+    WORD m_wPerHand;      //æ¯æ‰‹è‚¡æ•°
+    WORD m_wMMPAmtUnit;   //è¡Œæƒ…åº“ä¹°å–ç›˜æ•°é‡å•ä½
+    WORD m_wPriceDigit;   //ä»·æ ¼å°æ•°ä½æ•°
     char m_chStamp[7][10];
 };
 
-//Level2À©Õ¹¾²Ì¬Êı¾İ
+//Level2æ‰©å±•é™æ€æ•°æ®
 struct STATIC_Ex
 {
 	char 	m_strStkCode[10];
@@ -117,10 +117,10 @@ struct STATIC_Ex
 
 struct DC_STKSTATIC_MY
 {
-	DWORD	m_dwVersion;	//¾²Ì¬Êı¾İ°æ±¾,Ã¿´Î¾²Ì¬Êı¾İ·¢Éú±ä»¯Ôò±ØĞëÔö¼ÓÊıÖµ,Ã¿¸öĞĞÇéÔ´×îºÃÓĞÒ»¸öÏà¶Ô¶ÀÁ¢µÄ¸ßÎ»£¬ÕâÑù²»Í¬ĞĞÇéÔ´¾Í²»»áÓĞÏàÍ¬µÄ°æ±¾
-	WORD	m_wAttrib;		//°æ±¾ÊôĞÔ
-	UINT	m_nDay;			//¾²Ì¬¿âÈÕÆÚ£¬YYYYMMDD
-	short	m_nNum;			//m_dataÊıÁ¿
+	DWORD	m_dwVersion;	//é™æ€æ•°æ®ç‰ˆæœ¬,æ¯æ¬¡é™æ€æ•°æ®å‘ç”Ÿå˜åŒ–åˆ™å¿…é¡»å¢åŠ æ•°å€¼,æ¯ä¸ªè¡Œæƒ…æºæœ€å¥½æœ‰ä¸€ä¸ªç›¸å¯¹ç‹¬ç«‹çš„é«˜ä½ï¼Œè¿™æ ·ä¸åŒè¡Œæƒ…æºå°±ä¸ä¼šæœ‰ç›¸åŒçš„ç‰ˆæœ¬
+	WORD	m_wAttrib;		//ç‰ˆæœ¬å±æ€§
+	UINT	m_nDay;			//é™æ€åº“æ—¥æœŸï¼ŒYYYYMMDD
+	short	m_nNum;			//m_dataæ•°é‡
 };
 
 
@@ -131,7 +131,7 @@ struct DC_STKSTATIC_Ex_MY
 
 struct DC_STKDYNA_MY
 {
-	WORD	m_wDynaSeq;		//¶¯Ì¬ĞĞÇéĞòÁĞºÅ£¬ÓÃÓÚ¿Í»§¶Ë×ª·¢
+	WORD	m_wDynaSeq;		//åŠ¨æ€è¡Œæƒ…åºåˆ—å·ï¼Œç”¨äºå®¢æˆ·ç«¯è½¬å‘
 	short   m_nNum;
 };
 
@@ -142,19 +142,19 @@ struct DC_SHL2_MMPEx_MY
 
 struct DC_SHL2_REPORT_MY
 {
-	short	m_nNum;			//ÊıÁ¿
+	short	m_nNum;			//æ•°é‡
 };
 
 struct DC_SHL2_BIG_WD_MY
 {
-	char	m_cBidOrAsk;	//'B'±íÊ¾Âòµ¥£¬'A'±íÊ¾Âôµ¥
-	short	m_nNum;			//ÊıÁ¿
+	char	m_cBidOrAsk;	//'B'è¡¨ç¤ºä¹°å•ï¼Œ'A'è¡¨ç¤ºå–å•
+	short	m_nNum;			//æ•°é‡
 };
 
 struct DC_SHL2_ACCU_WD_MY
 {
-	char	m_cBidOrAsk;	//'B'±íÊ¾Âòµ¥£¬'A'±íÊ¾Âôµ¥
-	short	m_nNum;			//ÊıÁ¿
+	char	m_cBidOrAsk;	//'B'è¡¨ç¤ºä¹°å•ï¼Œ'A'è¡¨ç¤ºå–å•
+	short	m_nNum;			//æ•°é‡
 };
 
 struct DC_SZL2_ORDER_STAT_MY
@@ -165,13 +165,13 @@ struct DC_SZL2_ORDER_STAT_MY
 
 struct DC_GENERAL_MY
 {
-	WORD	m_wDataID;			//Êı¾İID
-	WORD	m_wMarket;			//ÊĞ³¡
-	DWORD	m_dwDataAttr;		//Êı¾İÊôĞÔ
-	short	m_nDataSize;		//Ã¿¸öÊı¾İµÄ³¤¶È,¶ÔÓÚ±ä³¤Êı¾İ,±íÊ¾Ã¿¸öÊı¾İµÄ×î´óÖµ(0±íÊ¾Ã»ÓĞ×î´óÖµ£¬ÈÎÒâ³¤¶È)
-	UINT24	m_nTotalLen;		//°üº¬±¾Êı¾İÍ·ÔÚÄÚµÄÊı¾İ×Ü³¤¶È
-	WORD	m_wNum;				//ÊıÁ¿
-	DWORD	m_dwReserved;		//±£Áô£¬ÖÃÎª0
+	WORD	m_wDataID;			//æ•°æ®ID
+	WORD	m_wMarket;			//å¸‚åœº
+	DWORD	m_dwDataAttr;		//æ•°æ®å±æ€§
+	short	m_nDataSize;		//æ¯ä¸ªæ•°æ®çš„é•¿åº¦,å¯¹äºå˜é•¿æ•°æ®,è¡¨ç¤ºæ¯ä¸ªæ•°æ®çš„æœ€å¤§å€¼(0è¡¨ç¤ºæ²¡æœ‰æœ€å¤§å€¼ï¼Œä»»æ„é•¿åº¦)
+	UINT24	m_nTotalLen;		//åŒ…å«æœ¬æ•°æ®å¤´åœ¨å†…çš„æ•°æ®æ€»é•¿åº¦
+	WORD	m_wNum;				//æ•°é‡
+	DWORD	m_dwReserved;		//ä¿ç•™ï¼Œç½®ä¸º0
 };
 struct L2_Order_Queue
 {
@@ -201,7 +201,7 @@ struct L2_Order
                 return;
             }
         }
-        m_dwOrder[0] = order;//Èç¹û¾ÉÎ¯ÍĞÈ«²¿É¾³ı£¬
+        m_dwOrder[0] = order;//å¦‚æœæ—§å§”æ‰˜å…¨éƒ¨åˆ é™¤ï¼Œ
     }
     void updateOrder(int index, DWORD order)
     {
@@ -224,7 +224,7 @@ struct L2_Order_Queue_Raw
         return -1;
     }
     void deletePrice(DWORD dwPrice)
-    {//É¾³ıÒ»¸ö¼Û¸ñµµÎ»£¬¾Í°ÑÄÇ¸öµµÎ»µÄÎ¯ÍĞÊıÖÃ0
+    {//åˆ é™¤ä¸€ä¸ªä»·æ ¼æ¡£ä½ï¼Œå°±æŠŠé‚£ä¸ªæ¡£ä½çš„å§”æ‰˜æ•°ç½®0
         for(int i=0;i<10;i++)
         {
             if (m_sOrder[i].m_dwPrice == dwPrice)
@@ -235,7 +235,7 @@ struct L2_Order_Queue_Raw
         }
     }
     int addPrice(DWORD dwPrice, DWORD dwOrders, BOOL isBuy)
-    {//Ôö¼ÓÒ»¸ö¼Û¸ñµµÎ»,Âò£º´Ó¸ßÍùµÍÅÅĞò£¬Âô£º´ÓµÍÏò¸ßÅÅĞò
+    {//å¢åŠ ä¸€ä¸ªä»·æ ¼æ¡£ä½,ä¹°ï¼šä»é«˜å¾€ä½æ’åºï¼Œå–ï¼šä»ä½å‘é«˜æ’åº
         if (isBuy)
         {
             for (int i=0;i<10;i++)
@@ -287,7 +287,7 @@ struct SHL2_MMP
 	{
 		memset(this, 0, sizeof(SHL2_MMP));
 	}
-	//°Ñ10µµÂòÂôÅÌÊı¾İ¿½Èë
+	//æŠŠ10æ¡£ä¹°å–ç›˜æ•°æ®æ‹·å…¥
 	void  setMMP(STK_DYNA* pDyna, SH_L2_MMPEX* pDynaEx)
 	{
 		int nBuyIndex = 0, nSellIndex = 0;
@@ -370,7 +370,7 @@ struct SHL2_MMP
 
 	}
 
-	//ĞÂ¼ÓÒ»¸öÂò¼Û¸ñ,¼Û¸ñ´Ó´óµ½Ğ¡ÅÅĞò
+	//æ–°åŠ ä¸€ä¸ªä¹°ä»·æ ¼,ä»·æ ¼ä»å¤§åˆ°å°æ’åº
 	void addBuyPrice(DWORD dwPrice, DWORD dwVolume)
 	{
 		for (int i=0;i<MAX_MMP_COUNT;i++)
@@ -413,7 +413,7 @@ struct SHL2_MMP
 		}
 	}
 
-	//ĞÂ¼ÓÒ»¸öÂô¼Û¸ñ,¼Û¸ñ´ÓĞ¡µ½´óÅÅĞò
+	//æ–°åŠ ä¸€ä¸ªå–ä»·æ ¼,ä»·æ ¼ä»å°åˆ°å¤§æ’åº
 	void addSellPrice(DWORD dwPrice, DWORD dwVolume)
 	{
 		for (int i=0;i<MAX_MMP_COUNT;i++)
@@ -498,23 +498,23 @@ struct DataHead
 
 struct MarketData
 {
-    DWORD m_wMarketCode;        //ÊĞ³¡´úÂë
-    WORD m_wMarketProtocol;     //Ğ­Òé
-    int  m_nMarketStatus;       //×´Ì¬
-    int  m_nHQChanged;          //ĞĞÇé±ä»¯Êı
-    char m_strDescrible[128];   //ÃèÊö
+    DWORD m_wMarketCode;        //å¸‚åœºä»£ç 
+    WORD m_wMarketProtocol;     //åè®®
+    int  m_nMarketStatus;       //çŠ¶æ€
+    int  m_nHQChanged;          //è¡Œæƒ…å˜åŒ–æ•°
+    char m_strDescrible[128];   //æè¿°
 };
 
 struct ClientData
 {
-    char  m_strUserName[16];     //ÓÃ»§
-    char  m_strAddress[16];     //µØÖ·
-    WORD  m_wPort;              //¶Ë¿Ú
-    DWORD  m_wMarketCode;       //ÊĞ³¡
-    DWORD m_dwRecvBytes;        //½ÓÊÕ
-    DWORD m_dwSendBytes;        //·¢ËÍ
-    DWORD m_dwRecvSppeed;       //½ÓÊÕ´ø¿í
-    int   m_tLoginTime;         //Á¬½ÓÊ±¼ä
+    char  m_strUserName[16];     //ç”¨æˆ·
+    char  m_strAddress[16];     //åœ°å€
+    WORD  m_wPort;              //ç«¯å£
+    DWORD  m_wMarketCode;       //å¸‚åœº
+    DWORD m_dwRecvBytes;        //æ¥æ”¶
+    DWORD m_dwSendBytes;        //å‘é€
+    DWORD m_dwRecvSppeed;       //æ¥æ”¶å¸¦å®½
+    int   m_tLoginTime;         //è¿æ¥æ—¶é—´
 };
 
 struct UserPassIP
@@ -548,9 +548,9 @@ typedef struct
 
 struct MY_SZL2_ORDER_STAT
 {
-	short	m_nNum;					//ÊıÁ¿
-	time_t	m_time;					//Êı¾İÊ±¼ä
-	SZ_L2_ORDER_STAT	m_data[400];//¹²ÓĞm_nNum¸ö
+	short	m_nNum;					//æ•°é‡
+	time_t	m_time;					//æ•°æ®æ—¶é—´
+	SZ_L2_ORDER_STAT	m_data[400];//å…±æœ‰m_nNumä¸ª
 };
 
 struct FE_CODE_LIST

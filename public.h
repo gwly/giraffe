@@ -3,7 +3,7 @@
 	filename: 	public.h
 	author:		fu.changyou
 	
-	purpose:	¹«¹²¶¨Òå
+	purpose:	å…¬å…±å®šä¹‰
 *********************************************************************/
 #ifndef _WDC_PUBLIC_H_
 #define _WDC_PUBLIC_H_
@@ -21,16 +21,16 @@
 #define PATH_DELIMITATED      "/"
 #endif 
 
-//»ñÈ¡ÎÄ¼şÄÚÈİ£¬²ÉÓÃmalloc¶¯Ì¬·ÖÅäÄÚ´æÀ´±£´æÎÄ¼şÄÚÈİ£¬µ÷ÓÃÕßĞèÒª×Ô¼ºÊÍ·Å¸ÃÄÚ´æ
+//è·å–æ–‡ä»¶å†…å®¹ï¼Œé‡‡ç”¨mallocåŠ¨æ€åˆ†é…å†…å­˜æ¥ä¿å­˜æ–‡ä»¶å†…å®¹ï¼Œè°ƒç”¨è€…éœ€è¦è‡ªå·±é‡Šæ”¾è¯¥å†…å­˜
 char* GetFileContent(const char* pFile, int& iFileLen);
 
-//¼ÆËãdidÄ£°åÎÄ¼şµÄcrc
+//è®¡ç®—didæ¨¡æ¿æ–‡ä»¶çš„crc
 unsigned int CalcFileCrc(const char* pFile);
 
-/*Çó±ÈÄ³Ò»Öµ´óµÄ×îĞ¡ËØÊıµÄËã·¨*/
+/*æ±‚æ¯”æŸä¸€å€¼å¤§çš„æœ€å°ç´ æ•°çš„ç®—æ³•*/
 int GetPrimeNumber(const int nBase);
 
-//·Ö¸î×Ö·û´®
+//åˆ†å‰²å­—ç¬¦ä¸²
 struct CSplitString 
 {
 private:
@@ -91,7 +91,7 @@ public:
 };
 
 
-//Ëø
+//é”
 class CMyLock 
 {
 #ifdef _MSC_VER
