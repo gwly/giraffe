@@ -203,11 +203,9 @@ void UncompressDCPacket::Uncompress(struct timeval timestamp, unsigned char *pkt
     }
 	else if(DCT_XML == pdch->m_cType)//no need to listening dct_xml data
 	{
-		LOG4CXX(logger_, "recv DCT_XML");	
 	}
 	else if(DCT_RAWDATA == pdch->m_cType)//no need to listening raw data
 	{
-		LOG4CXX(logger_, "recv DCT_RAWDATA");	
 	}
     else if(DCT_SHL2_MMPEx == pdch->m_cType)
     {

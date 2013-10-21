@@ -11,7 +11,7 @@ INC = -I/usr/include/libxml2
 CPPFLAGS  = -D _LINUX_VERSION -Wall -Wno-sign-compare -Wno-unused-variable -Wno-strict-aliasing
 
 # The options used in linking as well as in any direct use of ld.
-LDFLAGS   = -L"/usr/local/lib" -llog4cxx -lpcap -lpthread  -lz -lzmq -lluajit-5.1 -lxml2 -ldscompress_x32
+LDFLAGS   = -L"/usr/local/lib" -llog4cxx -lpcap -lpthread  -lz -lzmq -lluajit-5.1 -lxml2 -ldscompress_x32 -lcurl
 
 # The directories in which source files reside.
 # If not specified, only the current directory will be serached.

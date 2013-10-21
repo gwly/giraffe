@@ -3,6 +3,7 @@
 #include <iostream>
 #include <log4cxx/logger.h>
 
+
 using namespace log4cxx;
 
 LoggerPtr BusinessErrorInfo::logger_(Logger::getLogger("business_errinfo"));
@@ -13,6 +14,8 @@ void BusinessErrorInfo::Init()
 	LOG4CXX_INFO(logger_, "business thread: zmq has initialized!");
 	InitLog();
 	LOG4CXX_INFO(logger_, "business thread: log has initialized!");
+	InitCurl();
+	LOG4CXX_INFO(logger_, "business thead: curl has initialized!");
 }
 
 void BusinessErrorInfo::InitZMQ()
@@ -44,6 +47,15 @@ void BusinessErrorInfo::InitLog()
 	logger_business_error_->setAdditivity(false);	
 }
 
+void BusinessErrorInfo::InitCurl()
+{
+	curl_ = curl_easy_init();
+	if(!curl_)
+	{
+		LOG4CXX_ERROR(logger_, "curl init error!");
+	}	
+}
+
 void BusinessErrorInfo::RunThreadFunc()
 {
 	zmq::message_t msg;
@@ -54,4 +66,30 @@ void BusinessErrorInfo::RunThreadFunc()
 		//std::cout<<"c++:"<<(char *)(msg.data())<<std::endl;
 		LOG4CXX_ERROR(logger_business_error_, (char*)(msg.data()));
 	}	
+}
+
+void BusinessErrorInfo::DispatchToWebServer()
+{
+	curl_easy_setopt(curl_, CURLOPT_URL, "http://10.15.63.121/Control/input.php?time=1&exchange=2&error=3&type=1");
+	curl_easy_setopt(curl_, CURLOPT_TIMEOUT, 3);
+	curl_res_code_ = curl_easy_perform(curl_);
+	if(CURLE_OK == curl_res_code_)
+	{
+		char *cct;
+		curl_res_code_ = curl_easy_getinfo(curl_, CURLINFO_CONTENT_TYPE, &cct);
+		if((CURLE_OK == curl_res_code_) && cct)
+		{
+			LOG4CXX_INFO(logger_, "receive content-type:" << cct);
+		}
+		else
+		{
+			LOG4CXX_ERROR(logger_, "get received content-type error");
+			curl_easy_cleanup(curl_);
+		}	
+	}	
+	else
+	{
+		LOG4CXX_ERROR(logger_, "curl running error");
+		curl_easy_cleanup(curl_);
+	}
 }

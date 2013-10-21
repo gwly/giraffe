@@ -6,6 +6,7 @@
 #include <log4cxx/dailyrollingfileappender.h>
 #include <log4cxx/basicconfigurator.h>
 #include <log4cxx/patternlayout.h>
+#include <curl/curl.h>
 #include "basethread.h"
 
 class BusinessErrorInfo: public BaseThread
@@ -39,7 +40,9 @@ public:
 private:
 	void InitZMQ();
 	void InitLog();
+	void InitCurl();
 	void WriteToLog(const std::string str);
+	void DispatchToWebServer();
 
 	zmq::context_t *context_;
 	zmq::socket_t *sock_recv_;
@@ -47,6 +50,8 @@ private:
 	log4cxx::LoggerPtr logger_business_error_;
 	log4cxx::PatternLayoutPtr pattern_layout_;
 	log4cxx::DailyRollingFileAppenderPtr appender_;
+	CURL * curl_;
+	CURLcode curl_res_code_;
 };
 
 #endif
