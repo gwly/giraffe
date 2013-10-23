@@ -220,7 +220,7 @@ const BITCODE* CBitStream::EncodeFindMatch(DWORD& dwData)
 			DWORD dw = dwData;
 			if(pCur->m_cCode=='b')
 			{
-				if(dwData&0x80000000)	//ç’ç†¸æšŸ
+				if(dwData&0x80000000)	//¸ºÊı
 				{
 					dw += pCur->m_dwDataBias;
 					DWORD dwMask = (0xFFFFFFFF<<(pCur->m_dwCodeData-1));
@@ -254,7 +254,7 @@ const BITCODE* CBitStream::EncodeFindMatch(DWORD& dwData)
 			}
 			else if(pCur->m_cCode=='m')
 			{
-				if(dwData&0x80000000)	//ç’ç†¸æšŸ
+				if(dwData&0x80000000)	//¸ºÊı
 				{
 					dw += pCur->m_dwDataBias;
 					DWORD dwMask = (0xFFFFFFFF<<pCur->m_dwCodeData);
@@ -287,7 +287,7 @@ const BITCODE* CBitStream::EncodeFindMatch(DWORD& dwData)
 						{
 							if((dw>>j)==1)
 							{
-								dw = j;		//æ©æ–¿æ´–æµ£å¶‡ç–†
+								dw = j;		//·µ»ØÎ»ÖÃ
 								pRet = pCur;
 							}
 							else
@@ -329,7 +329,7 @@ const BITCODE* CBitStream::DecodeFindMatch(DWORD& dw)
 		for(i=0;i<m_nNumCode;i++)
 		{
 			const BITCODE* pCur = m_pCodes+i;
-			if(pCur->m_wCodeBits == (dwNextCode>>(nCodeLen-pCur->m_nCodeLen)))	//éµæƒ§åŸŒ
+			if(pCur->m_wCodeBits == (dwNextCode>>(nCodeLen-pCur->m_nCodeLen)))	//ÕÒµ½
 			{
 				pCode = pCur;
 				break;
@@ -348,7 +348,7 @@ const BITCODE* CBitStream::DecodeFindMatch(DWORD& dw)
 			case 's':
 				break;
 			case 'b':
-				if(dw&(1<<(pCode->m_nDataLen-1)))	//ç’ç†¸æšŸ
+				if(dw&(1<<(pCode->m_nDataLen-1)))	//¸ºÊı
 					dw |= (0xFFFFFFFF<<pCode->m_nDataLen);
 				break;
 			case 'm':
@@ -574,7 +574,7 @@ float CBitStream::DecodeFloat(BOOL bCheck0=FALSE)
 	return fRet;
 }
 
-DWORD CBitStream::DecodeStringData(char* pBuf,int nBufSize,DWORD& dwLastData)						//æ¿¡å‚›ç‰ç‘™ï½…åš­éæ¿ç“§Labelé”›å±½å¯æ©æ–¿æ´–ç’‡ãƒ¦æšŸç€›æ¥‹ç´éšï¹€å¯æ©æ–¿æ´–0xFFFFFFFF,é‡å­˜æŸŠdwLastData
+DWORD CBitStream::DecodeStringData(char* pBuf,int nBufSize,DWORD& dwLastData)						//Èç¹û½â³öÊı×ÖLabel£¬Ôò·µ»Ø¸ÃÊı×Ö£¬·ñÔò·µ»Ø0xFFFFFFFF,¸üĞÂdwLastData
 {
 	DWORD dw = 0;
 	const BITCODE* pCode = DecodeFindMatch(dw);
