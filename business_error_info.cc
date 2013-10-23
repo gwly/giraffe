@@ -64,7 +64,6 @@ void BusinessErrorInfo::RunThreadFunc()
 	{
 		msg.rebuild();
 		sock_recv_->recv(&msg);
-		//std::cout<<"c++:"<<(char *)(msg.data())<<std::endl;
 		//DispatchToWebServer();
 		LOG4CXX_ERROR(logger_business_error_, (char*)(msg.data()));
 	}	
