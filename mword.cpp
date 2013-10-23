@@ -160,7 +160,7 @@ MWORD MWORD::operator=(const INT64 n)
 	m_nMul = 0;
 	while(d+nInc>MAXBASE || d+nInc<-MAXBASE)
 	{
-		nInc = (d%16)>=8;	//四舍五入
+		nInc = (d%16)>=8;	//鍥涜垗浜斿叆
 		d /= 16;
 		m_nMul++;
 		if(m_nMul==3)

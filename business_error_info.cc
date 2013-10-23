@@ -2,6 +2,7 @@
 #include <zmq.hpp>
 #include <iostream>
 #include <log4cxx/logger.h>
+#include <ctime>
 
 
 using namespace log4cxx;
@@ -64,12 +65,23 @@ void BusinessErrorInfo::RunThreadFunc()
 		msg.rebuild();
 		sock_recv_->recv(&msg);
 		//std::cout<<"c++:"<<(char *)(msg.data())<<std::endl;
+		//DispatchToWebServer();
 		LOG4CXX_ERROR(logger_business_error_, (char*)(msg.data()));
 	}	
 }
 
-void BusinessErrorInfo::DispatchToWebServer()
+void BusinessErrorInfo::DispatchToWebServer(std::string &uri, std::string &market_id, std::string &error_id, std::string &type)
 {
+	std::string curl_url_str;
+	time_t now_time = time(NULL);		
+	char now_time_buf[128] = {0};
+	sprintf(now_time_buf, "%llu", (unsigned long long)now_time);
+	curl_url_str = uri + "?"  
+					+ "time=" + now_time_buf 
+					+ "exchange=" + market_id 
+					+ "error=" + error_id 
+					+ "type=" + type ;
+
 	curl_easy_setopt(curl_, CURLOPT_URL, "http://10.15.63.121/Control/input.php?time=1&exchange=2&error=3&type=1");
 	curl_easy_setopt(curl_, CURLOPT_TIMEOUT, 3);
 	curl_res_code_ = curl_easy_perform(curl_);

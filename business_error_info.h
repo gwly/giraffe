@@ -42,7 +42,7 @@ private:
 	void InitLog();
 	void InitCurl();
 	void WriteToLog(const std::string str);
-	void DispatchToWebServer();
+	void DispatchToWebServer(std::string &uri, std::string &market_id, std::string &error_id, std::string &type);
 
 	zmq::context_t *context_;
 	zmq::socket_t *sock_recv_;

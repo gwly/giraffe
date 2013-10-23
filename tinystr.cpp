@@ -23,7 +23,7 @@ distribution.
 */
 
 /*
- * THIS FILE WAS ALTERED BY Tyge L鴙set, 7. April 2005.
+ * THIS FILE WAS ALTERED BY Tyge L榇檚et, 7. April 2005.
  */
 
 #include "stdafx.h"
